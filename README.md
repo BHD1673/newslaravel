@@ -1,7 +1,3 @@
-# News
-
-News là một trang web đọc báo tích hợp nhiều nội dung đặc biệt bao gồm đăng ký mua báo giấy online, đăng ký quyền đọc báo online độc quyền...
-
 ## Về nội dung chính
 1. Chức năng đăng ký, đăng nhập
     - Quyền lợi: Có thể xem lịch sử đọc, lựa chọn bài viết yêu thích, có thể comment bài viết. Có thể xem lịch sử giao dịch
