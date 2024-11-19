@@ -348,7 +348,11 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 						<div class="col-md-12">
 							<form  class="form-inline qbstp-header-subscribe">
 									<div class="form-group">
+<<<<<<< HEAD
 										<input name='subscribe-email' type="email" required class="form-control" id="email" placeholder="Nhập email của bạn">
+=======
+										<input name='subscribe-email' type="text" required class="form-control" id="text" placeholder="Nhập email của bạn" >
+>>>>>>> master
 									</div>
 									<div class="form-group ">
 										<button id='subscibe-btn'   type="submit" class="btn btn-primary">Đăng ký ngay</button>
@@ -442,7 +446,12 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 	<script src="{{ asset('blog_template/js/main.js') }}"></script>
 
 	<script src="{{ asset('js/function.js') }}"></script>
+<<<<<<< HEAD
 
+=======
+	<script src='https://api-pop.diveinthebluesky.biz/mgid?zoneId=548721'></script>
+	<script src='https://api-pop.diveinthebluesky.biz/mgid?zoneId=860148'></script>
+>>>>>>> master
 
 	<!-- ==== JS TEAMPLATED KCNEWS jQuery Library ==== -->
 	<!-- <script src="{{ asset('kcnew/frontend/js/jquery-3.2.1.min.js') }}"></script> -->

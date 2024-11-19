@@ -17,7 +17,11 @@ class Product extends Model
         'category_id',
         'image',
         'stock', // Thêm số lượng tồn kho sản phẩm
+<<<<<<< HEAD
         'product_status_id' // Thêm trạng thái sản phẩm
+=======
+        'product_status_id', // Thêm trạng thái sản phẩm
+>>>>>>> master
     ];
 
     public function category()
@@ -37,4 +41,11 @@ class Product extends Model
     {
         return $this->old_price ? $this->price - $this->old_price : null;
     }
+<<<<<<< HEAD
+=======
+    public function productCategory()
+    {
+        return $this->belongsTo(ProductCategory::class, 'category_id');
+    }
+>>>>>>> master
 }

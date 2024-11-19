@@ -20,6 +20,10 @@
                      <tr>
                         <th>Image</th>
                         <th>Product Name</th>
+<<<<<<< HEAD
+=======
+                        <th>Category</th>
+>>>>>>> master
                         <th>Price</th>
                         <th>Quantity</th>
                         <th>Total</th>
@@ -37,6 +41,13 @@
                            <td data-label="Product Name">
                               <a href="" class="btn-link">{{ $item->product->name }}</a>
                            </td>
+<<<<<<< HEAD
+=======
+                           <td data-label="Product Name">
+                              <a href="" class="btn-link">{{ $item->product->productCategory->name ?? 'Chưa phân loại' }}</a>
+                           </td>
+
+>>>>>>> master
                            <td data-label="Price">{{ number_format($item->price, 2) }} VND</td>
                            <td data-label="Quantity">
                               <form action="{{ route('cart.update', $item->id) }}" method="POST" class="d-flex">
