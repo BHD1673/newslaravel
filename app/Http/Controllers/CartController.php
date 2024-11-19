@@ -12,12 +12,6 @@ class CartController extends Controller
 {
     // Hiển thị giỏ hàng
     public function index()
-<<<<<<< HEAD
-    {
-        $cart = Cart::where('user_id', Auth::id())->with('items.product')->first();
-        return view('cart.index', compact('cart'));
-    }
-=======
 {
     // Lấy giỏ hàng của người dùng hiện tại, kèm theo thông tin sản phẩm và danh mục
     $cart = Cart::where('user_id', Auth::id())
@@ -27,7 +21,6 @@ class CartController extends Controller
     return view('cart.index', compact('cart'));
 }
 
->>>>>>> master
 
     // Thêm sản phẩm vào giỏ hàng
     public function addToCart(Request $request, $productId)

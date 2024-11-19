@@ -4,17 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
-<<<<<<< HEAD
-use App\Models\Post;
-use App\Models\Product;
-=======
 use App\Models\Tag;
 use App\Models\Post;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Wishlist;
 use App\Models\ProductCategory;
->>>>>>> master
 
 class ShopController extends Controller
 {
@@ -22,11 +17,7 @@ class ShopController extends Controller
     {
         // Lấy danh mục "Chưa phân loại"
         $category_unclassified = Category::where('name', 'Chưa phân loại')->first();
-<<<<<<< HEAD
-
-=======
         $productCategories = ProductCategory::withCount('products')->get();
->>>>>>> master
         // Lấy tối đa 10 danh mục, trừ danh mục "Chưa phân loại"
         $categories = Category::where('name', '!=', 'Chưa phân loại')
             ->orderBy('created_at', 'DESC')
@@ -46,11 +37,6 @@ class ShopController extends Controller
                 $exclude_categories[] = $posts_new[$i][0]->category->id; // Thêm ID danh mục vào danh sách loại trừ
             }
         }
-<<<<<<< HEAD
-
-        // Lấy tất cả sản phẩm
-        $products = Product::all();
-=======
         $tags = Tag::all();
         // Lấy tất cả sản phẩm
         $products = Product::all();
@@ -63,55 +49,22 @@ class ShopController extends Controller
             $wishlists = collect(); // Nếu người dùng chưa đăng nhập, trả về collection trống
         }
 
->>>>>>> master
 
         // Trả về view 'shop.index' với các dữ liệu cần thiết
         return view('shop.index', [
             'categories' => $categories,
             'posts_new' => $posts_new,
             'products' => $products,
-<<<<<<< HEAD
-=======
             'wishlists' => $wishlists,
             'tags' => $tags,
             'productCategories' => $productCategories
 
->>>>>>> master
         ]);
     }
     public function show($id)
     {
         // Lấy sản phẩm theo ID
         $product = Product::findOrFail($id);
-<<<<<<< HEAD
-
-        // Lấy danh mục (nếu cần sử dụng trong master layout)
-        $categories = Category::where('name', '!=', 'Chưa phân loại')
-            ->orderBy('created_at', 'DESC')
-            ->take(10)
-            ->get();
-
-        // Lấy bài viết mới (nếu cần thiết cho view này)
-        $posts_new = [];
-        $exclude_categories = []; // hoặc bạn có thể giữ danh sách ID để loại trừ
-
-        for ($i = 0; $i < 4; $i++) {
-            $posts_new[$i] = Post::latest()->approved()
-                ->whereNotIn('category_id', $exclude_categories)
-                ->take(1)->get();
-
-            if ($posts_new[$i]->isNotEmpty()) {
-                $exclude_categories[] = $posts_new[$i][0]->category->id; // Thêm ID danh mục vào danh sách loại trừ
-            }
-        }
-
-        return view('shop.show', [
-            'product' => $product,
-            'categories' => $categories, // Truyền biến categories
-            'posts_new' => $posts_new, // Truyền biến posts_new
-        ]);
-    }
-=======
         $productCategories = ProductCategory::withCount('products')->get();
         // Lấy danh mục của sản phẩm từ bảng product_category
         $categoryName = $product->productCategory ? $product->productCategory->name : 'Chưa phân loại';
@@ -129,5 +82,4 @@ class ShopController extends Controller
         ]);
     }
     
->>>>>>> master
 }
