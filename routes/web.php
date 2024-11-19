@@ -36,6 +36,10 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\NewsletterController;
+<<<<<<< HEAD
+=======
+use App\Http\Controllers\WishlistController;
+>>>>>>> master
 
 
 
@@ -58,6 +62,10 @@ Route::post('/bai-viet/{post:slug}', [PostsController::class, 'addComment'])->na
 Route::post('/binh-luan', [PostsController::class, 'addCommentUser'])->name('posts.addCommentUser');
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 Route::get('/gioi-thieu', AboutController::class)->name('about');
 
 Route::get('/lien-he', [ContactController::class, 'create'])->name('contact.create');
@@ -69,6 +77,12 @@ Route::get('shop/{id}', [ShopController::class, 'show'])->name('shop.show');
 
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/checkout', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
+<<<<<<< HEAD
+=======
+Route::post('/vnpay-payment', [CheckoutController::class,'vnpay_payment'])->name('vnpay-payment');
+Route::get('vnpay-index', [CheckoutController::class, 'vnpay_payment_callback'])->name('vnpay-index');
+Route::post('/momo-payment', [CheckoutController::class,'momo_payment'])->name('momo-payment');
+>>>>>>> master
 
 
 Route::middleware('auth')->group(function () {
@@ -86,7 +100,15 @@ Route::middleware('auth')->group(function () {
 });
 
 
+<<<<<<< HEAD
 
+=======
+Route::middleware('auth')->group(function () {
+    Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
+    Route::post('/wishlist/add/{productId}', [WishlistController::class, 'addToWishlist'])->name('wishlist.add');
+    Route::delete('/wishlist/remove/{productId}', [WishlistController::class, 'removeFromWishlist'])->name('wishlist.remove');
+});
+>>>>>>> master
 
 Route::get('/chuyen-muc/{category:slug}', [CategoryController::class, 'show'])->name('categories.show');
 Route::get('/tat-ca-chuyen-muc', [CategoryController::class, 'index'])->name('categories.index');

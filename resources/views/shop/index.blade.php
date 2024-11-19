@@ -21,6 +21,7 @@
                            </div>
                         </div>
                         <div class="product--items ptop--30">
+<<<<<<< HEAD
   <div class="row AdjustRow">
     @foreach($products as $product) <!-- Lặp qua các sản phẩm -->
       @if($product->status->status !== 'deactivate') <!-- Kiểm tra trạng thái sản phẩm -->
@@ -70,6 +71,64 @@
     @endforeach
   </div>
 </div>
+=======
+                              <div class="row AdjustRow">
+                                 @foreach($products as $product) <!-- Lặp qua các sản phẩm -->
+                                    @if($product->status->status !== 'deactivate') <!-- Kiểm tra trạng thái sản phẩm -->
+                                    <div class="col-md-4 col-xs-6 col-xxs-12 pbottom--30">
+                                       <div class="product--item">
+                                       <div class="img" >
+                                          <img src="{{ asset('images/products/' . basename($product->image)) }}" alt="{{ $product->name }}" style="max-height: 150px; width: auto; object-fit: cover;">
+                                    
+
+                                          <div class="actions">
+                                             <div class="vc--parent">
+                                                <div class="vc--child">
+                                                <a href="{{ route('shop.show', $product->id) }}" class="btn btn-primary"><i class="fa fa-shopping-basket"></i> Buy Now</a>
+                                                <ul class="nav">
+                                                   <li><a href="{{ route('shop.show', $product->id) }}"><i class="fa fa-search"></i></a></li>
+                                                   <li><a href="#"><i class="fa fa-exchange"></i></a></li>
+                                                   <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                                   <form action="{{ route('wishlist.add', $product->id) }}" method="POST">
+                                                      @csrf
+                                                      <button type="submit" class="btn btn-link">
+                                                            <i class="fa fa-heart-o"></i> Add to Wishlist
+                                                      </button>
+                                                   </form>
+                                                </ul>
+                                                </div>
+                                             </div>
+                                          </div>
+                                          </div>
+                                          <div class="title">
+                                          <h3 class="h5"><a href="{{ route('shop.show', $product->id) }}" class="btn-link">{{ $product->name }}</a></h3>
+                                          </div>
+                                          <div class="price text--color-1">
+                                          <p>
+                                             @if($product->old_price)
+                                                <span class="del">${{ number_format($product->old_price, 2) }}</span>
+                                             @endif
+                                             <span>${{ number_format($product->price, 2) }}</span>
+                                          </p>
+                                          </div>
+                                          <div class="rating">
+                                          <ul class="nav">
+                                             @for($i = 0; $i < 5; $i++)
+                                                @if($i < $product->rating) <!-- Giả sử $product->rating là số sao -->
+                                                <li><i class="fa fa-star"></i></li>
+                                                @else
+                                                <li><i class="fa fa-star-o"></i></li>
+                                                @endif
+                                             @endfor
+                                          </ul>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    @endif
+                                 @endforeach
+                              </div>
+                              </div>
+>>>>>>> master
 
                         <div class="pagination--wrapper clearfix pd--30-0">
                            <p class="pagination-hint float--left">Page 02 of 03</p>
@@ -96,6 +155,7 @@
                            </div>
                         </div>
                         <div class="widget">
+<<<<<<< HEAD
                            <div class="widget--title">
                               <h2 class="h4">My Cart</h2>
                               <i class="icon fa fa-shopping-cart"></i> 
@@ -129,6 +189,46 @@
                               </ul>
                            </div>
                         </div>
+=======
+                        <div class="widget">
+                        <div class="widget--title">
+                           <h2 class="h4">My Wishlist</h2>
+                           <i class="icon fa fa-heart"></i> 
+                        </div>
+                        <div class="cart--widget">
+                           <ul class="nav">
+                                 @foreach ($wishlists as $wishlist)
+                                    <li class="clearfix">
+                                       <div class="img"> 
+                                             <a href="{{ route('shop.show', $wishlist->product->id) }}" class="btn-link">
+                                             <img src="{{ asset('images/products/' . basename($wishlist->product->image)) }}" alt="{{ $wishlist->product->name }}">
+                                             </a> 
+                                       </div>
+                                       <div class="info">
+                                             <h3 class="h4">
+                                                <a href="{{ route('shop.show', $wishlist->product->id) }}" class="btn-link">
+                                                   {{ $wishlist->product->name }}
+                                                </a>
+                                             </h3>
+                                             <p class="text--color-1">${{ number_format($wishlist->product->price, 2) }}</p>
+                                       </div>
+                                       <!-- Form to delete wishlist item -->
+                                       <form action="{{ route('wishlist.remove', $wishlist->product->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to remove this item from your wishlist?')">Remove</button>
+                            </form>
+                                    </li>
+                                 @endforeach
+                                 @if ($wishlists->isEmpty())
+                                    <li>No products in your wishlist.</li>
+                                 @endif
+                           </ul>
+                        </div>
+                     </div>
+
+
+>>>>>>> master
                         <div class="widget">
                            <div class="widget--title">
                               <h2 class="h4">Catagory</h2>
@@ -136,15 +236,22 @@
                            </div>
                            <div class="nav--widget">
                               <ul class="nav">
+<<<<<<< HEAD
                                  <li><a href="#"><span>Fashion</span><span>(22)</span></a></li>
                                  <li><a href="#"><span>Winter</span><span>(16)</span></a></li>
                                  <li><a href="#"><span>Exclusive</span><span>(84)</span></a></li>
                                  <li><a href="#"><span>Summer</span><span>(11)</span></a></li>
                                  <li><a href="#"><span>Heavy Style</span><span>(19)</span></a></li>
+=======
+                              @foreach($productCategories as $category)
+                                 <li><a href="#"><span>{{ $category->name }}</span><span>({{ $category->products_count }})</span></a></li>
+                                 @endforeach
+>>>>>>> master
                               </ul>
                            </div>
                         </div>
                         <div class="widget">
+<<<<<<< HEAD
                            <div class="widget--title">
                               <h2 class="h4">Tags</h2>
                               <i class="icon fa fa-tags"></i> 
@@ -165,6 +272,20 @@
                               </ul>
                            </div>
                         </div>
+=======
+                        <div class="widget--title  " data-ajax="tab">
+                           <h2 class="h4">Từ khóa</h2>
+                        </div>
+                        <div class="list--widget list--widget-1" data-ajax-content="outer">
+                           <!-- Post Items Start -->
+                           <div class="post--items post--items-3">
+                              <ul style="padding:20px" class="nav sidebar" data-ajax-content="inner">
+                                 <x-blog.side-tags :tags="$tags"/>
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+>>>>>>> master
                         <div class="widget">
                            <div class="widget--title">
                               <h2 class="h4">Advertisement</h2>

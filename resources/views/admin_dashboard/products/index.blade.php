@@ -55,6 +55,10 @@
                                 <th>Giá cũ</th>
                                 <th>Giá</th>
                                 <th>Ngày tạo</th>
+<<<<<<< HEAD
+=======
+                                <th>Danh mục</th> <!-- Thêm cột "Danh mục" -->
+>>>>>>> master
                                 <th>Trạng thái</th>
                                 <th>Tồn kho</th> <!-- Đổi tên cột -->
                                 <th>Chức năng</th>
@@ -86,7 +90,14 @@
                                     @endif
                                 </td>
                                 <td>{{ number_format($product->price, 0, ',', '.') }} VND</td>
+<<<<<<< HEAD
                                 <td>{{ $product->created_at->format('d/m/Y') }}</td>
+=======
+                                <td>
+                                    {{ $product->created_at ? $product->created_at->format('d/m/Y') : 'N/A' }}
+                                </td>
+                                <td>{{ $product->productCategory->name ?? 'N/A' }}</td> <!-- Hiển thị tên danh mục -->
+>>>>>>> master
                                 <td>
                                     @if($product->status)
                                         <div class="badge rounded-pill @if($product->status->status === 'activate') {{ 'text-success bg-light-success' }} @else {{ 'text-danger bg-light-danger' }} @endif p-2 text-uppercase px-3">

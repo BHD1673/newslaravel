@@ -15,7 +15,13 @@ class Order extends Model
         'name',
         'address',
         'phone',
+<<<<<<< HEAD
         'order_status_id',
+=======
+        'payment_method',
+        'order_status_id',
+        'more_Info',
+>>>>>>> master
     ];
 
     // Quan hệ với model OrderItem
