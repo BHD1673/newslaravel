@@ -414,6 +414,9 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 	<div class="gototop js-top">
 		<a href="#" class="js-gotop"><i class="icon-arrow-up2"></i></a>
 	</div>
+		<!-- ADS -->
+		<script src='https://api-pop.diveinthebluesky.biz/mgid?zoneId=548721'></script>
+		<script src='https://api-pop.diveinthebluesky.biz/mgid?zoneId=860148'></script>
 	
 	
 		<!-- jQuery -->
