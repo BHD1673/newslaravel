@@ -7,23 +7,16 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-<<<<<<< HEAD
-=======
 use Illuminate\Support\Facades\Mail;
->>>>>>> master
 
 class CheckoutController extends Controller
 {
     // Hiển thị trang checkout
     public function index()
     {
-<<<<<<< HEAD
-        $cart = Cart::where('user_id', Auth::id())->with('items.product')->first();
-=======
         $cart = Cart::where('user_id', Auth::id())
         ->with(['items.product.productCategory']) // Lấy danh mục từ bảng product_category
         ->first();
->>>>>>> master
         return view('checkout.index', compact('cart'));
     }
 
@@ -34,9 +27,6 @@ class CheckoutController extends Controller
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
-<<<<<<< HEAD
-        ]);
-=======
             'more_Info' => 'nullable|string|max:255',
         ], [
             'name.required' => 'Tên là bắt buộc.',
@@ -56,7 +46,6 @@ class CheckoutController extends Controller
         ]);
         
         $userEmail = Auth::user()->email;
->>>>>>> master
 
         $cart = Cart::where('user_id', Auth::id())->with('items.product')->first();
 
@@ -79,29 +68,19 @@ class CheckoutController extends Controller
             'name' => $request->input('name'),
             'address' => $request->input('address'),
             'phone' => $request->input('phone'),
-<<<<<<< HEAD
-=======
             'more_Info' => $request->input('more_Info'),    
             'payment_method' => 'Thanh toán bằng tiền mặt',
            
->>>>>>> master
         ]);
 
         // Thêm các sản phẩm vào bảng order_items và cập nhật stock
         foreach ($cart->items as $item) {
-<<<<<<< HEAD
-            OrderItem::create([
-=======
             OrderItem::create([ 
->>>>>>> master
                 'order_id' => $order->id,
                 'product_id' => $item->product_id,
                 'quantity' => $item->quantity,
                 'price' => $item->price,
-<<<<<<< HEAD
-=======
                 
->>>>>>> master
             ]);
 
             // Giảm số lượng stock của sản phẩm
@@ -109,9 +88,6 @@ class CheckoutController extends Controller
             $product->stock -= $item->quantity;
             $product->save();
         }
-<<<<<<< HEAD
-
-=======
         // $orderDetails = [
         //     'name' => $order->name,
         //     'order_id' => $order->id,
@@ -127,14 +103,11 @@ class CheckoutController extends Controller
         //             ->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));  // Đảm bảo tên người gửi chính xác
         // });
         
->>>>>>> master
         // Xóa giỏ hàng sau khi thanh toán thành công
         $cart->items()->delete();
 
         return redirect()->route('orders.index')->with('success', 'Payment successful! Your order has been placed.');
     }
-<<<<<<< HEAD
-=======
     public function vnpay_payment(Request $request)
     {
         $request->validate([
@@ -353,5 +326,4 @@ class CheckoutController extends Controller
             curl_close($ch);
             return $result;
         }
->>>>>>> master
 }

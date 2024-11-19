@@ -285,8 +285,6 @@
 	setTimeout(() => {
 		$(".global-message").fadeOut();
 	}, 5000)
-<<<<<<< HEAD
-=======
     
 	$.ajax({
     url: "http://127.0.0.1:8000/binh-luan",
@@ -355,7 +353,6 @@
 });
 
 
->>>>>>> master
 </script>
 
 

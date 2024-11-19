@@ -26,18 +26,6 @@
                             </div>
                             <div class="form-group">
                                 <label>Name <span>*</span></label>
-<<<<<<< HEAD
-                                <input type="text" name="name" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Address <span>*</span></label>
-                                <input type="text" name="address" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Phone <span>*</span></label>
-                                <input type="text" name="phone" class="form-control" required>
-                            </div>
-=======
                                 <input type="text" name="name" class="form-control">
                                 <!-- Hiển thị thông báo lỗi nếu có -->
                                 @if ($errors->has('name'))
@@ -71,7 +59,6 @@
                                 @endif
                             </div>
                         
->>>>>>> master
                         </div>
 
                         <div class="col-md-6 pbottom--30">
@@ -83,10 +70,7 @@
                             <thead>
                                 <tr>
                                     <th>Product Name</th>
-<<<<<<< HEAD
-=======
                                     <th>Category</th>
->>>>>>> master
                                     <th>Price</th>
                                     <th>Quantity</th>
                                     <th>Total</th>
@@ -96,12 +80,9 @@
                                 @foreach($cart->items as $item)
                                     <tr>
                                         <td>{{ $item->product->name }}</td>
-<<<<<<< HEAD
-=======
                                         <td data-label="Product Name">
                                        {{ $item->product->productCategory->name ?? 'Chưa phân loại' }}
                                         </td>
->>>>>>> master
                                         <td>{{ number_format($item->price, 2) }} VND</td>
                                         <td>{{ $item->quantity }}</td>
                                         <td>{{ number_format($item->price * $item->quantity, 2) }} VND</td>
@@ -110,11 +91,7 @@
 
                                 <!-- Dòng tổng tiền -->
                                 <tr>
-<<<<<<< HEAD
-                                    <td colspan="3" style="text-align: right;"><strong>Total Amount:</strong></td>
-=======
                                     <td colspan="4" style="text-align: right;"><strong>Total Amount:</strong></td>
->>>>>>> master
                                     <td><strong>{{ number_format($cart->items->sum(function ($item) {
                                         return $item->price * $item->quantity;
                                     }), 2) }} VND</strong></td>
@@ -122,11 +99,7 @@
 
                                 <!-- Dòng VAT -->
                                 <tr>
-<<<<<<< HEAD
-                                    <td colspan="3" style="text-align: right;"><strong>VAT (5%):</strong></td>
-=======
                                     <td colspan="4" style="text-align: right;"><strong>VAT (5%):</strong></td>
->>>>>>> master
                                     <td><strong>{{ number_format($cart->items->sum(function ($item) {
                                         return ($item->price * $item->quantity) * 0.05; // giả định VAT là 5%
                                     }), 2) }} VND</strong></td>
@@ -134,11 +107,7 @@
 
                                 <!-- Dòng tổng tiền bao gồm VAT -->
                                 <tr>
-<<<<<<< HEAD
-                                    <td colspan="3" style="text-align: right;"><strong>Total Amount Including VAT:</strong></td>
-=======
                                     <td colspan="4  " style="text-align: right;"><strong>Total Amount Including VAT:</strong></td>
->>>>>>> master
                                     <td><strong>
                                         {{ number_format($cart->items->sum(function ($item) {
                                             return ($item->price * $item->quantity) * 1.05; // tổng tiền bao gồm VAT
@@ -199,32 +168,15 @@
                         <div id="checkoutPaymentVNPay" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <p>Pay using your VNPay account.</p>
-<<<<<<< HEAD
-                                <p><a href="link_to_vnpay_payment_page" class="btn btn-primary">Proceed to VNPay Payment</a></p>
-=======
                                 <p><a href="{{ route('vnpay-index') }}" class="btn btn-primary">Proceed to VNPay Payment</a></p>
->>>>>>> master
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-<<<<<<< HEAD
-                <div class="checkout--additional-info ptop--30">
-                    <div class="post--items-title" data-ajax="tab">
-                        <h2 class="h4">Additional Information</h2>
-                        <i class="icon fa fa-info-circle"></i>
-                    </div>
-                    <div class="form-group">
-                        <label>Order Notes</label>
-                        <textarea name="additionalInfo" class="form-control"></textarea>
-                    </div>
-                </div>
-=======
             
 
->>>>>>> master
 
                 <div class="submit-btn ptop--30">
                     <button type="submit" class="btn btn-lg btn-primary">Place Order</button>
@@ -255,8 +207,4 @@
         });
     });
 </script>
-<<<<<<< HEAD
 @endsection
-=======
-@endsection
->>>>>>> master

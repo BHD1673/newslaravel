@@ -74,11 +74,7 @@
                                     <div class="price text--color-1">
                                        <p><span>{{ number_format($product->price, 2) }} VND</span></p>
                                     </div>
-<<<<<<< HEAD
-                                    <p class="note"><strong>SKU:</strong>{{ $product->sku ?? 'N/A' }}</p>
-=======
                                     <p class="note"><strong>SKU:</strong> {{ $categoryName }}</p>
->>>>>>> master
                                     <p class="note"><strong>Availabele:</strong>{{ $product->stock }} units</p>
                                     <div class="description">
                                     <p>{{ $product->description }}</p>
@@ -263,57 +259,6 @@
                                  </div>
                               </div>
                               <div class="col-md-12 ptop--30">
-<<<<<<< HEAD
-                                 <div class="related--products">
-                                    <div class="post--items-title" data-ajax="tab">
-                                       <h2 class="h4">You Might Also Like</h2>
-                                       <div class="nav"> <a href="#" class="prev btn-link" data-ajax-action="load_prev_related_products"> <i class="fa fa-long-arrow-left"></i> </a> <span class="divider">/</span> <a href="#" class="next btn-link" data-ajax-action="load_next_related_products"> <i class="fa fa-long-arrow-right"></i> </a> </div>
-                                    </div>
-                                    <div class="product--items" data-ajax-content="outer">
-                                       <div class="row AdjustRow" data-ajax-content="inner">
-                                          <div class="col-md-4 hidden-sm hidden-xs pbottom--30">
-                                             <div class="product--item">
-                                                <div class="img">
-                                                   <img src="img/shop-img/product-03.jpg" alt=""> 
-                                                   <div class="actions">
-                                                      <div class="vc--parent">
-                                                         <div class="vc--child">
-                                                            <a href="#" class="btn btn-primary"><i class="fa fa-eye-slash"></i>Quick View</a> 
-                                                            <ul class="nav">
-                                                               <li><a href="#"><i class="fa fa-search"></i></a></li>
-                                                               <li><a href="#"><i class="fa fa-exchange"></i></a></li>
-                                                               <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
-                                                               <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                                            </ul>
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                                <div class="title">
-                                                   <h3 class="h5"><a href="#" class="btn-link">Drop Your Product Name Here</a></h3>
-                                                </div>
-                                                <div class="price text--color-1">
-                                                   <p><span class="del">$99.99</span><span>$69.99</span></p>
-                                                </div>
-                                                <div class="rating">
-                                                   <ul class="nav">
-                                                      <li><i class="fa fa-star"></i></li>
-                                                      <li><i class="fa fa-star"></i></li>
-                                                      <li><i class="fa fa-star"></i></li>
-                                                      <li><i class="fa fa-star-o"></i></li>
-                                                      <li><i class="fa fa-star-o"></i></li>
-                                                   </ul>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="preloader bg--color-0--b" data-preloader="1">
-                                          <div class="preloader--inner"></div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-=======
     <div class="related--products">
         <div class="post--items-title" data-ajax="tab">
             <h2 class="h4">You Might Also Like</h2>
@@ -382,7 +327,6 @@
     </div>
 </div>
 
->>>>>>> master
                            </div>
                         </div>
                      </div>
@@ -399,62 +343,6 @@
                               </form>
                            </div>
                         </div>
-<<<<<<< HEAD
-                        <div class="widget">
-                           <div class="widget--title">
-                              <h2 class="h4">My Cart</h2>
-                              <i class="icon fa fa-shopping-cart"></i> 
-                           </div>
-                           <div class="cart--widget">
-                              <ul class="nav">
-                                 <li class="clearfix">
-                                    <div class="img"> <a href="#" class="btn-link"><img src="img/shop-img/cart-item-03.jpg" alt=""></a> </div>
-                                    <div class="info">
-                                       <h3 class="h4"><a href="#" class="btn-link">Lorem ipsum dolor sit amet quam ipsum</a></h3>
-                                       <p class="text--color-1">$69.99 * 2</p>
-                                    </div>
-                                    <a href="#" class="remove"><i class="fa fa-remove"></i></a> 
-                                 </li>
-                              </ul>
-                           </div>
-                        </div>
-                        <div class="widget">
-                           <div class="widget--title">
-                              <h2 class="h4">Catagory</h2>
-                              <i class="icon fa fa-folder-open-o"></i> 
-                           </div>
-                           <div class="nav--widget">
-                              <ul class="nav">
-                                 <li><a href="#"><span>Fashion</span><span>(22)</span></a></li>
-                                 <li><a href="#"><span>Winter</span><span>(16)</span></a></li>
-                                 <li><a href="#"><span>Exclusive</span><span>(84)</span></a></li>
-                                 <li><a href="#"><span>Summer</span><span>(11)</span></a></li>
-                                 <li><a href="#"><span>Heavy Style</span><span>(19)</span></a></li>
-                              </ul>
-                           </div>
-                        </div>
-                        <div class="widget">
-                           <div class="widget--title">
-                              <h2 class="h4">Tags</h2>
-                              <i class="icon fa fa-tags"></i> 
-                           </div>
-                           <div class="tags--widget style--1">
-                              <ul class="nav">
-                                 <li><a href="#">News</a></li>
-                                 <li><a href="#">Image</a></li>
-                                 <li><a href="#">Music</a></li>
-                                 <li><a href="#">Video</a></li>
-                                 <li><a href="#">Audio</a></li>
-                                 <li><a href="#">Fashion</a></li>
-                                 <li><a href="#">Latest</a></li>
-                                 <li><a href="#">Trendy</a></li>
-                                 <li><a href="#">Special</a></li>
-                                 <li><a href="#">Recipe</a></li>
-                                 <li><a href="#">Sports</a></li>
-                              </ul>
-                           </div>
-                        </div>
-=======
           
 
                         <div class="widget">
@@ -489,7 +377,6 @@
                            </div> -->
                         </div>
                      </div>
->>>>>>> master
                         <div class="widget">
                            <div class="widget--title">
                               <h2 class="h4">Advertisement</h2>
