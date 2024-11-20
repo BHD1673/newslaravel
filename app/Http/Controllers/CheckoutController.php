@@ -8,9 +8,13 @@ use App\Models\OrderItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 use Illuminate\Support\Facades\Mail;
 >>>>>>> damquangthanh
+=======
+use Illuminate\Support\Facades\Mail;
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
 
 class CheckoutController extends Controller
 {
@@ -18,12 +22,18 @@ class CheckoutController extends Controller
     public function index()
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
         $cart = Cart::where('user_id', Auth::id())->with('items.product')->first();
 =======
         $cart = Cart::where('user_id', Auth::id())
         ->with(['items.product.productCategory']) // Lấy danh mục từ bảng product_category
         ->first();
 >>>>>>> damquangthanh
+=======
+        $cart = Cart::where('user_id', Auth::id())
+        ->with(['items.product.productCategory']) // Lấy danh mục từ bảng product_category
+        ->first();
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
         return view('checkout.index', compact('cart'));
     }
 
@@ -34,6 +44,7 @@ class CheckoutController extends Controller
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'phone' => 'required|string|max:20',
+<<<<<<< HEAD
 <<<<<<< HEAD
         ]);
 =======
@@ -57,6 +68,27 @@ class CheckoutController extends Controller
         
         $userEmail = Auth::user()->email;
 >>>>>>> damquangthanh
+=======
+            'more_Info' => 'nullable|string|max:255',
+        ], [
+            'name.required' => 'Tên là bắt buộc.',
+            'name.string' => 'Tên phải là một chuỗi ký tự.',
+            'name.max' => 'Tên không được vượt quá 255 ký tự.',
+            
+            'address.required' => 'Địa chỉ là bắt buộc.',
+            'address.string' => 'Địa chỉ phải là một chuỗi ký tự.',
+            'address.max' => 'Địa chỉ không được vượt quá 255 ký tự.',
+            
+            'phone.required' => 'Số điện thoại là bắt buộc.',
+            'phone.string' => 'Số điện thoại phải là một chuỗi ký tự.',
+            'phone.max' => 'Số điện thoại không được vượt quá 20 ký tự.',
+            
+            'more_Info.string' => 'Thông tin bổ sung phải là một chuỗi ký tự.',
+            'more_Info.max' => 'Thông tin bổ sung không được vượt quá 255 ký tự.',
+        ]);
+        
+        $userEmail = Auth::user()->email;
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
 
         $cart = Cart::where('user_id', Auth::id())->with('items.product')->first();
 
@@ -80,28 +112,42 @@ class CheckoutController extends Controller
             'address' => $request->input('address'),
             'phone' => $request->input('phone'),
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             'more_Info' => $request->input('more_Info'),    
             'payment_method' => 'Thanh toán bằng tiền mặt',
            
 >>>>>>> damquangthanh
+=======
+            'more_Info' => $request->input('more_Info'),    
+            'payment_method' => 'Thanh toán bằng tiền mặt',
+           
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
         ]);
 
         // Thêm các sản phẩm vào bảng order_items và cập nhật stock
         foreach ($cart->items as $item) {
 <<<<<<< HEAD
+<<<<<<< HEAD
             OrderItem::create([
 =======
             OrderItem::create([ 
 >>>>>>> damquangthanh
+=======
+            OrderItem::create([ 
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                 'order_id' => $order->id,
                 'product_id' => $item->product_id,
                 'quantity' => $item->quantity,
                 'price' => $item->price,
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                 
 >>>>>>> damquangthanh
+=======
+                
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
             ]);
 
             // Giảm số lượng stock của sản phẩm
@@ -110,8 +156,11 @@ class CheckoutController extends Controller
             $product->save();
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
+=======
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
         // $orderDetails = [
         //     'name' => $order->name,
         //     'order_id' => $order->id,
@@ -127,15 +176,21 @@ class CheckoutController extends Controller
         //             ->from(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME'));  // Đảm bảo tên người gửi chính xác
         // });
         
+<<<<<<< HEAD
 >>>>>>> damquangthanh
+=======
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
         // Xóa giỏ hàng sau khi thanh toán thành công
         $cart->items()->delete();
 
         return redirect()->route('orders.index')->with('success', 'Payment successful! Your order has been placed.');
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 =======
+=======
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
     public function vnpay_payment(Request $request)
     {
         $request->validate([
@@ -354,5 +409,9 @@ class CheckoutController extends Controller
             curl_close($ch);
             return $result;
         }
+<<<<<<< HEAD
 }
 >>>>>>> damquangthanh
+=======
+}
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb

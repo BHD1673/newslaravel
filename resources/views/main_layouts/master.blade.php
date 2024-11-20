@@ -371,10 +371,14 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 							<form  class="form-inline qbstp-header-subscribe">
 									<div class="form-group">
 <<<<<<< HEAD
+<<<<<<< HEAD
 										<input name='subscribe-email' type="email" required class="form-control" id="email" placeholder="Nhập email của bạn">
 =======
 										<input name='subscribe-email' type="text" required class="form-control" id="text" placeholder="Nhập email của bạn" >
 >>>>>>> damquangthanh
+=======
+										<input name='subscribe-email' type="text" required class="form-control" id="text" placeholder="Nhập email của bạn" >
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
 									</div>
 									<div class="form-group ">
 										<button id='subscibe-btn'   type="submit" class="btn btn-primary">Đăng ký ngay</button>
@@ -466,11 +470,16 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 
 	<script src="{{ asset('js/function.js') }}"></script>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 	<script src='https://api-pop.diveinthebluesky.biz/mgid?zoneId=548721'></script>
 	<script src='https://api-pop.diveinthebluesky.biz/mgid?zoneId=860148'></script>
 >>>>>>> damquangthanh
+=======
+	<script src='https://api-pop.diveinthebluesky.biz/mgid?zoneId=548721'></script>
+	<script src='https://api-pop.diveinthebluesky.biz/mgid?zoneId=860148'></script>
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
 
 	<!-- ==== JS TEAMPLATED KCNEWS jQuery Library ==== -->
 	<!-- <script src="{{ asset('kcnew/frontend/js/jquery-3.2.1.min.js') }}"></script> -->
@@ -576,8 +585,12 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 
 </body>
 <<<<<<< HEAD
+<<<<<<< HEAD
 </html>
 
 =======
 </html>
 >>>>>>> damquangthanh
+=======
+</html>
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb

@@ -286,7 +286,10 @@
 		$(".global-message").fadeOut();
 	}, 5000)
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
     
 	$.ajax({
     url: "http://127.0.0.1:8000/binh-luan",
@@ -355,7 +358,10 @@
 });
 
 
+<<<<<<< HEAD
 >>>>>>> damquangthanh
+=======
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
 </script>
 
 

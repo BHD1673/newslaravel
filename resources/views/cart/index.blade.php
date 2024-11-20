@@ -21,9 +21,13 @@
                         <th>Image</th>
                         <th>Product Name</th>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                         <th>Category</th>
 >>>>>>> damquangthanh
+=======
+                        <th>Category</th>
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                         <th>Price</th>
                         <th>Quantity</th>
                         <th>Total</th>
@@ -42,12 +46,18 @@
                               <a href="" class="btn-link">{{ $item->product->name }}</a>
                            </td>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                            <td data-label="Product Name">
                               <a href="" class="btn-link">{{ $item->product->productCategory->name ?? 'Chưa phân loại' }}</a>
                            </td>
 
+<<<<<<< HEAD
 >>>>>>> damquangthanh
+=======
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                            <td data-label="Price">{{ number_format($item->price, 2) }} VND</td>
                            <td data-label="Quantity">
                               <form action="{{ route('cart.update', $item->id) }}" method="POST" class="d-flex">
@@ -132,7 +142,11 @@
 </div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 @endsection
 =======
 @endsection
 >>>>>>> damquangthanh
+=======
+@endsection
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb

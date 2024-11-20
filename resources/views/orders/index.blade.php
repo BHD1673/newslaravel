@@ -23,14 +23,19 @@
                     <th>Tổng giá</th>
                     <th>Ngày tạo</th>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                     <th>Phương thức thanh toán </th>
 >>>>>>> damquangthanh
+=======
+                    <th>Phương thức thanh toán </th>
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                     <th>Trạng thái</th>
                     <th>Chức năng</th>
                 </tr>
             </thead>
             <tbody>
+<<<<<<< HEAD
 <<<<<<< HEAD
                 @foreach($orders as $order)
                     <tr>
@@ -60,6 +65,8 @@
                     </tr>
                 @endforeach
 =======
+=======
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
             @foreach($orders as $order)
     <tr>
         <td>#O-{{ $order->id }}</td>
@@ -95,7 +102,10 @@
     </tr>
 @endforeach
 
+<<<<<<< HEAD
 >>>>>>> damquangthanh
+=======
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
             </tbody>
         </table>
 
@@ -103,7 +113,11 @@
     @endif
 </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
 @endsection
 =======
 @endsection
 >>>>>>> damquangthanh
+=======
+@endsection
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb

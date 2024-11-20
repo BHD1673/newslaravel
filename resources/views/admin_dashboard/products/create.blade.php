@@ -50,9 +50,13 @@
                             <div class="col-lg-12">
                                 <div class="border border-3 p-4 rounded">
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                                     <!-- Tên sản phẩm -->
 >>>>>>> damquangthanh
+=======
+                                    <!-- Tên sản phẩm -->
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                                     <div class="mb-3">
                                         <label for="inputProductName" class="form-label">Tên sản phẩm</label>
                                         <input type="text" name="name" value="{{ old('name') }}" required class="form-control" id="inputProductName" placeholder="Nhập tên sản phẩm">
@@ -62,9 +66,13 @@
                                     </div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                                     <!-- Mô tả -->
 >>>>>>> damquangthanh
+=======
+                                    <!-- Mô tả -->
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                                     <div class="mb-3">
                                         <label for="inputProductDescription" class="form-label">Mô tả</label>
                                         <textarea name="description" required class="form-control" id="inputProductDescription" rows="3">{{ old('description') }}</textarea>
@@ -74,9 +82,13 @@
                                     </div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                                     <!-- Giá -->
 >>>>>>> damquangthanh
+=======
+                                    <!-- Giá -->
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                                     <div class="mb-3">
                                         <label for="inputProductPrice" class="form-label">Giá</label>
                                         <input type="number" name="price" value="{{ old('price') }}" required class="form-control" id="inputProductPrice" placeholder="Nhập giá sản phẩm">
@@ -86,18 +98,26 @@
                                     </div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                                     <!-- Giá cũ -->
 >>>>>>> damquangthanh
+=======
+                                    <!-- Giá cũ -->
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                                     <div class="mb-3">
                                         <label for="inputOldPrice" class="form-label">Giá cũ</label>
                                         <input type="number" name="old_price" value="{{ old('old_price') }}" class="form-control" id="inputOldPrice" placeholder="Nhập giá cũ (nếu có)">
                                     </div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                                     <!-- Tồn kho -->
 >>>>>>> damquangthanh
+=======
+                                    <!-- Tồn kho -->
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                                     <div class="mb-3">
                                         <label for="inputProductStock" class="form-label">Hàng tồn kho</label>
                                         <input type="number" name="stock" value="{{ old('stock', 0) }}" required class="form-control" id="inputProductStock" placeholder="Nhập số lượng hàng tồn kho">
@@ -108,9 +128,13 @@
                                     </div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                                     <!-- Hình ảnh sản phẩm -->
 >>>>>>> damquangthanh
+=======
+                                    <!-- Hình ảnh sản phẩm -->
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                                     <div class="mb-3">
                                         <label for="inputProductImage" class="form-label">Hình ảnh sản phẩm</label>
                                         <input type="file" name="image" required class="form-control" id="inputProductImage">
@@ -120,9 +144,13 @@
                                     </div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                                     <!-- Trạng thái sản phẩm -->
 >>>>>>> damquangthanh
+=======
+                                    <!-- Trạng thái sản phẩm -->
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                                     <div class="mb-3">
                                         <label for="inputProductStatus" class="form-label">Trạng thái sản phẩm</label>
                                         <select name="product_status_id" required class="form-select" id="inputProductStatus">
@@ -135,7 +163,10 @@
                                         @enderror
                                     </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
 
                                     <!-- Danh mục sản phẩm -->
                                     <div class="mb-3">
@@ -153,7 +184,10 @@
                                         @enderror
                                     </div>
 
+<<<<<<< HEAD
 >>>>>>> damquangthanh
+=======
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                                 </div>
                             </div>
                         </div>
@@ -173,7 +207,11 @@
 <script src="{{ asset('admin_dashboard_assets/plugins/select2/js/select2.min.js') }}"></script>
 <script src="{{ asset('admin_dashboard_assets/plugins/input-tags/js/tagsinput.js') }}"></script>
 <<<<<<< HEAD
+<<<<<<< HEAD
 @endsection
 =======
 @endsection
 >>>>>>> damquangthanh
+=======
+@endsection
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb

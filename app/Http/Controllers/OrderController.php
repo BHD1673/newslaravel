@@ -14,12 +14,18 @@ class OrderController extends Controller
     {
         $orders = Order::with('orderItems.product')->where('user_id', auth()->id())->paginate(10);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
         $orders = Order::with('orderItems.product.category')  // Eager load category của product
         ->where('user_id', auth()->id())
         ->paginate(10);
 
+<<<<<<< HEAD
 >>>>>>> damquangthanh
+=======
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
         return view('orders.index', compact('orders'));
     }
     public function cancel($id)

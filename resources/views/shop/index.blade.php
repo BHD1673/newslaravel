@@ -22,6 +22,7 @@
                         </div>
                         <div class="product--items ptop--30">
 <<<<<<< HEAD
+<<<<<<< HEAD
   <div class="row AdjustRow">
     @foreach($products as $product) <!-- Lặp qua các sản phẩm -->
       @if($product->status->status !== 'deactivate') <!-- Kiểm tra trạng thái sản phẩm -->
@@ -72,6 +73,8 @@
   </div>
 </div>
 =======
+=======
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                               <div class="row AdjustRow">
                                  @foreach($products as $product) <!-- Lặp qua các sản phẩm -->
                                     @if($product->status->status !== 'deactivate') <!-- Kiểm tra trạng thái sản phẩm -->
@@ -128,7 +131,10 @@
                                  @endforeach
                               </div>
                               </div>
+<<<<<<< HEAD
 >>>>>>> damquangthanh
+=======
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
 
                         <div class="pagination--wrapper clearfix pd--30-0">
                            <p class="pagination-hint float--left">Page 02 of 03</p>
@@ -155,6 +161,7 @@
                            </div>
                         </div>
                         <div class="widget">
+<<<<<<< HEAD
 <<<<<<< HEAD
                            <div class="widget--title">
                               <h2 class="h4">My Cart</h2>
@@ -195,6 +202,13 @@
                            <h2 class="h4">My Wishlist</h2>
                            <i class="icon fa fa-heart"></i> 
                         </div>
+=======
+                        <div class="widget">
+                        <div class="widget--title">
+                           <h2 class="h4">My Wishlist</h2>
+                           <i class="icon fa fa-heart"></i> 
+                        </div>
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                         <div class="cart--widget">
                            <ul class="nav">
                                  @foreach ($wishlists as $wishlist)
@@ -228,7 +242,10 @@
                      </div>
 
 
+<<<<<<< HEAD
 >>>>>>> damquangthanh
+=======
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                         <div class="widget">
                            <div class="widget--title">
                               <h2 class="h4">Catagory</h2>
@@ -236,6 +253,7 @@
                            </div>
                            <div class="nav--widget">
                               <ul class="nav">
+<<<<<<< HEAD
 <<<<<<< HEAD
                                  <li><a href="#"><span>Fashion</span><span>(22)</span></a></li>
                                  <li><a href="#"><span>Winter</span><span>(16)</span></a></li>
@@ -247,10 +265,16 @@
                                  <li><a href="#"><span>{{ $category->name }}</span><span>({{ $category->products_count }})</span></a></li>
                                  @endforeach
 >>>>>>> damquangthanh
+=======
+                              @foreach($productCategories as $category)
+                                 <li><a href="#"><span>{{ $category->name }}</span><span>({{ $category->products_count }})</span></a></li>
+                                 @endforeach
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                               </ul>
                            </div>
                         </div>
                         <div class="widget">
+<<<<<<< HEAD
 <<<<<<< HEAD
                            <div class="widget--title">
                               <h2 class="h4">Tags</h2>
@@ -286,6 +310,20 @@
                         </div>
                      </div>
 >>>>>>> damquangthanh
+=======
+                        <div class="widget--title  " data-ajax="tab">
+                           <h2 class="h4">Từ khóa</h2>
+                        </div>
+                        <div class="list--widget list--widget-1" data-ajax-content="outer">
+                           <!-- Post Items Start -->
+                           <div class="post--items post--items-3">
+                              <ul style="padding:20px" class="nav sidebar" data-ajax-content="inner">
+                                 <x-blog.side-tags :tags="$tags"/>
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                         <div class="widget">
                            <div class="widget--title">
                               <h2 class="h4">Advertisement</h2>
@@ -318,7 +356,11 @@
          </div>
       </section>        
 <<<<<<< HEAD
+<<<<<<< HEAD
       @endsection
 =======
       @endsection
 >>>>>>> damquangthanh
+=======
+      @endsection
+>>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
