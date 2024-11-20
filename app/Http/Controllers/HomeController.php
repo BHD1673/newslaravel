@@ -12,6 +12,7 @@ use App\Models\Subscription;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -152,12 +153,12 @@ class HomeController extends Controller
     }
     public function premium()
     {
-        $user = auth()->user();
-        $subscriptions = Subscription::where('user_id', $user->id)->get(); // Lấy lịch sử đăng ký
+        $user = Auth::user();
+        $subscriptions = $user->subscriptions()->orderBy('starts_at', 'desc')->get();
 
-        return view('premium.index', [
-            'isPremium' => $user->is_premium ?? false,
-            'premiumExpiresAt' => $user->premium_expires_at ?? null,
+        return view('premium.upgrade', [
+            'isPremium' => $user->is_premium,
+            'premiumExpiresAt' => $user->premium_expires_at,
             'subscriptions' => $subscriptions,
         ]);
     }
