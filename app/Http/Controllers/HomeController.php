@@ -8,7 +8,7 @@ use App\Models\Tag;
 use App\Models\Comment;
 use App\Models\User;
 use App\Models\Image;
-
+use App\Models\Subscription;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
@@ -149,6 +149,17 @@ class HomeController extends Controller
         $time = '(0,36 giây) ';
 
         return view('search', compact('posts', 'title', 'time', 'recent_posts', 'categories', 'key', 'posts_new', 'outstanding_posts'));
+    }
+    public function premium()
+    {
+        $user = auth()->user();
+        $subscriptions = Subscription::where('user_id', $user->id)->get(); // Lấy lịch sử đăng ký
+
+        return view('premium.index', [
+            'isPremium' => $user->is_premium ?? false,
+            'premiumExpiresAt' => $user->premium_expires_at ?? null,
+            'subscriptions' => $subscriptions,
+        ]);
     }
 
     public function newPost()

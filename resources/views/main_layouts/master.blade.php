@@ -32,6 +32,7 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 
 	<link rel="icon" type="image/png" href="{{ asset('kcnew/frontend/img/image_iconLogo.png') }}"  sizes="160x160">
 
+
 	<link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900" rel="stylesheet">
 	
 	<!-- Animate.css -->
@@ -108,11 +109,14 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 						<li>
 							<a href="{{ route('home') }}">
 								<img style="border-radius: 12px; height: 40px;" src="{{ asset('kcnew/frontend/img/image_logo.png') }}" alt="logo">
+								
 							</a>
 						</li>
 						<li><i class="fa fm fa-map-marker"></i>Hồ Chí Minh</li>
 						<li><i class="fa fm fa-mixcloud"></i>28<sup>0</sup> C</li>
+				
 						<li style="text-transform: capitalize" ><i class="fa fm fa-calendar"></i>Hôm nay ( {{ $now->translatedFormat('l') }}, Ngày {{ $now->translatedFormat('jS F')}} Năm {{ $now->translatedFormat('Y')}} )</li>
+
 					</ul>
 					<!-- Header Topbar Info End -->
 				</div>
@@ -120,6 +124,11 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 				<div class="float--right float--xs-none text-xs-center">
 					<!-- Header Topbar Action Start -->
 					<ul class="header--topbar-action nav">
+						<li>
+							<a href="{{ route('premium') }}">
+								<img style="border-radius: 12px; height: 20px;" src="{{ asset('kcnew/frontend/img/logo-premium.svg') }}" alt="logo">
+							</a>
+						</li>
 							@guest
 							<li class="btn-cta">
 								<a href="{{ route('login') }}">

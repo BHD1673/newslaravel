@@ -69,17 +69,16 @@ class ShopController extends Controller
         // Lấy danh mục của sản phẩm từ bảng product_category
         $categoryName = $product->productCategory ? $product->productCategory->name : 'Chưa phân loại';
         $relatedProducts = Product::where('category_id', $product->category_id)
-        ->where('id', '!=', $product->id) // Loại bỏ sản phẩm hiện tại
-        ->limit(6) // Giới hạn số lượng sản phẩm liên quan
-        ->get();
-    
+            ->where('id', '!=', $product->id) // Loại bỏ sản phẩm hiện tại
+            ->limit(6) // Giới hạn số lượng sản phẩm liên quan
+            ->get();
+
         // Truyền sản phẩm và danh mục vào view
         return view('shop.show', [
             'product' => $product,
             'categoryName' => $categoryName,  // Truyền tên danh mục
-            'relatedProducts' => $relatedProducts, 
+            'relatedProducts' => $relatedProducts,
             'productCategories' => $productCategories
         ]);
     }
-    
 }
