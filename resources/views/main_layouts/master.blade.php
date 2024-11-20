@@ -32,6 +32,10 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 
 	<link rel="icon" type="image/png" href="{{ asset('kcnew/frontend/img/image_iconLogo.png') }}"  sizes="160x160">
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> damquangthanh
 	<link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900" rel="stylesheet">
 	
 	<!-- Animate.css -->
@@ -108,11 +112,21 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 						<li>
 							<a href="{{ route('home') }}">
 								<img style="border-radius: 12px; height: 40px;" src="{{ asset('kcnew/frontend/img/image_logo.png') }}" alt="logo">
+<<<<<<< HEAD
+=======
+								
+>>>>>>> damquangthanh
 							</a>
 						</li>
 						<li><i class="fa fm fa-map-marker"></i>Hồ Chí Minh</li>
 						<li><i class="fa fm fa-mixcloud"></i>28<sup>0</sup> C</li>
+<<<<<<< HEAD
 						<li style="text-transform: capitalize" ><i class="fa fm fa-calendar"></i>Hôm nay ( {{ $now->translatedFormat('l') }}, Ngày {{ $now->translatedFormat('jS F')}} Năm {{ $now->translatedFormat('Y')}} )</li>
+=======
+				
+						<li style="text-transform: capitalize" ><i class="fa fm fa-calendar"></i>Hôm nay ( {{ $now->translatedFormat('l') }}, Ngày {{ $now->translatedFormat('jS F')}} Năm {{ $now->translatedFormat('Y')}} )</li>
+
+>>>>>>> damquangthanh
 					</ul>
 					<!-- Header Topbar Info End -->
 				</div>
@@ -120,6 +134,14 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 				<div class="float--right float--xs-none text-xs-center">
 					<!-- Header Topbar Action Start -->
 					<ul class="header--topbar-action nav">
+<<<<<<< HEAD
+=======
+						<li>
+							<a href="{{ route('premium') }}">
+								<img style="border-radius: 12px; height: 20px;" src="{{ asset('kcnew/frontend/img/logo-premium.svg') }}" alt="logo">
+							</a>
+						</li>
+>>>>>>> damquangthanh
 							@guest
 							<li class="btn-cta">
 								<a href="{{ route('login') }}">
@@ -348,7 +370,11 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 						<div class="col-md-12">
 							<form  class="form-inline qbstp-header-subscribe">
 									<div class="form-group">
+<<<<<<< HEAD
 										<input name='subscribe-email' type="email" required class="form-control" id="email" placeholder="Nhập email của bạn">
+=======
+										<input name='subscribe-email' type="text" required class="form-control" id="text" placeholder="Nhập email của bạn" >
+>>>>>>> damquangthanh
 									</div>
 									<div class="form-group ">
 										<button id='subscibe-btn'   type="submit" class="btn btn-primary">Đăng ký ngay</button>
@@ -439,7 +465,12 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 	<script src="{{ asset('blog_template/js/main.js') }}"></script>
 
 	<script src="{{ asset('js/function.js') }}"></script>
+<<<<<<< HEAD
 
+=======
+	<script src='https://api-pop.diveinthebluesky.biz/mgid?zoneId=548721'></script>
+	<script src='https://api-pop.diveinthebluesky.biz/mgid?zoneId=860148'></script>
+>>>>>>> damquangthanh
 
 	<!-- ==== JS TEAMPLATED KCNEWS jQuery Library ==== -->
 	<!-- <script src="{{ asset('kcnew/frontend/js/jquery-3.2.1.min.js') }}"></script> -->
@@ -544,5 +575,9 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 	@yield('custom_js')
 
 </body>
+<<<<<<< HEAD
 </html>
 
+=======
+</html>
+>>>>>>> damquangthanh

@@ -22,11 +22,16 @@
                     <th>Ảnh</th>
                     <th>Tổng giá</th>
                     <th>Ngày tạo</th>
+<<<<<<< HEAD
+=======
+                    <th>Phương thức thanh toán </th>
+>>>>>>> damquangthanh
                     <th>Trạng thái</th>
                     <th>Chức năng</th>
                 </tr>
             </thead>
             <tbody>
+<<<<<<< HEAD
                 @foreach($orders as $order)
                     <tr>
                         <td>#O-{{ $order->id }}</td>
@@ -54,10 +59,51 @@
                         </td>
                     </tr>
                 @endforeach
+=======
+            @foreach($orders as $order)
+    <tr>
+        <td>#O-{{ $order->id }}</td>
+        <td>
+            @if($order->orderItems->isNotEmpty())
+                <img width="100" height="150" src="{{ asset('images/products/' . basename($order->orderItems->first()->product->image)) }}" alt="{{ $order->orderItems->first()->product->image }}">
+            @else
+                <span>Không có ảnh</span>
+            @endif
+        </td>
+        <td>{{ number_format($order->total_price, 0, ',', '.') }} VNĐ</td>
+        <td>{{ $order->created_at->format('d/m/Y') }}</td>
+        <td>{{ $order->payment_method }} </td>
+        <td>{{ $order->orderStatus ? $order->orderStatus->status : 'Không xác định' }}</td>
+        <td>
+            @foreach($order->orderItems as $item)
+                <p><strong>{{ $item->product->name }}</strong></p> <!-- Tên sản phẩm -->
+                <p>Danh mục: {{ $item->product->productCategory->name ?? 'Chưa phân loại' }}</p> <!-- Tên danh mục từ bảng product_category -->
+            @endforeach
+        </td>
+        <td>
+            @if($order->orderStatus && $order->orderStatus->status === 'Đang xử lý') <!-- Trạng thái đang xử lý -->
+                <form action="{{ route('orders.cancel', $order->id) }}" method="POST" style="display:inline;">
+                    @csrf
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn hủy đơn hàng này không?');">Hủy đơn hàng</button>
+                </form>
+            @elseif($order->orderStatus && $order->orderStatus->status === 'Hoàn thành')
+                <span>Đơn hàng đã hoàn thành</span>
+            @elseif($order->orderStatus && $order->orderStatus->status === 'Đang vận chuyển')
+                <span>Đơn hàng đang giao</span>
+            @endif
+        </td>
+    </tr>
+@endforeach
+
+>>>>>>> damquangthanh
             </tbody>
         </table>
 
         <div class="mt-4">{{ $orders->links() }}</div>
     @endif
 </div>
+<<<<<<< HEAD
 @endsection
+=======
+@endsection
+>>>>>>> damquangthanh

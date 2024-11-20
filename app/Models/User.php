@@ -25,6 +25,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role_id',
+<<<<<<< HEAD
     ];
 
 
@@ -32,12 +33,25 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+=======
+        'is_premium',
+        'premium_expires_at'
+    ];
+
+
+    protected $hidden = ['password', 'remember_token'];
+>>>>>>> damquangthanh
 
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+<<<<<<< HEAD
     ];
 
+=======
+        'premium_expires_at' => 'datetime',
+    ];
+>>>>>>> damquangthanh
     public function role()
     {
         return $this->belongsTo(Role::class);
@@ -58,7 +72,14 @@ class User extends Authenticatable
     {
         return $this->morphOne(Image::class, 'imageable');
     }
+<<<<<<< HEAD
 
+=======
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class);
+    }
+>>>>>>> damquangthanh
     public function categories()
     {
         return $this->hasMany(Category::class);

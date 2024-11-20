@@ -13,6 +13,13 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::with('orderItems.product')->where('user_id', auth()->id())->paginate(10);
+<<<<<<< HEAD
+=======
+        $orders = Order::with('orderItems.product.category')  // Eager load category của product
+        ->where('user_id', auth()->id())
+        ->paginate(10);
+
+>>>>>>> damquangthanh
         return view('orders.index', compact('orders'));
     }
     public function cancel($id)

@@ -15,7 +15,13 @@ class Order extends Model
         'name',
         'address',
         'phone',
+<<<<<<< HEAD
         'order_status_id',
+=======
+        'payment_method',
+        'order_status_id',
+        'more_Info',
+>>>>>>> damquangthanh
     ];
 
     // Quan hệ với model OrderItem
@@ -39,4 +45,8 @@ class Order extends Model
     {
         return $this->belongsTo(OrderStatus::class);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> damquangthanh

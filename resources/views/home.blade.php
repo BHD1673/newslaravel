@@ -630,7 +630,11 @@
 							</div>
 						</div>
 						<!-- Kết thúc từ khóa -->
+<<<<<<< HEAD
 
+=======
+						@if(!auth()->check() || !auth()->user()->is_premium)
+>>>>>>> damquangthanh
 						<!-- Widget Start -->
 						<div class="widget">
 							<!-- Ad Widget Start -->
@@ -647,7 +651,11 @@
 							<!-- Ad Widget End -->
 						</div>
 						<!-- Widget End -->
+<<<<<<< HEAD
 
+=======
+						@endif
+>>>>>>> damquangthanh
 						<!-- Widget Start -->
 						<div class="widget">
 							<div class="widget--title">
@@ -743,6 +751,7 @@
 						</div>
 						<!-- Widget End -->
 
+<<<<<<< HEAD
 						<!-- Widget Start -->
 						<div class="widget">
 							<div class="widget--title">
@@ -759,6 +768,28 @@
 							<!-- Ad Widget End -->
 						</div>
 						<!-- Widget End -->
+=======
+						
+						@if(!auth()->check() || !auth()->user()->is_premium)
+						<!-- Widget Start --> 
+						<div class="widget">
+								<div class="widget--title">
+										<h2 class="h4">Quảng cáo</h2>
+										<i class="icon fa fa-bullhorn"></i>
+								</div>
+				
+								<!-- Ad Widget Start -->
+								<div class="ad--widget--banner">
+										<a href="https://mwc.com.vn/products/giay-sandal-nu-mwc-nusd--2887?c=N%C3%82U">
+												<img src="{{ asset('kcnew/frontend/img/ads-img/banner_quangcao.png') }}" alt="">
+										</a>
+								</div>
+								<!-- Ad Widget End -->
+						</div>
+						<!-- Widget End -->
+				@endif
+				
+>>>>>>> damquangthanh
 					</div>
 				</div>
 				<!-- Main Sidebar End -->

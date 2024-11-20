@@ -74,7 +74,11 @@
                                     <div class="price text--color-1">
                                        <p><span>{{ number_format($product->price, 2) }} VND</span></p>
                                     </div>
+<<<<<<< HEAD
                                     <p class="note"><strong>SKU:</strong>{{ $product->sku ?? 'N/A' }}</p>
+=======
+                                    <p class="note"><strong>SKU:</strong> {{ $categoryName }}</p>
+>>>>>>> damquangthanh
                                     <p class="note"><strong>Availabele:</strong>{{ $product->stock }} units</p>
                                     <div class="description">
                                     <p>{{ $product->description }}</p>
@@ -259,6 +263,7 @@
                                  </div>
                               </div>
                               <div class="col-md-12 ptop--30">
+<<<<<<< HEAD
                                  <div class="related--products">
                                     <div class="post--items-title" data-ajax="tab">
                                        <h2 class="h4">You Might Also Like</h2>
@@ -308,6 +313,76 @@
                                     </div>
                                  </div>
                               </div>
+=======
+    <div class="related--products">
+        <div class="post--items-title" data-ajax="tab">
+            <h2 class="h4">You Might Also Like</h2>
+            <div class="nav">
+                <a href="#" class="prev btn-link" data-ajax-action="load_prev_related_products">
+                    <i class="fa fa-long-arrow-left"></i>
+                </a>
+                <span class="divider">/</span>
+                <a href="#" class="next btn-link" data-ajax-action="load_next_related_products">
+                    <i class="fa fa-long-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="product--items" data-ajax-content="outer">
+            <div class="row AdjustRow" data-ajax-content="inner">
+                @foreach($relatedProducts as $relatedProduct)
+                    <div class="col-md-4 hidden-sm hidden-xs pbottom--30">
+                        <div class="product--item">
+                            <div class="img">
+                                <img src="{{ asset('images/products/' . basename($relatedProduct->image)) }}" alt="{{ $relatedProduct->name }}">
+                                <div class="actions">
+                                    <div class="vc--parent">
+                                        <div class="vc--child">
+                                            <a href="{{ route('shop.show', $relatedProduct->id) }}" class="btn btn-primary">
+                                                <i class="fa fa-eye-slash"></i>Quick View
+                                            </a>
+                                            <ul class="nav">
+                                                <li><a href="#"><i class="fa fa-search"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-exchange"></i></a></li>
+                                                
+                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                                <form action="{{ route('wishlist.add', $product->id) }}" method="POST">
+                                                      @csrf
+                                                      <button type="submit" class="btn btn-link">
+                                                            <i class="fa fa-heart-o"></i> Add to Wishlist
+                                                      </button>
+                                                   </form>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="title">
+                                <h3 class="h5">
+                                    <a href="{{ route('shop.show', $relatedProduct->id) }}" class="btn-link">{{ $relatedProduct->name }}</a>
+                                </h3>
+                            </div>
+                            <div class="price text--color-1">
+                                <p>
+                                    <span class="del">{{ number_format($relatedProduct->old_price, 0, ',', '.') }} VNĐ</span>
+                                    <span>{{ number_format($relatedProduct->price, 0, ',', '.') }} VNĐ</span>
+                                </p>
+                            </div>
+                            <div class="rating">
+                                <ul class="nav">
+                                    @for($i = 0; $i < 5; $i++)
+                                        <li><i class="fa fa-star{{ $i < $relatedProduct->rating ? '' : '-o' }}"></i></li>
+                                    @endfor
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+</div>
+
+>>>>>>> damquangthanh
                            </div>
                         </div>
                      </div>
@@ -324,6 +399,7 @@
                               </form>
                            </div>
                         </div>
+<<<<<<< HEAD
                         <div class="widget">
                            <div class="widget--title">
                               <h2 class="h4">My Cart</h2>
@@ -378,6 +454,42 @@
                               </ul>
                            </div>
                         </div>
+=======
+          
+
+                        <div class="widget">
+                           <div class="widget--title">
+                              <h2 class="h4">Product Categories</h2>
+                              <i class="icon fa fa-folder-open-o"></i>
+                           </div>
+                           <div class="nav--widget">
+                              <ul class="nav">
+                                    @foreach($productCategories as $category)
+                                       <li>
+                                          
+                                                <span>{{ $category->name }}</span>
+                                                <span>({{ $category->products_count }})</span>
+                                          
+                                       </li>
+                                    @endforeach
+                              </ul>
+                           </div>
+                        </div>
+
+                        <div class="widget">
+                        <div class="widget--title  " data-ajax="tab">
+                           <h2 class="h4">Từ khóa</h2>
+                        </div>
+                        <div class="list--widget list--widget-1" data-ajax-content="outer">
+                           <!-- Post Items Start -->
+                           <!-- <div class="post--items post--items-3">
+                              <ul style="padding:20px" class="nav sidebar" data-ajax-content="inner">
+                                
+                              </ul>
+                           </div> -->
+                        </div>
+                     </div>
+>>>>>>> damquangthanh
                         <div class="widget">
                            <div class="widget--title">
                               <h2 class="h4">Advertisement</h2>
@@ -410,4 +522,8 @@
          </div>
 
 </div>
+<<<<<<< HEAD
 @endsection
+=======
+@endsection
+>>>>>>> damquangthanh

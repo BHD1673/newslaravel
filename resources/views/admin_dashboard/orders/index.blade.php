@@ -49,6 +49,10 @@
                                 <th>Sản phẩm</th> 
                                 <th>Tên Khách hàng</th>
                                 <th>Địa chỉ</th>
+<<<<<<< HEAD
+=======
+                                <th>Phương thức thanh toán</th>
+>>>>>>> damquangthanh
                                 <th>Số điện thoại</th>
                                 <th>Số lượng</th>
                                 <th>Tổng giá</th>
@@ -78,8 +82,17 @@
                               </td>
                                 <td>{{ $order->user->name }}</td>
                                 <td>{{ $order->address }}</td>
+<<<<<<< HEAD
                                 <td>{{ $order->phone }}</td>
                                 <td>    <span>{{ $item->product->name }} (x{{ $item->quantity }})</span> <!-- Hiển thị tên sản phẩm và số lượng -->
+=======
+                                <td>{{ $order->payment_method }}</td>
+                                <td>{{ $order->phone }}</td>
+                               
+                                <td>   @foreach ($order->orderItems as $item)
+                                      <span>{{ $item->product->name }} (x{{ $item->quantity }})</span> <!-- Hiển thị tên sản phẩm và số lượng -->
+                                      @endforeach
+>>>>>>> damquangthanh
                                 </td>
                                 <td>{{ number_format($order->total_price, 0, ',', '.') }} VNĐ</td>
                                 <td>{{ $order->created_at }}</td>
@@ -142,4 +155,8 @@
         }, 5000);
     });
 </script>
+<<<<<<< HEAD
 @endsection
+=======
+@endsection
+>>>>>>> damquangthanh

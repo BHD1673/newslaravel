@@ -23,6 +23,10 @@
                 <p><strong>Tên Khách hàng:</strong> {{ $order->user->name }}</p>
                 <p><strong>Địa chỉ:</strong> {{ $order->address }}</p>
                 <p><strong>Số điện thoại:</strong> {{ $order->phone }}</p>
+<<<<<<< HEAD
+=======
+                <p><strong>Phương Thức Thanh toán:</strong> {{ $order->payment_method }}</p>
+>>>>>>> damquangthanh
                 <p><strong>Tổng giá:</strong> {{ number_format($order->total_price, 0, ',', '.') }} VNĐ</p>
                 <p><strong>Ngày tạo:</strong> {{ $order->created_at->format('d/m/Y H:i') }}</p>
                 
@@ -85,4 +89,8 @@
         }
     }
 </style>
+<<<<<<< HEAD
 @endsection
+=======
+@endsection
+>>>>>>> damquangthanh
