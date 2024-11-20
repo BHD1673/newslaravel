@@ -38,7 +38,7 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\PremiumController;
-
+use App\Http\Controllers\VNPayController;
 
 
 // Điều hướng cho User
@@ -47,11 +47,16 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
 
+// Route để tạo thanh toán VNPay
+Route::get('/payment/vnpay', [VNPayController::class, 'createPayment'])->name('vnpay.create');
+Route::get('/payment/vnpay/return', [VNPayController::class, 'returnPayment'])->name('vnpay.return');
+
+
+// Route trang Premium
 Route::middleware(['auth', 'check.premium'])->group(function () {
     Route::get('/premium', [HomeController::class, 'premium'])->name('premium');
     Route::get('/premium/upgrade', [PremiumController::class, 'upgrade'])->name('premium.upgrade');
 });
-
 
 Route::get('/tai-khoan', [HomeController::class, 'profile'])->name('profile');
 Route::post('/tai-khoan', [HomeController::class, 'update'])->name('update');

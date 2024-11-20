@@ -1,6 +1,6 @@
 @extends('main_layouts.master')
 
-@section('title','TDQ - Giới thiệu')
+@section('title', 'Gói Premium')
 
 @section('content')
 <div class="container mt-5">
@@ -19,7 +19,7 @@
                 <li>- Đọc tin tức bằng AI</li>
                 <li>- Truy cập nội dung độc quyền</li>
             </ul>
-            <a href="{{ route('premium.upgrade') }}" class="btn btn-primary mt-3">Nâng cấp ngay</a>
+            <a href="{{ route('vnpay.create') }}" class="btn btn-primary mt-3">Nâng cấp ngay</a>
         </div>
     @endif
 
@@ -37,7 +37,7 @@
             @forelse($subscriptions as $subscription)
                 <tr>
                     <td>{{ $subscription->plan_name }}</td>
-                    <td>{{ number_format($subscription->price, 2) }} USD</td>
+                    <td>{{ number_format($subscription->price, 2) }} VND</td>
                     <td>{{ \Carbon\Carbon::parse($subscription->starts_at)->format('d/m/Y H:i') }}</td>
                     <td>{{ \Carbon\Carbon::parse($subscription->ends_at)->format('d/m/Y H:i') }}</td>
                 </tr>

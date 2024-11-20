@@ -28,11 +28,11 @@ class PremiumController extends Controller
         Subscription::create([
             'user_id' => $user->id,
             'plan_name' => 'Monthly Premium',
-            'price' => 9.99,
+            'price' => 199000,
             'starts_at' => now(),
             'ends_at' => now()->addMonth(),
         ]);
 
-        return redirect()->route('premium')->with('message', 'Nâng cấp Premium thành công!');
+        return redirect()->route('premium');
     }
 }
