@@ -1,7 +1,7 @@
 <x-guest-layout>
     <style>
         body {
-            background: linear-gradient(to right, #4facfe, #9b59b6); /* Xanh tím */
+            background: linear-gradient(to right, #4facfe, #9b59b6); /* Nền gradient xanh tím */
             min-height: 100vh; /* Đảm bảo nền phủ toàn bộ màn hình */
             display: flex;
             justify-content: center;
@@ -9,6 +9,7 @@
             margin: 0;
         }
     </style>
+
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
@@ -32,10 +33,18 @@
             <!-- Email Address -->
             <div>
                 <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+                <x-input 
+                    id="email" 
+                    class="block mt-1 w-full" 
+                    type="email" 
+                    name="email" 
+                    :value="old('email')" 
+                    required 
+                    autofocus 
+                />
             </div>
 
+            <!-- Submit Button -->
             <div class="flex items-center justify-end mt-4">
                 <x-button>
                     {{ __('Email Password Reset Link') }}
