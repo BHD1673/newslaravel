@@ -30,26 +30,28 @@
 							<div class="row">
 								<div class="col-lg-12">
 									<div class="border border-3 p-4 rounded">
+										<!-- Tên danh mục -->
 										<div class="mb-3">
-											<label for="inputProductTitle" class="form-label">Tên danh mục</label>
-											<input type="text" value=' {{ old("name" ) }}' name="name" required  class="form-control" id="inputProductTitle" placeholder="Nhập tiêu đề bài viết">
-										
+											<label for="categoryName" class="form-label">Tên danh mục</label>
+											<input type="text" value="{{ old('name') }}" name="name" required class="form-control" id="categoryName" placeholder="Nhập tên danh mục">
 											@error('name')
 												<p class="text-danger">{{ $message }}</p>
 											@enderror
 										</div>
 
+										<!-- Slug -->
 										<div class="mb-3">
-											<label for="inputProductTitle" class="form-label">Slug - danh mục</label>
-											<input type="text" value=' {{ old("slug" ) }}' name="slug" required  class="form-control" id="inputProductTitle" placeholder="Nhập slug">
-										
+											<label for="categorySlug" class="form-label">Slug - danh mục</label>
+											<input type="text" value="{{ old('slug') }}" name="slug" required class="form-control" id="categorySlug" placeholder="Nhập slug">
 											@error('slug')
 												<p class="text-danger">{{ $message }}</p>
 											@enderror
 										</div>
 
-										<button class="btn btn-primary" type="submit">Thêm danh mục</button>
-
+										<!-- Nút thêm danh mục -->
+										<div class="text-end">
+											<button class="btn btn-primary" type="submit">Thêm danh mục</button>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -58,8 +60,6 @@
 					</form>
 				  </div>
 			  </div>
-
-
 			</div>
 		</div>
 		<!--end page wrapper -->
@@ -68,14 +68,10 @@
 @section("script")
 	<script>
 		$(document).ready(function () {
-
-			setTimeout(()=>{
-					$(".general-message").fadeOut();
-			},5000);
-
+			// Ẩn thông báo sau 5 giây
+			setTimeout(() => {
+				$(".alert").fadeOut(300);
+			}, 5000);
 		});
-
-
 	</script>
-
 @endsection

@@ -81,21 +81,20 @@
                                     <!-- Trạng thái sản phẩm -->
                                     <div class="mb-3">
                                         <label for="product_status_id" class="form-label">Trạng thái sản phẩm</label>
-                                        <select name="product_status_id" id="product_status_id" required class="form-control">
+                                        <select name="product_status_id" class="form-control" id="product_status_id" required>
                                             <option value="">Chọn trạng thái</option>
-                                            <option value="1" {{ old('product_status_id', $product->product_status_id) == 1 ? 'selected' : '' }}>Kích hoạt</option>
-                                            <option value="2" {{ old('product_status_id', $product->product_status_id) == 2 ? 'selected' : '' }}>Không kích hoạt</option>
+                                            <option value="1" {{ old('product_status_id', $product->product_status_id) == 1 ? 'selected' : '' }}>Còn hàng</option>
+                                            <option value="0" {{ old('product_status_id', $product->product_status_id) == 0 ? 'selected' : '' }}>Hết hàng</option>
                                         </select>
                                         @error('product_status_id')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
 
-                                    <!-- Hình ảnh sản phẩm -->
+                                    <!-- Ảnh sản phẩm -->
                                     <div class="mb-3">
-                                        <label for="image" class="form-label">Hình ảnh sản phẩm</label>
-                                        <input id="image" name="image" type="file" class="form-control">
-                                        <img src="{{ asset($product->image) }}" alt="Product Image" class="mt-2" style="max-width: 200px;">
+                                        <label for="inputProductImage" class="form-label">Ảnh sản phẩm</label>
+                                        <input type="file" name="image" class="form-control" id="inputProductImage">
                                         @error('image')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
@@ -103,21 +102,32 @@
 
                                     <!-- Danh mục sản phẩm -->
                                     <div class="mb-3">
-                                        <label for="product_category_id" class="form-label">Danh mục sản phẩm</label>
-                                        <select name="product_category_id" id="product_category_id" required class="form-control">
+                                        <label for="inputProductCategory" class="form-label">Danh mục sản phẩm</label>
+                                        <select name="category_id" class="form-control" id="inputProductCategory" required>
                                             <option value="">Chọn danh mục</option>
-                                            @foreach ($productCategories as $category)
-                                                <option value="{{ $category->id }}" {{ old('product_category_id', $product->product_category_id) == $category->id ? 'selected' : '' }}>
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->id }}" {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
                                                     {{ $category->name }}
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('product_category_id')
+                                        @error('category_id')
                                             <p class="text-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
 
-                                    <button class="btn btn-primary" type="submit">Cập nhật sản phẩm</button>
+                                    <!-- Tags sản phẩm -->
+                                    <div class="mb-3">
+                                        <label for="inputProductTags" class="form-label">Tags sản phẩm</label>
+                                        <input type="text" name="tags" value="{{ old('tags', implode(', ', $product->tags->pluck('name')->toArray())) }}" class="form-control" id="inputProductTags" placeholder="Nhập các tags, cách nhau bằng dấu ','">
+                                    </div>
+
+                                    <!-- Nút lưu -->
+                                    <div class="mb-3">
+                                        <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                                        <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">Quay lại</a>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -125,23 +135,20 @@
                 </form>
             </div>
         </div>
-
     </div>
 </div>
-<!-- End Page Wrapper -->
 @endsection
 
-@section("script")
+@section("scripts")
 <script src="{{ asset('admin_dashboard_assets/plugins/select2/js/select2.min.js') }}"></script>
 <script src="{{ asset('admin_dashboard_assets/plugins/input-tags/js/tagsinput.js') }}"></script>
 <script>
-    $(document).ready(function () {
-        $('.single-select').select2({
-            theme: 'bootstrap4',
-            width: '100%',
-            placeholder: 'Chọn danh mục',
-            allowClear: true,
-        });
+    // Initialize Select2 plugin
+    $(document).ready(function() {
+        $('#inputProductCategory').select2();
     });
+
+    // Initialize Tags Input plugin
+    $('#inputProductTags').tagsinput();
 </script>
 @endsection
