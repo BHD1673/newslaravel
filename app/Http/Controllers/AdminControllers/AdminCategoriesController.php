@@ -6,19 +6,29 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\Category;
+use App\Http\Services\CategoryService;
+
 class AdminCategoriesController extends Controller
 {
+    protected $categoryService;
+    public function __construct()
+    {
+        $this->categoryService = new CategoryService();
+    }
 
     private $rules = [
         'name' => 'required|min:3|max:30',
         'slug' => 'required|unique:categories,slug'
     ];
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin_dashboard.categories.index', [
-            'categories' => Category::with('user')->orderBy('id','DESC')->paginate(10)
-        ]);
+        $params = [
+            'name' =>$request->input('name')
+        ];
+
+        $categories = $this->categoryService->index($params);
+        return view('admin_dashboard.categories.index', compact('categories'));
     }
 
 
