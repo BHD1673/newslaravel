@@ -131,33 +131,7 @@
 									<ul class="nav row gutter--15" data-ajax-content="inner">
 								
 									
-										<li class="col-xs-12">
-											<!-- Post Item Start -->
-											<div class="post--item post--layout-1">
-												<div class="post--img">
-													<a href="{{ route('posts.show', $post_category_home0[0]) }}"
-														class="thumb"><img src="{{ asset($post_category_home0[0]->image ? 'storage/' . $post_category_home0[0]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-															alt=""></a>
-
-													<a href="javascript:;" class="icon"><i class="fa fa-flash"></i></a>
-
-													<div class="post--info">
-														<ul class="nav meta">
-															<li><a href="javascript:;">{{ $post_category_home0[0]->author->name }}</a></li>
-															<li><a href="javascript:;">{{ $post_category_home0[0]->created_at->locale('vi')->diffForHumans()  }}</a></li>
-														</ul>
-
-														<div class="title">
-															<h3 class="h4"><a
-																	href="{{ route('posts.show', $post_category_home0[0]) }}"
-																	class="btn-link">{{ $post_category_home0[0]->title }}</a>
-															</h3>
-														</div>
-													</div>
-												</div>
-											</div>
-											<!-- Post Item End -->
-										</li>
+										z
 
 										@for ($i = 1; $i <= 4; $i++)
 											@if($i==1 || $i == 3 )

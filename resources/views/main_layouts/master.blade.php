@@ -151,13 +151,13 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 										<li>
 											<a href="{{ route('profile') }}">Tài khoản của tôi</a>
 										</li>
-										<li>
+										{{-- <li>
 											<a href="{{ route('cart.index') }}">Giỏ hàng của tôi</a>
-									</li>
-									<li>
+									</li> --}}
+									{{-- <li>
 										<a href="{{ route('orders.index') }}">Đơn hàng của tôi</a>
 
-								</li>
+								</li> --}}
 									
 										<li>
 											<a onclick="event.preventDefault(); document.getElementById('nav-logout-form').submit();"
@@ -224,7 +224,7 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 							<ul class="dropdown-menu">
 								<li><a href="{{ route('about') }}">Giới thiệu</a></li>
 								<li><a href="{{ route('contact.create') }}">Liên hệ</a></li>
-								<li><a href="{{ route('shop.index') }}">Shop</a></li>
+								{{-- <li><a href="{{ route('shop.index') }}">Shop</a></li> --}}
 								{{-- <li><a href="{{ route('erorrs.404') }}">404</a></li> --}}
 							</ul>
 						</li>

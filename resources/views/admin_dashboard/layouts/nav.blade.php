@@ -56,7 +56,7 @@ function checkPermission($name) {
                 </li>
                 @endif
 
-    @if(checkPermission("admin.products.index") || checkPermission("admin.products.create"))
+    {{-- @if(checkPermission("admin.products.index") || checkPermission("admin.products.create"))
     <li>
         <a href="javascript:;" class="has-arrow">
             <div class="parent-icon"><i class='bx bx-box'></i></div>
@@ -73,10 +73,10 @@ function checkPermission($name) {
             @endif
         </ul>
     </li>
-    @endif
+    @endif --}}
 
     
-    @if(checkPermission("admin.orders.index") || checkPermission("admin.orders.show"))
+    {{-- @if(checkPermission("admin.orders.index") || checkPermission("admin.orders.show"))
 <li>
     <a href="javascript:;" class="has-arrow">
         <div class="parent-icon"><i class='bx bx-cart'></i></div>
@@ -90,7 +90,7 @@ function checkPermission($name) {
 
     </ul>
 </li>
-@endif
+@endif --}}
 
                 @if(checkPermission("admin.categories.index") || checkPermission("admin.categories.create") )
                 <li>
