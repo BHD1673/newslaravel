@@ -13,7 +13,7 @@ class AdminRolesController extends Controller
 {
 
     private $rules = ['name' => 'required|unique:roles,name'];
-  
+
     public function index()
     {
         return view('admin_dashboard.roles.index', [
@@ -28,7 +28,7 @@ class AdminRolesController extends Controller
         ]);
     }
 
- 
+
     public function store(Request $request)
     {
 
@@ -40,7 +40,7 @@ class AdminRolesController extends Controller
         $role = Role::create($validated);
         $role->permissions()->sync($permissions);
 
-        return redirect()->route('admin.roles.create')->with('success','Thêm quyền mới thành công.');
+        return redirect()->route('admin.roles.create')->with('success', 'Thêm quyền mới thành công.');
     }
 
 
@@ -52,8 +52,8 @@ class AdminRolesController extends Controller
         ]);
     }
 
-  
-    public function update(Request $request,Role $role)
+
+    public function update(Request $request, Role $role)
     {
 
         $this->rules['name'] = ['required', Rule::unique('roles')->ignore($role)];
@@ -64,12 +64,12 @@ class AdminRolesController extends Controller
         $role->update($validated);
         $role->permissions()->sync($permissions);
 
-        return redirect()->route('admin.roles.edit', $role )->with('success','Cập nhật quyền mới thành công.');
+        return redirect()->route('admin.roles.edit', $role)->with('success', 'Cập nhật quyền mới thành công.');
     }
 
     public function destroy(Role $role)
     {
         $role->delete();
-        return redirect()->route('admin.roles.index')->with('success','Xóa quyền thành công.');
+        return redirect()->route('admin.roles.index')->with('success', 'Xóa quyền thành công.');
     }
 }

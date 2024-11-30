@@ -22,16 +22,17 @@ class AdminUsersController extends Controller
 
     public function index()
     {
+
         return view('admin_dashboard.users.index', [
             'users' => User::with('role')->paginate(20),
         ]);
     }
 
-  
+
     public function create()
     {
         return view('admin_dashboard.users.create', [
-            'roles' => Role::pluck('name','id'),
+            'roles' => Role::pluck('name', 'id'),
         ]);
     }
 
@@ -42,29 +43,28 @@ class AdminUsersController extends Controller
         $validated['password'] = Hash::make($request->input('password'));
         $user = User::create($validated);
 
-        if($request->has('image'))
-        {
+        if ($request->has('image')) {
             $image = $request->file('image');
             $filename = $image->getClientOriginalName();
             $file_extension = $image->getClientOriginalExtension();
             $path   = $image->store('images', 'public');
-            
+
             $user->image()->create([
                 'name' => $filename,
                 'extension' => $file_extension,
                 'path' => $path
             ]);
         }
-        
+
         return redirect()->route('admin.users.create')->with('success', 'Thêm tài khoản thành công.');
     }
 
- 
+
     public function edit(User $user)
     {
         return view('admin_dashboard.users.edit', [
             'user' => $user,
-            'roles' => Role::pluck('name','id'),
+            'roles' => Role::pluck('name', 'id'),
         ]);
     }
 
@@ -78,42 +78,41 @@ class AdminUsersController extends Controller
     public function update(Request $request, User $user)
     {
         $this->rules['password'] = 'nullable|min:3|max:20';
-        $this->rules['email'] = ['required','email', Rule::unique('users')->ignore($user)];
+        $this->rules['email'] = ['required', 'email', Rule::unique('users')->ignore($user)];
 
         $validated = $request->validate($this->rules);
 
-        if($validated['password'] === null )
+        if ($validated['password'] === null)
             unset($validated['password']);
         else
             $validated['password'] = Hash::make($request->input('password'));
 
         $user->update($validated);
 
-        if($request->has('image'))
-        {
+        if ($request->has('image')) {
             $image = $request->file('image');
             $filename = $image->getClientOriginalName();
             $file_extension = $image->getClientOriginalExtension();
             $path   = $image->store('images', 'public');
-            
+
             $user->image()->create([
                 'name' => $filename,
                 'extension' => $file_extension,
                 'path' => $path
             ]);
         }
-        
+
         return redirect()->route('admin.users.edit', $user)->with('success', 'Sửa tài khoản thành công.');
     }
 
 
     public function destroy(User $user)
     {
-        if($user->id === auth()->id())
+        if ($user->id === auth()->id())
             return redirect()->back()->with('error', 'Bạn không thể xóa tài khoản bạn ( quản trị viên) ');
 
-        User::whereHas('role', function($query){
-            $query->where('name','admin');
+        User::whereHas('role', function ($query) {
+            $query->where('name', 'admin');
         })->first()->posts()->saveMany($user->posts);
 
         $user->delete();
