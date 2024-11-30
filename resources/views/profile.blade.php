@@ -43,6 +43,7 @@ $posts_new[3] = Post::latest()->approved()
             <ul class="breadcrumb">
                 <li><a href="{{ route('home') }}" class="btn-link"><i class="fa fm fa-home"></i>Trang chủ</a></li>
                 <li class="active"><span>Tài khoản</span></li>
+                
             </ul>
         </div>
     </div>
@@ -66,6 +67,7 @@ $posts_new[3] = Post::latest()->approved()
                                 @error('image')
                                     <p class="text-danger">{{ $message }}</p>
                                 @enderror
+                                
                             </div>
                         </div>
                     </div>

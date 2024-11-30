@@ -46,15 +46,29 @@ use App\Http\Controllers\WishlistController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+<<<<<<< HEAD
+=======
+
+
+// Route để tạo thanh toán VNPay
+Route::get('/payment/vnpay', [VNPayController::class, 'createPayment'])->name('vnpay.create');
+Route::get('/payment/vnpay/return', [VNPayController::class, 'returnPayment'])->name('vnpay.return');
+
+
+// Route trang Premium
+>>>>>>> ad8ea0cf6aeeee84d16a770a7e2eb31ccc72dd65
 Route::middleware(['auth', 'check.premium'])->group(function () {
     Route::get('/premium', [HomeController::class, 'premium'])->name('premium');
     Route::get('/premium/upgrade', [PremiumController::class, 'upgrade'])->name('premium.upgrade');
 });
 
+<<<<<<< HEAD
 Route::get('/payment/vnpay', [VNPayController::class, 'createPayment'])->name('vnpay.create');
 Route::get('/payment/vnpay/return', [VNPayController::class, 'returnPayment'])->name('vnpay.return');
 
 
+=======
+>>>>>>> ad8ea0cf6aeeee84d16a770a7e2eb31ccc72dd65
 Route::get('/tai-khoan', [HomeController::class, 'profile'])->name('profile');
 Route::post('/tai-khoan', [HomeController::class, 'update'])->name('update');
 
