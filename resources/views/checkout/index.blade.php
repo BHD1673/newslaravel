@@ -26,37 +26,6 @@
                             </div>
                             <div class="form-group">
                                 <label>Name <span>*</span></label>
-<<<<<<< HEAD
-<<<<<<< HEAD
-                                <input type="text" name="name" class="form-control" required>
-=======
-                                <input type="text" name="name" class="form-control">
-                                <!-- Hiển thị thông báo lỗi nếu có -->
-                                @if ($errors->has('name'))
-                                    <span class="text-danger">{{ $errors->first('name') }}</span>
-                                @endif
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
-                            </div>
-
-                            <div class="form-group">
-                                <label>Address <span>*</span></label>
-                                <input type="text" name="address" class="form-control">
-                                <!-- Hiển thị thông báo lỗi nếu có -->
-                                @if ($errors->has('address'))
-                                    <span class="text-danger">{{ $errors->first('address') }}</span>
-                                @endif
-                            </div>
-
-                            <div class="form-group">
-                                <label>Phone <span>*</span></label>
-                                <input type="text" name="phone" class="form-control">
-                                <!-- Hiển thị thông báo lỗi nếu có -->
-                                @if ($errors->has('phone'))
-                                    <span class="text-danger">{{ $errors->first('phone') }}</span>
-                                @endif
-                            </div>
-<<<<<<< HEAD
-=======
                                 <input type="text" name="name" class="form-control">
                                 <!-- Hiển thị thông báo lỗi nếu có -->
                                 @if ($errors->has('name'))
@@ -81,8 +50,6 @@
                                     <span class="text-danger">{{ $errors->first('phone') }}</span>
                                 @endif
                             </div>
-=======
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                             <div class="form-group">
                                 <label>Additional Information <span>*</span></label>
                                 <textarea type="text" name="more_Info" class="form-control"></textarea>
@@ -92,10 +59,6 @@
                                 @endif
                             </div>
                         
-<<<<<<< HEAD
->>>>>>> damquangthanh
-=======
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                         </div>
 
                         <div class="col-md-6 pbottom--30">
@@ -107,14 +70,7 @@
                             <thead>
                                 <tr>
                                     <th>Product Name</th>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
                                     <th>Category</th>
->>>>>>> damquangthanh
-=======
-                                    <th>Category</th>
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                                     <th>Price</th>
                                     <th>Quantity</th>
                                     <th>Total</th>
@@ -124,18 +80,9 @@
                                 @foreach($cart->items as $item)
                                     <tr>
                                         <td>{{ $item->product->name }}</td>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
                                         <td data-label="Product Name">
                                        {{ $item->product->productCategory->name ?? 'Chưa phân loại' }}
                                         </td>
->>>>>>> damquangthanh
-=======
-                                        <td data-label="Product Name">
-                                       {{ $item->product->productCategory->name ?? 'Chưa phân loại' }}
-                                        </td>
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                                         <td>{{ number_format($item->price, 2) }} VND</td>
                                         <td>{{ $item->quantity }}</td>
                                         <td>{{ number_format($item->price * $item->quantity, 2) }} VND</td>
@@ -144,15 +91,7 @@
 
                                 <!-- Dòng tổng tiền -->
                                 <tr>
-<<<<<<< HEAD
-<<<<<<< HEAD
-                                    <td colspan="3" style="text-align: right;"><strong>Total Amount:</strong></td>
-=======
                                     <td colspan="4" style="text-align: right;"><strong>Total Amount:</strong></td>
->>>>>>> damquangthanh
-=======
-                                    <td colspan="4" style="text-align: right;"><strong>Total Amount:</strong></td>
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                                     <td><strong>{{ number_format($cart->items->sum(function ($item) {
                                         return $item->price * $item->quantity;
                                     }), 2) }} VND</strong></td>
@@ -160,15 +99,7 @@
 
                                 <!-- Dòng VAT -->
                                 <tr>
-<<<<<<< HEAD
-<<<<<<< HEAD
-                                    <td colspan="3" style="text-align: right;"><strong>VAT (5%):</strong></td>
-=======
                                     <td colspan="4" style="text-align: right;"><strong>VAT (5%):</strong></td>
->>>>>>> damquangthanh
-=======
-                                    <td colspan="4" style="text-align: right;"><strong>VAT (5%):</strong></td>
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                                     <td><strong>{{ number_format($cart->items->sum(function ($item) {
                                         return ($item->price * $item->quantity) * 0.05; // giả định VAT là 5%
                                     }), 2) }} VND</strong></td>
@@ -176,15 +107,7 @@
 
                                 <!-- Dòng tổng tiền bao gồm VAT -->
                                 <tr>
-<<<<<<< HEAD
-<<<<<<< HEAD
-                                    <td colspan="3" style="text-align: right;"><strong>Total Amount Including VAT:</strong></td>
-=======
                                     <td colspan="4  " style="text-align: right;"><strong>Total Amount Including VAT:</strong></td>
->>>>>>> damquangthanh
-=======
-                                    <td colspan="4  " style="text-align: right;"><strong>Total Amount Including VAT:</strong></td>
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                                     <td><strong>
                                         {{ number_format($cart->items->sum(function ($item) {
                                             return ($item->price * $item->quantity) * 1.05; // tổng tiền bao gồm VAT
@@ -245,41 +168,15 @@
                         <div id="checkoutPaymentVNPay" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <p>Pay using your VNPay account.</p>
-<<<<<<< HEAD
-<<<<<<< HEAD
-                                <p><a href="link_to_vnpay_payment_page" class="btn btn-primary">Proceed to VNPay Payment</a></p>
-=======
                                 <p><a href="{{ route('vnpay-index') }}" class="btn btn-primary">Proceed to VNPay Payment</a></p>
->>>>>>> damquangthanh
-=======
-                                <p><a href="{{ route('vnpay-index') }}" class="btn btn-primary">Proceed to VNPay Payment</a></p>
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-                <div class="checkout--additional-info ptop--30">
-                    <div class="post--items-title" data-ajax="tab">
-                        <h2 class="h4">Additional Information</h2>
-                        <i class="icon fa fa-info-circle"></i>
-                    </div>
-                    <div class="form-group">
-                        <label>Order Notes</label>
-                        <textarea name="additionalInfo" class="form-control"></textarea>
-                    </div>
-                </div>
-=======
             
 
->>>>>>> damquangthanh
-=======
-            
-
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
 
                 <div class="submit-btn ptop--30">
                     <button type="submit" class="btn btn-lg btn-primary">Place Order</button>
@@ -310,12 +207,4 @@
         });
     });
 </script>
-<<<<<<< HEAD
-<<<<<<< HEAD
 @endsection
-=======
-@endsection
->>>>>>> damquangthanh
-=======
-@endsection
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb

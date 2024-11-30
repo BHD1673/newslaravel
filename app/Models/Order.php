@@ -15,19 +15,9 @@ class Order extends Model
         'name',
         'address',
         'phone',
-<<<<<<< HEAD
-<<<<<<< HEAD
-        'order_status_id',
-=======
         'payment_method',
         'order_status_id',
         'more_Info',
->>>>>>> damquangthanh
-=======
-        'payment_method',
-        'order_status_id',
-        'more_Info',
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
     ];
 
     // Quan hệ với model OrderItem
@@ -51,12 +41,4 @@ class Order extends Model
     {
         return $this->belongsTo(OrderStatus::class);
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> damquangthanh
-=======
-}
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb

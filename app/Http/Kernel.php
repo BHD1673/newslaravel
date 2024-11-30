@@ -44,21 +44,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
-<<<<<<< HEAD
 
-=======
-    protected function schedule(Schedule $schedule)
-    {
-        // Chạy kiểm tra trạng thái Premium mỗi giờ
-        $schedule->command('premium:expire')->hourly();
-    }
-    protected function commands()
-    {
-        $this->load(__DIR__ . '/Commands');
-
-        require base_path('routes/console.php');
-    }
->>>>>>> damquangthanh
     /**
      * The application's route middleware.
      *
@@ -77,11 +63,8 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-<<<<<<< HEAD
         'check_permissions' =>  \App\Http\Middleware\CheckPermission::class,
-=======
-        'check_permissions' => \App\Http\Middleware\CheckPermission::class,
-        'check.premium' => \App\Http\Middleware\CheckPremiumStatus::class, // Thêm vào đây
->>>>>>> damquangthanh
+        
+        'check.premium' => \App\Http\Middleware\CheckPremiumStatus::class,
     ];
 }

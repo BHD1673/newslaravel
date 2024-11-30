@@ -36,39 +36,25 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\NewsletterController;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-use App\Http\Controllers\WishlistController;
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
-
-=======
-use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\PremiumController;
 use App\Http\Controllers\VNPayController;
->>>>>>> damquangthanh
+use App\Http\Controllers\WishlistController;
+
 
 
 // Điều hướng cho User
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-<<<<<<< HEAD
-=======
-
-
-// Route để tạo thanh toán VNPay
-Route::get('/payment/vnpay', [VNPayController::class, 'createPayment'])->name('vnpay.create');
-Route::get('/payment/vnpay/return', [VNPayController::class, 'returnPayment'])->name('vnpay.return');
-
-
-// Route trang Premium
 Route::middleware(['auth', 'check.premium'])->group(function () {
     Route::get('/premium', [HomeController::class, 'premium'])->name('premium');
     Route::get('/premium/upgrade', [PremiumController::class, 'upgrade'])->name('premium.upgrade');
 });
 
->>>>>>> damquangthanh
+Route::get('/payment/vnpay', [VNPayController::class, 'createPayment'])->name('vnpay.create');
+Route::get('/payment/vnpay/return', [VNPayController::class, 'returnPayment'])->name('vnpay.return');
+
+
 Route::get('/tai-khoan', [HomeController::class, 'profile'])->name('profile');
 Route::post('/tai-khoan', [HomeController::class, 'update'])->name('update');
 
@@ -84,14 +70,7 @@ Route::post('/bai-viet/{post:slug}', [PostsController::class, 'addComment'])->na
 Route::post('/binh-luan', [PostsController::class, 'addCommentUser'])->name('posts.addCommentUser');
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
->>>>>>> damquangthanh
-=======
-
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
 Route::get('/gioi-thieu', AboutController::class)->name('about');
 
 Route::get('/lien-he', [ContactController::class, 'create'])->name('contact.create');
@@ -103,18 +82,9 @@ Route::get('shop/{id}', [ShopController::class, 'show'])->name('shop.show');
 
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/checkout', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-Route::post('/vnpay-payment', [CheckoutController::class, 'vnpay_payment'])->name('vnpay-payment');
-Route::get('vnpay-index', [CheckoutController::class, 'vnpay_payment_callback'])->name('vnpay-index');
-Route::post('/momo-payment', [CheckoutController::class, 'momo_payment'])->name('momo-payment');
->>>>>>> damquangthanh
-=======
 Route::post('/vnpay-payment', [CheckoutController::class,'vnpay_payment'])->name('vnpay-payment');
 Route::get('vnpay-index', [CheckoutController::class, 'vnpay_payment_callback'])->name('vnpay-index');
 Route::post('/momo-payment', [CheckoutController::class,'momo_payment'])->name('momo-payment');
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
 
 
 Route::middleware('auth')->group(function () {
@@ -132,21 +102,11 @@ Route::middleware('auth')->group(function () {
 });
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
-=======
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
 Route::middleware('auth')->group(function () {
     Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
     Route::post('/wishlist/add/{productId}', [WishlistController::class, 'addToWishlist'])->name('wishlist.add');
     Route::delete('/wishlist/remove/{productId}', [WishlistController::class, 'removeFromWishlist'])->name('wishlist.remove');
 });
-<<<<<<< HEAD
->>>>>>> damquangthanh
-=======
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
 
 Route::get('/chuyen-muc/{category:slug}', [CategoryController::class, 'show'])->name('categories.show');
 Route::get('/tat-ca-chuyen-muc', [CategoryController::class, 'index'])->name('categories.index');

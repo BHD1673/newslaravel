@@ -55,14 +55,7 @@
                                 <th>Giá cũ</th>
                                 <th>Giá</th>
                                 <th>Ngày tạo</th>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
                                 <th>Danh mục</th> <!-- Thêm cột "Danh mục" -->
->>>>>>> damquangthanh
-=======
-                                <th>Danh mục</th> <!-- Thêm cột "Danh mục" -->
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                                 <th>Trạng thái</th>
                                 <th>Tồn kho</th> <!-- Đổi tên cột -->
                                 <th>Chức năng</th>
@@ -94,20 +87,10 @@
                                     @endif
                                 </td>
                                 <td>{{ number_format($product->price, 0, ',', '.') }} VND</td>
-<<<<<<< HEAD
-<<<<<<< HEAD
-                                <td>{{ $product->created_at->format('d/m/Y') }}</td>
-=======
-=======
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                                 <td>
                                     {{ $product->created_at ? $product->created_at->format('d/m/Y') : 'N/A' }}
                                 </td>
                                 <td>{{ $product->productCategory->name ?? 'N/A' }}</td> <!-- Hiển thị tên danh mục -->
-<<<<<<< HEAD
->>>>>>> damquangthanh
-=======
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                                 <td>
                                     @if($product->status)
                                         <div class="badge rounded-pill @if($product->status->status === 'activate') {{ 'text-success bg-light-success' }} @else {{ 'text-danger bg-light-danger' }} @endif p-2 text-uppercase px-3">
@@ -159,12 +142,4 @@
         }, 5000);
     });
 </script>
-<<<<<<< HEAD
-<<<<<<< HEAD
 @endsection
-=======
-@endsection
->>>>>>> damquangthanh
-=======
-@endsection
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb

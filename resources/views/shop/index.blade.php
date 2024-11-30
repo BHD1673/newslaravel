@@ -21,60 +21,6 @@
                            </div>
                         </div>
                         <div class="product--items ptop--30">
-<<<<<<< HEAD
-<<<<<<< HEAD
-  <div class="row AdjustRow">
-    @foreach($products as $product) <!-- Lặp qua các sản phẩm -->
-      @if($product->status->status !== 'deactivate') <!-- Kiểm tra trạng thái sản phẩm -->
-        <div class="col-md-4 col-xs-6 col-xxs-12 pbottom--30">
-          <div class="product--item">
-            <div class="img">
-              <img src="{{ asset('images/products/' . basename($product->image)) }}" alt="{{ $product->name }}">
-              <div class="actions">
-                <div class="vc--parent">
-                  <div class="vc--child">
-                    <a href="{{ route('shop.show', $product->id) }}" class="btn btn-primary"><i class="fa fa-shopping-basket"></i> Buy Now</a>
-                    <ul class="nav">
-                      <li><a href="{{ route('shop.show', $product->id) }}"><i class="fa fa-search"></i></a></li>
-                      <li><a href="#"><i class="fa fa-exchange"></i></a></li>
-                      <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
-                      <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="title">
-              <h3 class="h5"><a href="{{ route('shop.show', $product->id) }}" class="btn-link">{{ $product->name }}</a></h3>
-            </div>
-            <div class="price text--color-1">
-              <p>
-                @if($product->old_price)
-                  <span class="del">${{ number_format($product->old_price, 2) }}</span>
-                @endif
-                <span>${{ number_format($product->price, 2) }}</span>
-              </p>
-            </div>
-            <div class="rating">
-              <ul class="nav">
-                @for($i = 0; $i < 5; $i++)
-                  @if($i < $product->rating) <!-- Giả sử $product->rating là số sao -->
-                    <li><i class="fa fa-star"></i></li>
-                  @else
-                    <li><i class="fa fa-star-o"></i></li>
-                  @endif
-                @endfor
-              </ul>
-            </div>
-          </div>
-        </div>
-      @endif
-    @endforeach
-  </div>
-</div>
-=======
-=======
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                               <div class="row AdjustRow">
                                  @foreach($products as $product) <!-- Lặp qua các sản phẩm -->
                                     @if($product->status->status !== 'deactivate') <!-- Kiểm tra trạng thái sản phẩm -->
@@ -131,10 +77,6 @@
                                  @endforeach
                               </div>
                               </div>
-<<<<<<< HEAD
->>>>>>> damquangthanh
-=======
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
 
                         <div class="pagination--wrapper clearfix pd--30-0">
                            <p class="pagination-hint float--left">Page 02 of 03</p>
@@ -161,54 +103,11 @@
                            </div>
                         </div>
                         <div class="widget">
-<<<<<<< HEAD
-<<<<<<< HEAD
-                           <div class="widget--title">
-                              <h2 class="h4">My Cart</h2>
-                              <i class="icon fa fa-shopping-cart"></i> 
-                           </div>
-                           <div class="cart--widget">
-                              <ul class="nav">
-                                 <li class="clearfix">
-                                    <div class="img"> <a href="#" class="btn-link"><img src="img/shop-img/cart-item-01.jpg" alt=""></a> </div>
-                                    <div class="info">
-                                       <h3 class="h4"><a href="#" class="btn-link">Lorem ipsum dolor sit amet quam ipsum</a></h3>
-                                       <p class="text--color-1">$69.99 * 2</p>
-                                    </div>
-                                    <a href="#" class="remove"><i class="fa fa-remove"></i></a> 
-                                 </li>
-                                 <li class="clearfix">
-                                    <div class="img"> <a href="#" class="btn-link"><img src="img/shop-img/cart-item-02.jpg" alt=""></a> </div>
-                                    <div class="info">
-                                       <h3 class="h4"><a href="#" class="btn-link">Lorem ipsum dolor sit amet quam ipsum</a></h3>
-                                       <p class="text--color-1">$69.99 * 2</p>
-                                    </div>
-                                    <a href="#" class="remove"><i class="fa fa-remove"></i></a> 
-                                 </li>
-                                 <li class="clearfix">
-                                    <div class="img"> <a href="#" class="btn-link"><img src="img/shop-img/cart-item-03.jpg" alt=""></a> </div>
-                                    <div class="info">
-                                       <h3 class="h4"><a href="#" class="btn-link">Lorem ipsum dolor sit amet quam ipsum</a></h3>
-                                       <p class="text--color-1">$69.99 * 2</p>
-                                    </div>
-                                    <a href="#" class="remove"><i class="fa fa-remove"></i></a> 
-                                 </li>
-                              </ul>
-                           </div>
-                        </div>
-=======
                         <div class="widget">
                         <div class="widget--title">
                            <h2 class="h4">My Wishlist</h2>
                            <i class="icon fa fa-heart"></i> 
                         </div>
-=======
-                        <div class="widget">
-                        <div class="widget--title">
-                           <h2 class="h4">My Wishlist</h2>
-                           <i class="icon fa fa-heart"></i> 
-                        </div>
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                         <div class="cart--widget">
                            <ul class="nav">
                                  @foreach ($wishlists as $wishlist)
@@ -242,10 +141,6 @@
                      </div>
 
 
-<<<<<<< HEAD
->>>>>>> damquangthanh
-=======
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                         <div class="widget">
                            <div class="widget--title">
                               <h2 class="h4">Catagory</h2>
@@ -253,50 +148,13 @@
                            </div>
                            <div class="nav--widget">
                               <ul class="nav">
-<<<<<<< HEAD
-<<<<<<< HEAD
-                                 <li><a href="#"><span>Fashion</span><span>(22)</span></a></li>
-                                 <li><a href="#"><span>Winter</span><span>(16)</span></a></li>
-                                 <li><a href="#"><span>Exclusive</span><span>(84)</span></a></li>
-                                 <li><a href="#"><span>Summer</span><span>(11)</span></a></li>
-                                 <li><a href="#"><span>Heavy Style</span><span>(19)</span></a></li>
-=======
                               @foreach($productCategories as $category)
                                  <li><a href="#"><span>{{ $category->name }}</span><span>({{ $category->products_count }})</span></a></li>
                                  @endforeach
->>>>>>> damquangthanh
-=======
-                              @foreach($productCategories as $category)
-                                 <li><a href="#"><span>{{ $category->name }}</span><span>({{ $category->products_count }})</span></a></li>
-                                 @endforeach
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                               </ul>
                            </div>
                         </div>
                         <div class="widget">
-<<<<<<< HEAD
-<<<<<<< HEAD
-                           <div class="widget--title">
-                              <h2 class="h4">Tags</h2>
-                              <i class="icon fa fa-tags"></i> 
-                           </div>
-                           <div class="tags--widget style--1">
-                              <ul class="nav">
-                                 <li><a href="#">News</a></li>
-                                 <li><a href="#">Image</a></li>
-                                 <li><a href="#">Music</a></li>
-                                 <li><a href="#">Video</a></li>
-                                 <li><a href="#">Audio</a></li>
-                                 <li><a href="#">Fashion</a></li>
-                                 <li><a href="#">Latest</a></li>
-                                 <li><a href="#">Trendy</a></li>
-                                 <li><a href="#">Special</a></li>
-                                 <li><a href="#">Recipe</a></li>
-                                 <li><a href="#">Sports</a></li>
-                              </ul>
-                           </div>
-                        </div>
-=======
                         <div class="widget--title  " data-ajax="tab">
                            <h2 class="h4">Từ khóa</h2>
                         </div>
@@ -309,21 +167,6 @@
                            </div>
                         </div>
                      </div>
->>>>>>> damquangthanh
-=======
-                        <div class="widget--title  " data-ajax="tab">
-                           <h2 class="h4">Từ khóa</h2>
-                        </div>
-                        <div class="list--widget list--widget-1" data-ajax-content="outer">
-                           <!-- Post Items Start -->
-                           <div class="post--items post--items-3">
-                              <ul style="padding:20px" class="nav sidebar" data-ajax-content="inner">
-                                 <x-blog.side-tags :tags="$tags"/>
-                              </ul>
-                           </div>
-                        </div>
-                     </div>
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                         <div class="widget">
                            <div class="widget--title">
                               <h2 class="h4">Advertisement</h2>
@@ -355,12 +198,4 @@
             </div>
          </div>
       </section>        
-<<<<<<< HEAD
-<<<<<<< HEAD
       @endsection
-=======
-      @endsection
->>>>>>> damquangthanh
-=======
-      @endsection
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb

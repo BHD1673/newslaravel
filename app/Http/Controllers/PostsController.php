@@ -62,93 +62,6 @@ class PostsController extends Controller
         ]);
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    public function addComment(Post $post)
-    {
-        $attributes = request()->validate([
-            'the_comment' => 'required|min:5|max:300']);
-=======
-  public function addComment(Post $post)
-{
-    $attributes = request()->validate([
-        'the_comment' => 'required|min:5|max:300'
-    ]);
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
-
-    // Danh sách từ cấm (chửi bậy)
-    $badWords = ['từ1', 'từ2', 'từ3']; // Thêm từ ngữ xấu vào đây
-
-    // Kiểm tra xem bình luận có chứa từ xấu không
-    foreach ($badWords as $word) {
-        if (stripos($attributes['the_comment'], $word) !== false) {
-            return redirect()->back()->withErrors(['the_comment' => 'Bình luận không được chứa từ ngữ không phù hợp.'])->withInput();
-        }
-    }
-
-    $attributes['user_id'] = auth()->id();
-
-    $comment = $post->comments()->create($attributes);
-
-    return redirect('/posts/' . $post->slug . '#comment_' . $comment->id)->with('success', 'Bạn vừa bình luận thành công.');
-}
-
-public function addCommentUser()
-{
-    $data = array();
-    $data['success'] = 0;
-    $data['errors'] = [];
-
-    $rules = [
-        'the_comment' => 'required|min:5|max:300',
-        'post_title' => 'required',
-    ];
-
-    $validated = Validator::make(request()->all(), $rules);
-
-    if ($validated->fails()) {
-        $data['errors'] = $validated->errors()->first('the_comment');
-        $data['message'] = "Không thể bình luận.";
-    } else {
-        $attributes = $validated->validated();
-        $post = Post::where('title', $attributes['post_title'])->first();
-
-        if (!$post) {
-            $data['message'] = "Không tìm thấy bài viết.";
-            return response()->json($data);
-        }
-        $badWords = ['ditmemay', 'dittomay', 'từ3']; 
-
-
-        foreach ($badWords as $word) {
-            if (stripos($attributes['the_comment'], $word) !== false) {
-                $data['errors'] = "Bình luận không được chứa từ ngữ không phù hợp.";
-                $data['message'] = "Không thể bình luận.";
-                return response()->json($data);
-            }
-        }
-
-        $comment['the_comment'] = $attributes['the_comment'];
-        $comment['post_id'] = $post->id;
-        $comment['user_id'] = auth()->id();
-
-        $post->comments()->create($comment);
-
-        $data['success'] = 1;
-        $data['message'] = "Bạn đã bình luận thành công!";
-        $data['result'] = $comment;
-    }
-
-    return response()->json($data);
-}
-
-
-    
-
-   
-<<<<<<< HEAD
-}
-=======
   public function addComment(Post $post)
 {
     $attributes = request()->validate([
@@ -226,7 +139,3 @@ public function addCommentUser()
 
    
 }
->>>>>>> damquangthanh
-=======
-}
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb

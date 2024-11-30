@@ -49,14 +49,7 @@
                                 <th>Sản phẩm</th> 
                                 <th>Tên Khách hàng</th>
                                 <th>Địa chỉ</th>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
                                 <th>Phương thức thanh toán</th>
->>>>>>> damquangthanh
-=======
-                                <th>Phương thức thanh toán</th>
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                                 <th>Số điện thoại</th>
                                 <th>Số lượng</th>
                                 <th>Tổng giá</th>
@@ -86,25 +79,12 @@
                               </td>
                                 <td>{{ $order->user->name }}</td>
                                 <td>{{ $order->address }}</td>
-<<<<<<< HEAD
-<<<<<<< HEAD
-                                <td>{{ $order->phone }}</td>
-                                <td>    <span>{{ $item->product->name }} (x{{ $item->quantity }})</span> <!-- Hiển thị tên sản phẩm và số lượng -->
-=======
                                 <td>{{ $order->payment_method }}</td>
                                 <td>{{ $order->phone }}</td>
-=======
-                                <td>{{ $order->payment_method }}</td>
-                                <td>{{ $order->phone }}</td>
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                                
                                 <td>   @foreach ($order->orderItems as $item)
                                       <span>{{ $item->product->name }} (x{{ $item->quantity }})</span> <!-- Hiển thị tên sản phẩm và số lượng -->
                                       @endforeach
-<<<<<<< HEAD
->>>>>>> damquangthanh
-=======
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb
                                 </td>
                                 <td>{{ number_format($order->total_price, 0, ',', '.') }} VNĐ</td>
                                 <td>{{ $order->created_at }}</td>
@@ -167,12 +147,4 @@
         }, 5000);
     });
 </script>
-<<<<<<< HEAD
-<<<<<<< HEAD
 @endsection
-=======
-@endsection
->>>>>>> damquangthanh
-=======
-@endsection
->>>>>>> 63227c6da74f74aaded2bbfc04e4e2d1299f3afb

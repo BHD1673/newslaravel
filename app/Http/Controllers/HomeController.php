@@ -8,18 +8,10 @@ use App\Models\Tag;
 use App\Models\Comment;
 use App\Models\User;
 use App\Models\Image;
-<<<<<<< HEAD
-
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Hash;
-=======
 use App\Models\Subscription;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
->>>>>>> damquangthanh
 
 class HomeController extends Controller
 {
@@ -158,20 +150,6 @@ class HomeController extends Controller
 
         return view('search', compact('posts', 'title', 'time', 'recent_posts', 'categories', 'key', 'posts_new', 'outstanding_posts'));
     }
-<<<<<<< HEAD
-=======
-    public function premium()
-    {
-        $user = Auth::user();
-        $subscriptions = $user->subscriptions()->orderBy('starts_at', 'desc')->get();
-
-        return view('premium.upgrade', [
-            'isPremium' => $user->is_premium,
-            'premiumExpiresAt' => $user->premium_expires_at,
-            'subscriptions' => $subscriptions,
-        ]);
-    }
->>>>>>> damquangthanh
 
     public function newPost()
     {
@@ -361,5 +339,15 @@ class HomeController extends Controller
         }
 
         return redirect()->route('profile')->with('success', 'Sửa tài khoản thành công.');
+    }
+    public function premium()
+    {
+        $user = auth()->user();
+        $subscriptions = Subscription::where('user_id', $user->id)->get(); // Lấy lịch sử đăng ký
+        return view('premium.index', [
+            'isPremium' => $user->is_premium ?? false,
+            'premiumExpiresAt' => $user->premium_expires_at ?? null,
+            'subscriptions' => $subscriptions,
+        ]);
     }
 }
