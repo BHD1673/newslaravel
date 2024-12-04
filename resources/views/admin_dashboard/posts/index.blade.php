@@ -78,10 +78,8 @@
                                 <td>
                                     <div class="d-flex order-actions">
                                         <a  href="{{ route('admin.posts.edit', $post)}}" ><i class='bx bxs-edit'></i></a>
-                                        @if($post->approved === 1)
-                                        <a href="#"onclick="event.preventDefault(); document.querySelector('#delete_form_{{ $post->id }}').submit();" class="ms-3 {{ $isEmployee ? 'd-none' : '' }}"><i class='bx bxs-trash'></i></a>
-                                        @else
-                                        <a href="#" onclick="return confirmDelete({{ $post->approved }}, {{ $post->id }});" class="ms-3 {{ $isEmployee ? 'd-none' : '' }}"><i class='bx bxs-trash'></i></a>
+                                        @if($post->approved === 1 || $post->approved === 3 || $post->approved === 2 )
+                                        <a href="#"onclick="event.preventDefault(); if (confirmDeletePost())   document.querySelector('#delete_form_{{ $post->id }}').submit();" class="ms-3 {{ $isEmployee ? 'd-none' : '' }}"><i class='bx bxs-trash'></i></a>
                                         @endif
                                         @if($post->approved === 2 )
                                         <a href="#" class="mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$post->id}}"><i class='bx bxs-x-circle'></i></a>
@@ -149,9 +147,13 @@
 
     });
 
-    function confirmDelete(status, postID) {
-        return confirm(`Bài viết [ ${postID} ] đã  ${ status === 2 ? 'bị từ chối' : 'được phê duyệt'}. Bạn không thể chuyển bài vào thùng rác.`);
+    function confirmDeletePost() {
+        return confirm(`Bạn chắc chắn muốn chuyển bài viết vào thùng rác không!`);
     }
+
+    // function confirmDelete(status, postID) {
+    //     return confirm(`Bài viết [ ${postID} ] đã  ${ status === 2 ? 'bị từ chối' : 'được phê duyệt'}. Bạn không thể chuyển bài vào thùng rác.`);
+    // }
 </script>
 
 @endsection

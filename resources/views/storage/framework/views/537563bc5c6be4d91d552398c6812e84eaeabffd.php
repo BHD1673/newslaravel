@@ -40,88 +40,98 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php $__currentLoopData = $posts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $post): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div>
-                                            <input class="form-check-input me-3" type="checkbox" value="" aria-label="...">
+                            <?php $__currentLoopData = $posts;
+                            $__env->addLoop($__currentLoopData);
+                            foreach ($__currentLoopData as $post): $__env->incrementLoopIndices();
+                                $loop = $__env->getLastLoop(); ?>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div>
+                                                <input class="form-check-input me-3" type="checkbox" value="" aria-label="...">
+                                            </div>
+                                            <div class="ms-2">
+                                                <h6 class="mb-0 font-14">#P-<?php echo e($post->id); ?></h6>
+                                            </div>
                                         </div>
-                                        <div class="ms-2">
-                                            <h6 class="mb-0 font-14">#P-<?php echo e($post->id); ?></h6>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td><?php echo e($post->title); ?></td>
+                                    </td>
+                                    <td><?php echo e($post->title); ?></td>
 
 
-                                <td><?php echo e($post->excerpt); ?></td>
-                                <td><?php echo e($post->category->name); ?></td>
-                                <td><?php echo e($post->created_at->format('d/m/Y')); ?></td>
-                                <td>
-                                    <div class="p-2 px-3">
-                                        <?php if($post->approved === 1): ?>
-                                        <span class="badge bg-warning text-dark">Chưa phê duyệt</span>
-                                        <?php elseif($post->approved === 2): ?>
-                                        <span class="badge bg-danger">Từ chối</span>
-                                        <?php elseif($post->approved === 3): ?>
-                                        <span class="badge bg-success">Bài viết đã được duyệt</span>
-                                        <?php else: ?>
-                                        <p>Trạng thái không xác định</p>
-                                        <?php endif; ?>
-                                    </div>
-                                </td>
-                                <td><?php echo e($post->views); ?></td>
-
-                                <td>
-                                    <div class="d-flex order-actions">
-                                        <a  href="<?php echo e(route('admin.posts.edit', $post)); ?>" ><i class='bx bxs-edit'></i></a>
-                                        <?php if($post->approved === 1): ?>
-                                        <a href="#"onclick="event.preventDefault(); document.querySelector('#delete_form_<?php echo e($post->id); ?>').submit();" class="ms-3 <?php echo e($isEmployee ? 'd-none' : ''); ?>"><i class='bx bxs-trash'></i></a>
-                                        <?php else: ?>
-                                        <a href="#" onclick="return confirmDelete(<?php echo e($post->approved); ?>, <?php echo e($post->id); ?>);" class="ms-3 <?php echo e($isEmployee ? 'd-none' : ''); ?>"><i class='bx bxs-trash'></i></a>
-                                        <?php endif; ?>
-                                        <?php if($post->approved === 2 ): ?>
-                                        <a href="#" class="mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal_<?php echo e($post->id); ?>"><i class='bx bxs-x-circle'></i></a>
-                                        <?php endif; ?>
-                                        <?php if($isAdmin): ?>
-                                        <form method="post" action="<?php echo e(route('admin.post.softDelete', $post)); ?>" id="delete_form_<?php echo e($post->id); ?>">
-                                            <?php echo csrf_field(); ?>
-                                            <?php echo method_field('PUT'); ?>
-                                        </form>
-                                        <?php else: ?>
-                                        <form method="post" action="<?php echo e(route('admin.posts.destroy', $post)); ?>" id="delete_form_<?php echo e($post->id); ?>">
-                                            <?php echo csrf_field(); ?>
-                                            <?php echo method_field('DELETE'); ?>
-                                        </form>
-                                        <?php endif; ?>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModal_<?php echo e($post->id); ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">LÝ DO TỪ CHỐI</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                        <?php $__currentLoopData = $postLog; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                            <?php if($item->post_id === $post->id): ?>
-                                                <p><b class="text-uppercase"><?php echo e($item->role_log); ?></b> : <?php echo e($item->note); ?></p>
-                                                <p><b class="text-uppercase">Thời gian từ chối</b> : <?php echo e($item->date_log); ?></p>
+                                    <td><?php echo e($post->excerpt); ?></td>
+                                    <td><?php echo e($post->category->name); ?></td>
+                                    <td><?php echo e($post->created_at->format('d/m/Y')); ?></td>
+                                    <td>
+                                        <div class="p-2 px-3">
+                                            <?php if ($post->approved === 1): ?>
+                                                <span class="badge bg-warning text-dark">Chưa phê duyệt</span>
+                                            <?php elseif ($post->approved === 2): ?>
+                                                <span class="badge bg-danger">Từ chối</span>
+                                            <?php elseif ($post->approved === 3): ?>
+                                                <span class="badge bg-success">Bài viết đã được duyệt</span>
+                                            <?php else: ?>
+                                                <p>Trạng thái không xác định</p>
                                             <?php endif; ?>
-                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                    </td>
+                                    <td><?php echo e($post->views); ?></td>
+
+                                    <td>
+                                        <div class="d-flex order-actions">
+                                            <a href="<?php echo e(route('admin.posts.edit', $post)); ?>"><i class='bx bxs-edit'></i></a>
+                                            <?php if ($post->approved === 1 || $post->approved === 3): ?>
+                                                <a href="#" onclick="event.preventDefault(); document.querySelector('#delete_form_<?php echo e($post->id); ?>').submit();" class="ms-3 <?php echo e($isEmployee ? 'd-none' : ''); ?>"><i class='bx bxs-trash'></i></a>
+                                            <?php else: ?>
+                                                <a href="#" onclick="return confirmDelete(<?php echo e($post->approved); ?>, <?php echo e($post->id); ?>);" class="ms-3 <?php echo e($isEmployee ? 'd-none' : ''); ?>"><i class='bx bxs-trash'></i></a>
+                                            <?php endif; ?>
+                                            <?php if ($post->approved === 2): ?>
+                                                <a href="#" class="mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal_<?php echo e($post->id); ?>"><i class='bx bxs-x-circle'></i></a>
+                                            <?php endif; ?>
+                                            <?php if ($isAdmin): ?>
+                                                <form method="post" action="<?php echo e(route('admin.post.softDelete', $post)); ?>" id="delete_form_<?php echo e($post->id); ?>">
+                                                    <?php echo csrf_field(); ?>
+                                                    <?php echo method_field('PUT'); ?>
+                                                </form>
+                                            <?php else: ?>
+                                                <form method="post" action="<?php echo e(route('admin.posts.destroy', $post)); ?>" id="delete_form_<?php echo e($post->id); ?>">
+                                                    <?php echo csrf_field(); ?>
+                                                    <?php echo method_field('DELETE'); ?>
+                                                </form>
+                                            <?php endif; ?>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="exampleModal_<?php echo e($post->id); ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">LÝ DO TỪ CHỐI</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <?php $__currentLoopData = $postLog;
+                                                $__env->addLoop($__currentLoopData);
+                                                foreach ($__currentLoopData as $item): $__env->incrementLoopIndices();
+                                                    $loop = $__env->getLastLoop(); ?>
+                                                    <?php if ($item->post_id === $post->id): ?>
+                                                        <p><b class="text-uppercase"><?php echo e($item->role_log); ?></b> : <?php echo e($item->note); ?></p>
+                                                        <p><b class="text-uppercase">Thời gian từ chối</b> : <?php echo e($item->date_log); ?></p>
+                                                    <?php endif; ?>
+                                                <?php endforeach;
+                                                $__env->popLoop();
+                                                $loop = $__env->getLastLoop(); ?>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php endforeach;
+                            $__env->popLoop();
+                            $loop = $__env->getLastLoop(); ?>
 
                         </tbody>
                     </table>
