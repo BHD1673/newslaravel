@@ -1,0 +1,1 @@
+<img style="border-radius: 50px; "class="w-160 fill-current text-gray-500" src="<?php echo e(asset('kcnew/frontend/img/image_logo.png')); ?>" alt="logo" ><?php /**PATH C:\laragon\www\Project\newslaravel\resources\views/components/application-logo.blade.php ENDPATH**/ ?>

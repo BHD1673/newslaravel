@@ -58,7 +58,7 @@
 
 										<div class="mb-3">
 													<label for="input_password" class="form-label">Mật khẩu</label>
-													<input name="password" type="password"  class="form-control" id="input_password">
+													<input {{ $is_no_admin ? 'disabled' : '' }} name="password" type="password"  class="form-control" id="input_password">
 												
 													@error('password')
 														<p class="text-danger">{{ $message }}</p>
@@ -89,7 +89,7 @@
 													<div class="card-body">
 														<div class="p-3 rounded">
 															<div class="mb-3">
-																<select name="role_id" required class="single-select">
+																<select {{ $is_no_admin ? 'disabled' : '' }} name="role_id" required class="single-select">
 																	@foreach( $roles as $key => $role )
 																	<option {{ $user->role_id === $key ? "selected" : '' }} value="{{ $key }}">{{ $role }}</option>
 																	@endforeach
@@ -107,7 +107,7 @@
 
 										<button class="btn btn-primary" type="submit">Sửa tài khoản</button>
 
-										<a class="btn btn-danger" onclick="event.preventDefault(); document.getElementById('delete_user_{{ $user->id }}').submit();" 
+										<a class="btn btn-danger {{ $is_no_admin ? 'd-none' : '' }}" onclick="event.preventDefault(); document.getElementById('delete_user_{{ $user->id }}').submit();" 
 										href="#">Xóa tài khoản</a>
 
 									</div>

@@ -25,6 +25,7 @@ return new class extends Migration
 
             $table->integer('views')->default(0);
             $table->boolean('approved')->default(true);
+            $table->boolean("is_delete_post")->default(false);
 
             $table->timestamps();
         });

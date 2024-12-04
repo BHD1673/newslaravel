@@ -15,7 +15,19 @@ class Post extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['title','slug', 'excerpt', 'body', 'user_id','category_id', 'approved'];
+    protected $fillable = ['title','slug', 'excerpt', 'body', 'user_id','category_id', 'approved', 'is_delete_post'];
+
+    const APPROVED = [
+        'not_approved_yet' => 1,
+        'refuse' => 2,
+        'browse' => 3
+        
+    ];
+
+    const POST_DELETE = [
+        'true' => 1,
+        'flase' => 0
+    ];
     
     public function author() {
         return $this->belongsTo(User::class, 'user_id');
@@ -23,7 +35,11 @@ class Post extends Model
 
     public function category() {
         return $this->belongsTo(Category::class);
-    } 
+    }
+
+    public function postLog() {
+        return $this->belongsTo(PostLog::class);
+    }
 
     public function tags() {
         return $this->belongsToMany(Tag::class);
