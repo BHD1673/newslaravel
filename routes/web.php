@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AdminControllers\DashboardController;
 use App\Http\Controllers\AdminControllers\AdminPostsController;
+use App\Http\Controllers\AdminControllers\AdminPostHistorieController;
 use App\Http\Controllers\AdminControllers\TinyMCEController;
 use App\Http\Controllers\AdminControllers\AdminCategoriesController;
 use App\Http\Controllers\AdminControllers\AdminTagsController;
@@ -23,7 +24,7 @@ use App\Http\Controllers\AdminControllers\AdminRolesController;
 use App\Http\Controllers\AdminControllers\AdminUsersController;
 use App\Http\Controllers\AdminControllers\AdminContactsController;
 use App\Http\Controllers\AdminControllers\AdminSettingController;
-
+use App\Http\Controllers\AdminControllers\AdminPostImagesController;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostsController;
@@ -73,8 +74,15 @@ Route::prefix('admin')->name('admin.')->middleware(['auth','check_permissions'])
     Route::post('upload_tinymce_image', [TinyMCEController::class, 'upload_tinymce_image'])->name('upload_tinymce_image');
     
     Route::resource('posts', AdminPostsController::class);
+    Route::get('post-soft-delete', [AdminPostsController::class , 'postSoftDelete'])->name('post-soft-delete');
+    Route::put('posts/soft-delete/{post}', [AdminPostsController::class , 'softDelete'])->name('post.softDelete');
+    Route::put('posts/undo-soft-delete/{post}', [AdminPostsController::class , 'undoSoftDelete'])->name('post.undoSoftDelete');
+    Route::get('post-history',[AdminPostHistorieController::class, 'index'])->name('post-history.index');
+    Route::delete('post-history/{postHistorie}',[AdminPostHistorieController::class, 'destroy'])->name('post-history.destroy');
+    Route::delete('post-history',[AdminPostHistorieController::class, 'removeAll'])->name('post-history.removeAll');
     Route::post('/poststitle', [AdminPostsController::class, 'to_slug'])->name('posts.to_slug');
     Route::resource('categories', AdminCategoriesController::class);
+    Route::delete('post-img/{id}',[AdminPostImagesController::class, 'destroy'])->name('post-img.destroy');
 
     Route::resource('tags', AdminTagsController::class)->only(['index','show','destroy']);
     Route::resource('comments', AdminCommentsController::class)->except('show');

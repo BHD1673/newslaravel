@@ -1,5 +1,5 @@
 @extends("admin_dashboard.layouts.app")
-		
+
 @section("wrapper")
 <!--start page wrapper -->
 <div class="page-wrapper">
@@ -18,14 +18,14 @@
             </div>
         </div>
         <!--end breadcrumb-->
-        
+
         <div class="card">
             <div class="card-body">
                 <div class="d-lg-flex align-items-center mb-4 gap-3">
                     <div class="position-relative">
                         <input type="text" class="form-control ps-5 radius-30" placeholder="Tìm kiếm bài viết"> <span class="position-absolute top-50 product-show translate-middle-y"><i class="bx bx-search"></i></span>
                     </div>
-                    <div class="ms-auto"><a href="{{ route('admin.posts.create') }}" class="btn btn-primary radius-30 mt-2 mt-lg-0"><i class="bx bxs-plus-square"></i>Thêm bài viết mới</a></div>
+                    <div class="ms-auto"><a href="{{ route('admin.posts.create') }}" class="btn btn-primary radius-30 mt-2 mt-lg-0 {{ $isEmployee ? 'd-none' : '' }}"><i class="bx bxs-plus-square"></i>Thêm bài viết mới</a></div>
                 </div>
                 <div class="table-responsive">
                     <table class="table mb-0">
@@ -55,37 +55,78 @@
                                     </div>
                                 </td>
                                 <td>{{ $post->title }}</td>
-                               
-                                
+
+
                                 <td>{{ $post->excerpt }}</td>
                                 <td>{{ $post->category->name }}</td>
                                 <td>{{ $post->created_at->format('d/m/Y') }}</td>
                                 <td>
-                                    <div class="badge rounded-pill @if($post->approved === 1)  {{'text-success bg-light-success' }} @else {{'text-danger bg-light-danger' }} @endif p-2 text-uppercase px-3">
-                                        <i class='bx bxs-circle me-1'></i>{{ $post->approved  === 1 ? 'Đã phê duyệt' : 'Chưa phê duyệt'  }}
+                                    <div class="p-2 px-3">
+                                        @if($post->approved === 1)
+                                        <span class="badge bg-warning text-dark">Chưa phê duyệt</span>
+                                        @elseif($post->approved === 2)
+                                        <span class="badge bg-danger">Từ chối</span>
+                                        @elseif($post->approved === 3)
+                                        <span class="badge bg-success">Bài viết đã được duyệt</span>
+                                        @else
+                                        <p>Trạng thái không xác định</p>
+                                        @endif
                                     </div>
                                 </td>
                                 <td>{{ $post->views }}</td>
-                               
+
                                 <td>
                                     <div class="d-flex order-actions">
-                                        <a href="{{ route('admin.posts.edit', $post)}}" class=""><i class='bx bxs-edit'></i></a>
-                                        <a href="#" onclick="event.preventDefault(); document.querySelector('#delete_form_{{ $post->id }}').submit();" class="ms-3"><i class='bx bxs-trash'></i></a>
-
+                                        <a  href="{{ route('admin.posts.edit', $post)}}" ><i class='bx bxs-edit'></i></a>
+                                        @if($post->approved === 1 || $post->approved === 3 || $post->approved === 2 )
+                                        <a href="#"onclick="event.preventDefault(); if (confirmDeletePost())   document.querySelector('#delete_form_{{ $post->id }}').submit();" class="ms-3 {{ $isEmployee ? 'd-none' : '' }}"><i class='bx bxs-trash'></i></a>
+                                        @endif
+                                        @if($post->approved === 2 )
+                                        <a href="#" class="mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$post->id}}"><i class='bx bxs-x-circle'></i></a>
+                                        @endif
+                                        @if($isAdmin)
+                                        <form method="post" action="{{ route('admin.post.softDelete', $post) }}" id="delete_form_{{ $post->id }}">
+                                            @csrf
+                                            @method('PUT')
+                                        </form>
+                                        @else
                                         <form method="post" action="{{ route('admin.posts.destroy', $post) }}" id="delete_form_{{ $post->id }}">
                                             @csrf
                                             @method('DELETE')
                                         </form>
-                                    
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal_{{$post->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">LÝ DO TỪ CHỐI</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                        @foreach ($postLog as $item)
+                                            @if($item->post_id === $post->id)
+                                                <p><b class="text-uppercase">{{ $item->role_log }}</b> : {{ $item->note }}</p>
+                                                <p><b class="text-uppercase">Thời gian từ chối</b> : {{ $item->date_log }}</p>
+                                            @endif
+                                        @endforeach
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             @endforeach
-                          
+
                         </tbody>
                     </table>
                 </div>
-                
+
                 <div class="mt-4">{{ $posts->links() }}</div>
 
             </div>
@@ -98,13 +139,21 @@
 @endsection
 
 @section("script")
-	<script>
-		$(document).ready(function () {
-		setTimeout(()=>{
-				$(".general-message").fadeOut();
-		},5000);
+<script>
+    $(document).ready(function() {
+        setTimeout(() => {
+            $(".general-message").fadeOut();
+        }, 5000);
 
-		});
-	</script>
+    });
+
+    function confirmDeletePost() {
+        return confirm(`Bạn chắc chắn muốn chuyển bài viết vào thùng rác không!`);
+    }
+
+    // function confirmDelete(status, postID) {
+    //     return confirm(`Bài viết [ ${postID} ] đã  ${ status === 2 ? 'bị từ chối' : 'được phê duyệt'}. Bạn không thể chuyển bài vào thùng rác.`);
+    // }
+</script>
 
 @endsection
