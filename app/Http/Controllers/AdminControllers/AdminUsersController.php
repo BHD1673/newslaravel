@@ -10,8 +10,17 @@ use Illuminate\Validation\Rule;
 use App\Models\Role;
 use App\Models\User;
 
+use App\Http\Services\UserService;
+
 class AdminUsersController extends Controller
 {
+
+    protected $userService;
+    public function __construct()
+    {
+        $this->userService = new UserService();
+    }
+
     private $rules = [
         'name' => 'required|min:3',
         'email' => 'required|email|unique:users,email',
@@ -22,9 +31,9 @@ class AdminUsersController extends Controller
 
     public function index()
     {
-        return view('admin_dashboard.users.index', [
-            'users' => User::with('role')->paginate(20),
-        ]);
+        $users = $this->userService->index();
+        $isNoAdmin = $this->userService->isNoAdmin();
+        return view('admin_dashboard.users.index', compact('users', 'isNoAdmin'));
     }
 
   
@@ -62,8 +71,10 @@ class AdminUsersController extends Controller
  
     public function edit(User $user)
     {
+        $isNoAdmin = $this->userService->isNoAdmin();
         return view('admin_dashboard.users.edit', [
             'user' => $user,
+            'is_no_admin' => $isNoAdmin,
             'roles' => Role::pluck('name','id'),
         ]);
     }

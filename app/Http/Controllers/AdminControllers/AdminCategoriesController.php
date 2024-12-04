@@ -28,7 +28,8 @@ class AdminCategoriesController extends Controller
         ];
 
         $categories = $this->categoryService->index($params);
-        return view('admin_dashboard.categories.index', compact('categories'));
+        $isReporter = $this->categoryService->isReporter();
+        return view('admin_dashboard.categories.index', compact('categories', 'isReporter'));
     }
 
 
