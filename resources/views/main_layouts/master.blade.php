@@ -111,8 +111,8 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 								<img style="border-radius: 12px; height: 40px;" src="{{ asset('kcnew/frontend/img/image_logo.png') }}" alt="logo">
 							</a>
 						</li>
-						<li><i class="fa fm fa-map-marker"></i>Hồ Chí Minh</li>
-						<li><i class="fa fm fa-mixcloud"></i>28<sup>0</sup> C</li>
+						<li id="location"><i class="fa fm fa-map-marker"></i> Loading...</li>
+						<li id="weather"><i class="fa fm fa-mixcloud"></i> Đang lấy thời tiết...</li>
 						<li style="text-transform: capitalize" ><i class="fa fm fa-calendar"></i>Hôm nay ( {{ $now->translatedFormat('l') }}, Ngày {{ $now->translatedFormat('jS F')}} Năm {{ $now->translatedFormat('Y')}} )</li>
 					</ul>
 					<!-- Header Topbar Info End -->
@@ -125,9 +125,16 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 							<li class="btn-cta">
 								<a href="{{ route('login') }}">
 									<i class="fa fm fa-user-o"></i>
-									<span>Đăng Nhập</span>
+									<span>Đăng nhập</span>
 								</a>
 							</li>
+							<li class="btn-cta">
+								<a href="{{ route('register') }}">
+									<i class="fa fm fa-user-o"></i>
+									<span>Đăng ký</span>
+								</a>
+							</li>
+							
 							@endguest
 
 							@auth
@@ -166,11 +173,10 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 	
 					<!-- Header Topbar Social Start -->
 					<ul class="header--topbar-social nav hidden-sm hidden-xxs">
-						<li><a href="https://www.facebook.com/people/Anh-Tuan/100007007238964"><i class="fa fa-facebook"></i></a></li>
-						<li><a href="https://www.youtube.com/c/H%E1%BB%93AnhTu%E1%BA%A5nYoutube"><i class="fa fa-twitter"></i></a></li>
-						<li><a href="https://www.youtube.com/c/H%E1%BB%93AnhTu%E1%BA%A5nYoutube"><i class="fa fa-google-plus"></i></a></li>
-						<li><a href="https://www.youtube.com/c/H%E1%BB%93AnhTu%E1%BA%A5nYoutube"><i class="fa fa-rss"></i></a></li>
-						<li><a href="https://www.youtube.com/c/H%E1%BB%93AnhTu%E1%BA%A5nYoutube"><i class="fa fa-youtube-play"></i></a></li>
+						<li><a href="https://www.facebook.com"><i class="fa fa-facebook"></i></a></li>
+						<li><a href="https://www.youtube.com"><i class="fa fa-twitter"></i></a></li>
+						<li><a href="https://www.youtube.com"><i class="fa fa-google-plus"></i></a></li>
+						<li><a href="https://www.youtube.com"><i class="fa fa-youtube-play"></i></a></li>
 					</ul>
 					<!-- Header Topbar Social End -->
 				</div>
@@ -384,10 +390,10 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 					<p>
 						<ul style="display: flex;" class="header--topbar-social nav hidden-sm hidden-xxs">
 							<li><a href="https://www.facebook.com/people/Anh-Tuan/100007007238964"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="https://www.youtube.com/c/H%E1%BB%93AnhTu%E1%BA%A5nYoutube"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="https://www.youtube.com/c/H%E1%BB%93AnhTu%E1%BA%A5nYoutube"><i class="fa fa-google-plus"></i></a></li>
-							<li><a href="https://www.youtube.com/c/H%E1%BB%93AnhTu%E1%BA%A5nYoutube"><i class="fa fa-rss"></i></a></li>
-							<li><a href="https://www.youtube.com/c/H%E1%BB%93AnhTu%E1%BA%A5nYoutube"><i class="fa fa-youtube-play"></i></a></li>
+							<li><a href="https://www.youtube.com"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="https://www.youtube.com"><i class="fa fa-google-plus"></i></a></li>
+							<li><a href="https://www.youtube.com"><i class="fa fa-rss"></i></a></li>
+							<li><a href="https://www.youtube.com"><i class="fa fa-youtube-play"></i></a></li>
 						</ul>
 					</p>
 				</div>
@@ -525,6 +531,133 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 			});
 		});
 	</script>
+
+
+	<script>
+		const weatherApiKey = '90b78c8ab60ef231cb7661482322c69b'; // API key của bạn
+		const hanoiLatitude = 21.0285; // Vĩ độ của Hà Nội
+		const hanoiLongitude = 105.8542; // Kinh độ của Hà Nội
+
+		async function getWeather(latitude, longitude, fallback = false) {
+		try {
+			const weatherResponse = await fetch(
+			`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&lang=vi&appid=${weatherApiKey}`
+			);
+			const weatherData = await weatherResponse.json();
+
+			const location = weatherData.name || "Không rõ địa điểm";
+			const temperature = weatherData.main.temp || "N/A";
+			const description = weatherData.weather[0].description || "Không rõ thời tiết";
+
+			document.getElementById("location").innerHTML = `<i class="fa fm fa-map-marker"></i> ${location}`;
+			document.getElementById("weather").innerHTML = `<i class="fa fm fa-mixcloud"></i> ${temperature}<sup>°C</sup> - ${description}`;
+		} catch (error) {
+			console.error("Lỗi khi lấy thời tiết:", error);
+			if (!fallback) {
+			// Dùng API khác nếu OpenWeatherMap thất bại
+			getWeatherFallback();
+			} else {
+			document.getElementById("weather").innerHTML = `<i class="fa fm fa-mixcloud"></i> Không thể lấy dự báo thời tiết.`;
+			}
+		}
+		}
+
+		async function getWeatherFallback() {
+		try {
+			const weatherResponse = await fetch(`https://wttr.in/Hanoi?format=%C+%t`);
+			const weatherText = await weatherResponse.text();
+
+			document.getElementById("location").innerHTML = `<i class="fa fm fa-map-marker"></i> Hà Nội`;
+			document.getElementById("weather").innerHTML = `<i class="fa fm fa-mixcloud"></i> ${weatherText}`;
+		} catch (error) {
+			console.error("Lỗi khi dùng API dự phòng:", error);
+			document.getElementById("weather").innerHTML = `<i class="fa fm fa-mixcloud"></i> Không thể lấy dự báo thời tiết.`;
+		}
+		}
+
+		if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(
+			async (position) => {
+			const { latitude, longitude } = position.coords;
+			console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+			getWeather(latitude, longitude);
+			},
+			(error) => {
+			console.warn("Không thể lấy vị trí, chuyển về Hà Nội:", error.message);
+			getWeather(hanoiLatitude, hanoiLongitude);
+			}
+		);
+		} else {
+		console.warn("Trình duyệt không hỗ trợ định vị. Hiển thị thời tiết Hà Nội.");
+		getWeather(hanoiLatitude, hanoiLongitude);
+		}
+	</script>
+
+		const weatherApiKey = '90b78c8ab60ef231cb7661482322c69b'; // Thay bằng API key của bạn
+
+		if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(
+			async (position) => {
+			const { latitude, longitude } = position.coords;
+			console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+
+			// Lấy thông tin thời tiết từ OpenWeatherMap
+			try {
+				const weatherResponse = await fetch(
+				`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&lang=vi&appid=${weatherApiKey}`
+				);
+				const weatherData = await weatherResponse.json();
+				console.log(weatherData);
+
+				// Lấy thông tin vị trí và thời tiết
+				const location = weatherData.name || "Không rõ địa điểm";
+				const temperature = weatherData.main.temp || "N/A";
+				const description = weatherData.weather[0].description || "Không rõ thời tiết";
+
+				// Cập nhật HTML
+				document.getElementById("location").innerHTML = `<i class="fa fm fa-map-marker"></i> ${location}`;
+				document.getElementById("weather").innerHTML = `<i class="fa fm fa-mixcloud"></i> ${temperature}<sup>°C</sup> - ${description}`;
+			} catch (error) {
+				console.error("Lỗi khi lấy dữ liệu thời tiết:", error);
+				document.getElementById("weather").innerHTML = `<i class="fa fm fa-mixcloud"></i> Không thể lấy dữ liệu thời tiết.`;
+			}
+			},
+			(error) => {
+			console.error(`Lỗi: ${error.message}`);
+			document.getElementById("location").innerHTML = `<i class="fa fm fa-map-marker"></i> Không thể lấy vị trí.`;
+			}
+		);
+		} else {
+		document.getElementById("location").innerHTML = `<i class="fa fm fa-map-marker"></i> Trình duyệt không hỗ trợ định vị.`;
+		}
+	</script>
+		if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(
+			async (position) => {
+			const { latitude, longitude } = position.coords;
+			console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+
+			// Reverse geocoding to get the location details
+			const response = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`);
+			const data = await response.json();
+
+			const capital = data.principalSubdivision || "Vị trí không rõ";
+			
+			// Update the HTML element with the capital name
+			const locationElement = document.getElementById("location");
+			locationElement.innerHTML = `<i class="fa fm fa-map-marker"></i> ${capital}`;
+			},
+			(error) => {
+			console.error(`Error: ${error.message}`);
+			const locationElement = document.getElementById("location");
+			locationElement.innerHTML = `<i class="fa fm fa-map-marker"></i> Không thể xem được vị trí của bạn`;
+			}
+		);
+		} else {
+		const locationElement = document.getElementById("location");
+		locationElement.innerHTML = `<i class="fa fm fa-map-marker"></i> Geolocation có vấn đề, vui lòng báo cáo sớm nhất có thể`;
+		}
+  </script>
 
 	@yield('custom_js')
 
