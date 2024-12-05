@@ -15,7 +15,7 @@
 <?php if($errors->any()): ?>
     <div <?php echo e($attributes); ?>>
         <div class="font-medium text-red-600">
-            <?php echo e(__('Rất tiếc! Không thể tạo mới.')); ?>
+            <?php echo e(__('Có lỗi xảy ra như dưới đây')); ?>
 
         </div>
 
