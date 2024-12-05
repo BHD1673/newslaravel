@@ -5,7 +5,19 @@ $now = Carbon::now('Asia/Ho_Chi_Minh')->locale('vi');
 $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount('posts')->orderBy('created_at','DESC')->take(12)->get();
 
 ?>
-
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+	var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+	(function(){
+	var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+	s1.async=true;
+	s1.src='https://embed.tawk.to/65464ac3a84dd54dc4888a7c/1hed983mg';
+	s1.charset='UTF-8';
+	s1.setAttribute('crossorigin','*');
+	s0.parentNode.insertBefore(s1,s0);
+	})();
+	</script>
+	<!--End of Tawk.to Script-->
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -387,23 +399,23 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 						<span style="font-size: 14px" class="block">Thuộc Bộ Khoa học Công nghệ</span>
 					</p>
 					<p>
-						<span style="font-size: 14px" class="block">Số giấy phép: 548/GP-BTTTT ngày 27/06/2022</span>
+						<span style="font-size: 14px" class="block">Số giấy phép: 548/GP-BTTTT ngày 27/06/2024</span>
 					</p>
 				</div>
 				<div class="col-md-4">
 					<p>
-						<span style="font-size: 14px" class="block">Tổng biên tập: Nhóm TDQ Hutech</span>
+						<span style="font-size: 14px" class="block">Tổng biên tập: Nhóm FPT Vnews</span>
 					</p>
 					<p>
-						<span style="font-size: 14px" class="block">Địa chỉ: E1, Khu Công Nghệ cao, Phường Hiệp Phú, TP.HCM</span>
+						<span style="font-size: 14px" class="block">Địa chỉ: Vân Canh - Hoài Đức - Hà Nội</span>
 					</p>
 					<p>
-						<span style="font-size: 14px" class="block">Điện thoại: 0392766630</span>
+						<span style="font-size: 14px" class="block">Điện thoại: 0394240007</span>
 					</p>
 				</div>
 				<div class="col-md-4">
 					<p>
-						<small style="font-size: 14px" class="block">&copy; 2022. Toàn bộ bản quyền thuộc DTQ</small>
+						<small style="font-size: 14px" class="block">&copy; 2024. Toàn bộ bản quyền thuộc Vnews</small>
 					</p>
 					<p>
 						<ul style="display: flex;" class="header--topbar-social nav hidden-sm hidden-xxs">

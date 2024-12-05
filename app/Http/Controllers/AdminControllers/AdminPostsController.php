@@ -25,7 +25,7 @@ class AdminPostsController extends Controller
     {
         return view('admin_dashboard.posts.index', [
             // 'posts' => Post::with('category')->get(),
-            'posts' => Post::with('category')->orderBy('id', 'ASC')->paginate(20),
+            'posts' => Post::with('category')->orderBy('id', 'DESC')->paginate(20),
         ]);
     }
 
@@ -58,21 +58,23 @@ class AdminPostsController extends Controller
         if ($request->hasFile('thumbnail')) {
             $thumbnail = $request->file('thumbnail');
             $filename = time() . '-' . $thumbnail->getClientOriginalName();
-            $path = $thumbnail->storeAs('images', $filename, 'public'); // Lưu ảnh vào thư mục 'images'
+
+            // Lưu ảnh vào thư mục public/images
+            $path = $thumbnail->move(public_path('images'), $filename);
 
             // Lưu thông tin ảnh vào bảng 'images' (nếu bạn có bảng này)
             $post->image()->create([
                 'name' => $filename,
                 'extension' => $thumbnail->getClientOriginalExtension(),
-                'path' => $path,
+                'path' => 'images/' . $filename, // Lưu đường dẫn ảnh tương đối
             ]);
         }
 
         // Xử lý tags (nếu cần)
-
         // Chuyển hướng về trang thêm bài viết với thông báo thành công
         return redirect()->route('admin.posts.create')->with('success', 'Thêm bài viết thành công.');
     }
+
 
     public function show($id)
     {
@@ -99,28 +101,31 @@ class AdminPostsController extends Controller
 
     public function update(Request $request, Post $post)
     {
-        $this->rules['thumbnail'] = 'nullable|file||mimes:jpg,png,webp,svg,jpeg|dimensions:max-width:800,max-height:300';
+        $this->rules['thumbnail'] = 'nullable|file|mimes:jpg,png,webp,svg,jpeg|dimensions:max-width:800,max-height:300';
         $validated = $request->validate($this->rules);
         $validated['approved'] = $request->input('approved') !== null;
         $post->update($validated);
 
-        if ($request->has('thumbnail')) {
+        // Xử lý upload ảnh nếu có
+        if ($request->hasFile('thumbnail')) {
             $thumbnail = $request->file('thumbnail');
-            $filename = $thumbnail->getClientOriginalName();
-            $file_extension = $thumbnail->getClientOriginalExtension();
-            $path   = $thumbnail->store('images', 'public');
+            $filename = time() . '-' . $thumbnail->getClientOriginalName();
 
+            // Di chuyển ảnh vào thư mục public/images
+            $path = $thumbnail->move(public_path('images'), $filename);
+
+            // Cập nhật thông tin ảnh trong cơ sở dữ liệu
             $post->image()->update([
                 'name' => $filename,
-                'extension' => $file_extension,
-                'path' => $path
+                'extension' => $thumbnail->getClientOriginalExtension(),
+                'path' => 'images/' . $filename, // Lưu đường dẫn ảnh tương đối
             ]);
         }
 
+        // Xử lý tags và các dữ liệu khác
         $tags = explode(',', $request->input('tags'));
         $tags_ids = [];
         foreach ($tags as $tag) {
-
             $tag_exits = $post->tags()->where('name', trim($tag))->count();
             if ($tag_exits == 0) {
                 $tag_ob = Tag::create(['name' => $tag]);
@@ -131,9 +136,8 @@ class AdminPostsController extends Controller
         if (count($tags_ids) > 0)
             $post->tags()->syncWithoutDetaching($tags_ids);
 
-        return redirect()->route('admin.posts.edit', $post)->with('success', 'Sửa viết thành công.');
+        return redirect()->route('admin.posts.edit', $post)->with('success', 'Sửa bài viết thành công.');
     }
-
     public function destroy(Post $post)
     {
         $post->tags()->delete();

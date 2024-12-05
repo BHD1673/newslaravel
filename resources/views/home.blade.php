@@ -23,8 +23,9 @@
 										<div class="post--item post--layout-1 post--title-large">
 												<div class="post--img">
 														<a href="{{ route('posts.show', $posts_new[$i][0]) }}" class="thumb">
-																<img src="{{ asset($posts_new[$i][0]->image ? 'storage/' . $posts_new[$i][0]->image->path : 'storage/placeholders/placeholder-image.png') }}" alt="">
-														</a>
+															<img src="{{ asset($posts_new[$i][0]->image ? $posts_new[$i][0]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+
+
 														<a href="{{ route('categories.show', $posts_new[$i][0]->category) }}" class="cat">{{ $posts_new[$i][0]->category->name }}</a>
 						
 														<a href="javascript:;" class="icon"><i class="fa fa-flash"></i></a>
@@ -131,7 +132,7 @@
 									<ul class="nav row gutter--15" data-ajax-content="inner">
 								
 									
-										z
+										
 
 										@for ($i = 1; $i <= 4; $i++)
 											@if($i==1 || $i == 3 )
@@ -471,8 +472,9 @@
 											<div class="post--item post--layout-1">
 												<div class="post--img">
 													<a href="{{ route('posts.show', $post_category_home4[0]) }}"
-														class="thumb"><img src="{{ asset($post_category_home4[0]->image ? 'storage/' . $post_category_home4[0]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-															alt=""></a>
+														class="thumb">
+														<img src="{{ asset($post_category_home4[0]->image ? $post_category_home4[0]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+</a>
 													<a href="{{ route('categories.show', $post_category_home4[0]->category) }}"
 														class="cat">{{ $post_category_home4[0]->category->name }}</a>
 													<a href="{{ route('categories.show', $post_category_home4[0]->category) }}" class="icon"><i class="fa fa-eye"></i></a>
@@ -758,7 +760,9 @@
 							<div class="post--item post--layout-1 post--type-video post--title-large">
 								<div class="post--img">
 									<a href="{{ route('posts.show', $post_category_home5[0]) }}" class="thumb"><img
-											src="{{ asset($post_category_home5[0]->image ? 'storage/' . $post_category_home5[0]->image->path : 'storage/placeholders/placeholder-image.png'  )}}" alt=""></a>
+										src="{{ asset($post_category_home5[0]->image ? $post_category_home5[0]->image->path : 'images/placeholders/placeholder-image.png') }}"
+										alt="">
+								</a>
 									<a href="{{ route('categories.show', $post_category_home5[0]->category) }}" class="cat">{{ $post_category_home5[0]->category->name }}</a>
 									<a href="{{ route('categories.show', $post_category_home5[0]->category) }}" class="icon"><i class="fa fa-eye"></i></a>
 
@@ -791,9 +795,8 @@
 									<div class="post--item post--type-audio post--layout-3">
 										<div class="post--img">
 											<a href="{{ route('posts.show', $post_category_home5[$i]) }}"
-												class="thumb"><img
-													src="{{ asset($post_category_home5[$i]->image ? 'storage/' . $post_category_home5[$i]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-													alt=""></a>
+												{{-- class="thumb"><img src="{{ asset('images/' . ($post_category_home5[$i]->image ? $post_category_home5[$i]->image->path : 'placeholders/placeholder-image.png')) }}" alt=""> --}}
+											</a>
 
 											<div class="post--info">
 												<ul class="nav meta">
@@ -824,13 +827,14 @@
 			<!-- Main Content End -->
 
 			<!-- Advertisement Start -->
+			@if(!auth()->check() || !auth()->user()->is_premium)
 			<div class="ad--space pd--30-0">
 				<a href="https://burine.vn/">
 					<img src="{{ asset('kcnew/frontend/img/ads-img/970x90_banner_burine.png') }}" alt="" class="center-block">
 				</a>
 			</div>
 			<!-- Advertisement End -->
-
+			@endif
 			<div class="row">
 				<!-- Main Content Start -->
 				<div class="main--content col-md-8 col-sm-7" data-sticky-content="true">
@@ -1276,6 +1280,7 @@
 						<!-- Widget End -->
 
 						<!-- Widget Start -->
+						@if(!auth()->check() || !auth()->user()->is_premium)
 						<div class="widget">
 							<!-- Ad Widget Start -->
 							<div class="ad--widget">
@@ -1286,7 +1291,7 @@
 												alt="">
 										</a>
 									</div>
-
+@endif
 									<div class="col-sm-6">
 										<a href="javascript:;">
 											<img src="{{ asset('kcnew/frontend/img/ads-img/banner_quangcao.png') }}"

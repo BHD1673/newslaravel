@@ -21,7 +21,7 @@
     @endif
 
     @if($isPremium)
-        <div class="premium-info card mx-auto shadow-lg p-4 fade-in-up">
+        <div class="premium-info card mx-auto shadow-lg p-4 fade-in-up center ">
             <div class="card-body text-center">
                 <h4 class="text-success">Bạn đang là thành viên Premium!</h4>
                 <p>Hạn sử dụng gói Premium: <strong>{{ $premiumExpiresAt->format('d/m/Y H:i') }}</strong></p>
@@ -48,6 +48,9 @@
 
 <style>
     /* Gradient text for header */
+    .center{
+        margin-left: 30%
+    }
     .text-gradient {
         background: linear-gradient(to right, #6a11cb, #2575fc);
         -webkit-background-clip: text;
