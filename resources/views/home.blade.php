@@ -606,6 +606,7 @@
 							</div>
 						</div>
 						<!-- Kết thúc từ khóa -->
+						<!-- Kết thúc từ khóa -->
 						@if(!auth()->check() || !auth()->user()->is_premium)
 						<!-- Widget Start -->
 						<div class="widget">
@@ -624,6 +625,23 @@
 						</div>
 						<!-- Widget End -->
 						@endif
+						<!-- Widget Start -->
+						<div class="widget">
+							<!-- Ad Widget Start -->
+							<div class="ad--widget--banner">
+								<div class="row">
+									<div class="col-sm-12">
+										<a
+											href="https://mwc.com.vn/products/giay-sandal-nu-mwc-nusd--2887?c=N%C3%82U">
+											<img src="{{ asset('kcnew/frontend/img/ads-img/banner_quangcao1.png') }}" alt="">
+										</a>
+									</div>
+								</div>
+							</div>
+							<!-- Ad Widget End -->
+						</div>
+						<!-- Widget End -->
+
 						<!-- Widget Start -->
 						<div class="widget">
 							<div class="widget--title">
@@ -719,26 +737,22 @@
 						</div>
 						<!-- Widget End -->
 
-						
-						@if(!auth()->check() || !auth()->user()->is_premium)
-						<!-- Widget Start --> 
+						<!-- Widget Start -->
 						<div class="widget">
-								<div class="widget--title">
-										<h2 class="h4">Quảng cáo</h2>
-										<i class="icon fa fa-bullhorn"></i>
-								</div>
-				
-								<!-- Ad Widget Start -->
-								<div class="ad--widget--banner">
-										<a href="https://mwc.com.vn/products/giay-sandal-nu-mwc-nusd--2887?c=N%C3%82U">
-												<img src="{{ asset('kcnew/frontend/img/ads-img/banner_quangcao.png') }}" alt="">
-										</a>
-								</div>
-								<!-- Ad Widget End -->
+							<div class="widget--title">
+								<h2 class="h4">Quảng cáo</h2>
+								<i class="icon fa fa-bullhorn"></i>
+							</div>
+
+							<!-- Ad Widget Start -->
+							<div class="ad--widget--banner">
+								<a href="https://mwc.com.vn/products/giay-sandal-nu-mwc-nusd--2887?c=N%C3%82U">
+									<img src="{{ asset('kcnew/frontend/img/ads-img/banner_quangcao.png') }}" alt="">
+								</a>
+							</div>
+							<!-- Ad Widget End -->
 						</div>
 						<!-- Widget End -->
-				@endif
-				
 					</div>
 				</div>
 				<!-- Main Sidebar End -->

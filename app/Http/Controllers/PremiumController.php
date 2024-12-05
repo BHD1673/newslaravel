@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Subscription;
-use Carbon\Carbon;
+use Carbon\Carbon;  
 
 class PremiumController extends Controller
 {

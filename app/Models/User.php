@@ -26,17 +26,20 @@ class User extends Authenticatable
         'password',
         'role_id',
         'is_premium',
-        'premium_expires_at'
+        'premium_expires_at',
     ];
 
 
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 
 
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'premium_expires_at' => 'datetime',
     ];
+
     public function role()
     {
         return $this->belongsTo(Role::class);
