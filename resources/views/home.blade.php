@@ -51,9 +51,8 @@
 									<div class="post--item post--layout-1 post--title-larger">
 										<div class="post--img">
 											<a href="{{ route('posts.show', $posts_new[2][0]) }}"
-												class="thumb"><img
-													src="{{ asset($posts_new[2][0]->image ? 'storage/' .$posts_new[2][0]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-													style="height:200px" alt=""></a>
+												class="thumb"><img src="{{ asset($posts_new[2][0]->image ? $posts_new[2][0]->image->path : 'images/placeholders/placeholder-image.png') }}" style="height:200px" alt="">
+											</a>
 
 											<a href="{{ route('categories.show', $posts_new[2][0]->category) }}" class="cat">{{ $posts_new[2][0]->category->name }}</a>
 
@@ -84,7 +83,11 @@
 							<div class="post--item post--layout-1 post--title-larger">
 								<div class="post--img">
 									<a href="{{ route('posts.show', $posts_new[3][0]) }}"
-										class="thumb"><img src="{{ asset($posts_new[3][0]->image ? 'storage/' .$posts_new[3][0]->image->path : 'storage/placeholders/placeholder-image.png'  )}}" alt=""></a>
+									
+										class="thumb">
+										
+										<img src="{{ asset($posts_new[3][0]->image ? $posts_new[3][0]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+									</a>
 
 									<a href="{{ route('categories.show', $posts_new[3][0]->category ) }}" class="cat">{{ $posts_new[3][0]->category->name }}</a>
 
@@ -149,8 +152,9 @@
 													<div class="post--img">
 														<a href="{{ route('posts.show', $post_category_home0[$i]) }}"
 															class="thumb"><img
-																src="{{ asset($post_category_home0[$i]->image ? 'storage/' . $post_category_home0[$i]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-																alt=""></a>
+															src="{{ asset($post_category_home0[$i]->image ?  $post_category_home0[$i]->image->path : 'images/placeholders/placeholder-image.png') }}"
+															alt="">
+													</a>
 
 														<div class="post--info">
 															<ul class="nav meta">
@@ -195,9 +199,8 @@
 											<div class="post--item post--layout-1">
 												<div class="post--img">
 													<a href="{{ route('posts.show', $post_category_home1[0]) }}"
-														class="thumb"><img
-															src="{{ asset($post_category_home1[0]->image ? 'storage/' . $post_category_home1[0]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-															alt=""></a>
+														class="thumb"><img src="{{ asset($post_category_home1[0]->image ?  $post_category_home1[0]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+													</a>
 												
 													<a href="javascript:;" class="icon"><i class="fa fa-flash"></i></a>
 
@@ -224,9 +227,8 @@
 											<div class="post--item post--layout-3">
 												<div class="post--img">
 													<a href="{{ route('posts.show', $post_category_home1[$i]) }}"
-														class="thumb"><img
-															src="{{ asset($post_category_home1[$i]->image ? 'storage/' . $post_category_home1[$i]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-															alt=""></a>
+														class="thumb"><img src="{{ asset($post_category_home1[$i]->image ?  $post_category_home1[$i]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+													</a>
 
 													<div class="post--info">
 														<ul class="nav meta">
@@ -272,9 +274,8 @@
 											<div class="post--item post--layout-2">
 												<div class="post--img">
 													<a href="{{ route('posts.show', $post_category_home2[0]) }}"
-														class="thumb"><img
-															src="{{ asset($post_category_home2[0]->image ? 'storage/' . $post_category_home2[0]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-															alt=""></a>
+														class="thumb"><img src="{{ asset($post_category_home2[0]->image ?  $post_category_home2[0]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+													</a>
 													<a href="{{ route('categories.show', $post_category_home2[0]->category) }}" class="cat">{{ $post_category_home2[0]->category->name }}</a>
 													<a href="javascript:;" class="icon"><i class="fa fa-star-o"></i></a>
 
@@ -339,8 +340,9 @@
 															<div class="post--img">
 																<a href="{{ route('posts.show', $post_category_home2[$i]) }}"
 																	class="thumb"><img 
-																		src="{{ asset($post_category_home2[$i]->image ? 'storage/' . $post_category_home2[$i]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-																		alt=""></a>
+																	src="{{ asset($post_category_home2[$i]->image ?  $post_category_home2[$i]->image->path : 'images/placeholders/placeholder-image.png') }}" 
+																	alt="">
+															</a>
 
 																<div class="post--info">
 																	<ul class="nav meta">
@@ -390,8 +392,9 @@
 												<div class="post--img">
 													<a href="{{ route('posts.show', $post_category_home3[0]) }}"
 														class="thumb"><img
-															src="{{ asset($post_category_home3[0]->image ? 'storage/' . $post_category_home3[0]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-															alt=""></a>
+														src="{{ asset($post_category_home3[0]->image ?  $post_category_home3[0]->image->path : 'images/placeholders/placeholder-image.png') }}"
+														alt="">
+												</a>
 													<a href="{{ route('categories.show', $post_category_home3[0]->category) }}"
 														class="cat">{{ $post_category_home3[0]->category->name }}</a>
 													<a href="{{ route('categories.show', $post_category_home3[0]->category) }}" class="icon"><i class="fa fa-fire"></i></a>
@@ -426,9 +429,8 @@
 												<div class="post--item post--layout-2">
 													<div class="post--img">
 														<a href="{{ route('posts.show', $post_category_home3[$i]) }}"
-															class="thumb"><img
-																src="{{ asset($post_category_home3[$i]->image ? 'storage/' . $post_category_home3[$i]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-																alt=""></a>
+															class="thumb"><img src="{{ asset($post_category_home3[$i]->image ?  $post_category_home3[$i]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+														</a>
 
 														<div class="post--info">
 															<ul class="nav meta">
@@ -503,9 +505,8 @@
 											<div class="post--item post--layout-3">
 												<div class="post--img">
 													<a href="{{ route('posts.show', $post_category_home4[$i]) }}"
-														class="thumb"><img
-															src="{{ asset($post_category_home4[$i]->image ? 'storage/' . $post_category_home4[$i]->image->path : 'storage/placeholders/placeholder-image.png')}}"
-															alt=""></a>
+														class="thumb"><img src="{{ asset($post_category_home4[$i]->image ?  $post_category_home4[$i]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+													</a>
 
 													<div class="post--info">
 														<ul class="nav meta">
@@ -558,9 +559,10 @@
 											<div class="post--item post--layout-3">
 												<div class="post--img">
 													<a href="{{ route('posts.show', $outstanding_post) }}"
-														class="thumb"><img width = "120"
-															src="{{ asset($outstanding_post->image ? 'storage/' .$outstanding_post->image->path : 'storage/placeholders/placeholder-image.png')}}"
-															alt=""></a>
+														class="thumb"><img width="120"
+														src="{{ asset($outstanding_post->image ?  $outstanding_post->image->path : 'images/placeholders/placeholder-image.png') }}"
+														alt="">
+											 </a>
 
 													<div class="post--info">
 														<ul class="nav meta">
@@ -809,7 +811,7 @@
 									<div class="post--item post--type-audio post--layout-3">
 										<div class="post--img">
 											<a href="{{ route('posts.show', $post_category_home5[$i]) }}"
-												{{-- class="thumb"><img src="{{ asset('images/' . ($post_category_home5[$i]->image ? $post_category_home5[$i]->image->path : 'placeholders/placeholder-image.png')) }}" alt=""> --}}
+												class="thumb"><img src="{{ asset( ($post_category_home5[$i]->image ? $post_category_home5[$i]->image->path : 'placeholders/placeholder-image.png')) }}" alt="">
 											</a>
 
 											<div class="post--info">
@@ -872,8 +874,8 @@
 											<div class="post--item post--layout-1">
 												<div class="post--img">
 													<a href="{{ route('posts.show', $post_category_home6[0]) }}"
-														class="thumb"><img
-															src="{{ asset($post_category_home6[0]->image ? 'storage/' . $post_category_home6[0]->image->path : 'storage/placeholders/placeholder-image.png') }}" alt=""></a>
+														class="thumb"><img src="{{ asset($post_category_home6[0]->image ?  $post_category_home6[0]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+													</a>
 													<a href="{{ route('categories.show', $post_category_home6[0]->category) }}"
 														class="cat">{{ $post_category_home6[0]->category->name }}</a>
 													<a href="{{ route('categories.show', $post_category_home6[0]->category) }}" class="icon"><i class="fa fa-star-o"></i></a>
@@ -901,9 +903,8 @@
 											<div class="post--item post--layout-3">
 												<div class="post--img">
 													<a href="{{ route('posts.show', $post_category_home6[$i]) }}"
-														class="thumb"><img
-															src="{{ asset($post_category_home6[0]->image ? 'storage/' . $post_category_home6[$i]->image->path : 'storage/placeholders/placeholder-image.png') }}"
-															alt=""></a>
+														class="thumb"><img src="{{ asset($post_category_home6[0]->image ?  $post_category_home6[0]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+													</a>
 
 													<div class="post--info">
 														<ul class="nav meta">
@@ -951,8 +952,9 @@
 												<div class="post--img">
 													<a href="{{ route('posts.show', $post_category_home7[0]) }}"
 														class="thumb"><img
-															src="{{ asset($post_category_home7[0]->image ? 'storage/' . $post_category_home7[0]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-															alt=""></a>
+														src="{{ asset($post_category_home7[0]->image ?  $post_category_home7[0]->image->path : 'images/placeholders/placeholder-image.png') }}"
+														alt="">
+												</a>
 													<a href="{{ route('categories.show', $post_category_home7[0]->category) }}"
 														class="cat">{{ $post_category_home7[0]->category->name }}</a>
 													<a href="{{ route('categories.show', $post_category_home7[0]->category) }}" class="icon"><i class="fa fa-heart-o"></i></a>
@@ -988,9 +990,8 @@
 											<div class="post--item post--layout-2">
 												<div class="post--img">
 													<a href="{{ route('posts.show', $post_category_home7[$i]) }}"
-														class="thumb"><img
-															src="{{ asset($post_category_home7[$i]->image ? 'storage/' . $post_category_home7[$i]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-															alt=""></a>
+														class="thumb"><img src="{{ asset($post_category_home7[$i]->image ?  $post_category_home7[$i]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+													</a>
 
 													<div class="post--info">
 														<ul class="nav meta">
@@ -1034,8 +1035,9 @@
 												<div class="post--img">
 													<a href="{{ route('posts.show', $post_category_home8[0]) }}"
 														class="thumb"><img
-															src="{{ asset($post_category_home8[0]->image ? 'storage/' . $post_category_home8[0]->image->path : 'storage/placeholders/placeholder-image.png'  )}}" alt="">
-													</a>
+														src="{{ asset($post_category_home8[0]->image ?  $post_category_home8[0]->image->path : 'images/placeholders/placeholder-image.png') }}"
+														alt="">
+												</a>
 													<a href="{{ route('categories.show', $post_category_home8[0]->category) }}" class="cat">{{ $post_category_home8[0]->category->name }}</a>
 													<a href="{{ route('categories.show', $post_category_home8[0]->category) }}" class="icon"><i class="fa fa-star-o"></i></a>
 
@@ -1096,9 +1098,8 @@
 														<div class="post--item post--layout-2">
 															<div class="post--img">
 																<a href="{{ route('posts.show', $post_category_home8[$i]) }}"
-																	class="thumb"><img
-																		src="{{ asset($post_category_home8[$i]->image ? 'storage/' . $post_category_home8[$i]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-																		alt=""></a>
+																	class="thumb"><img src="{{ asset($post_category_home8[$i]->image ?  $post_category_home8[$i]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+																</a>
 
 																<div class="post--info">
 																	<ul class="nav meta">
@@ -1145,9 +1146,8 @@
 											<div class="post--item post--layout-1 post--title-large">
 												<div class="post--img">
 													<a href="{{ route('posts.show', $post_category_home9[0]) }}"
-														class="thumb"><img
-															src="{{ asset($post_category_home9[0]->image ? 'storage/' . $post_category_home9[0]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-															alt=""></a>
+														class="thumb"><img src="{{ asset($post_category_home9[0]->image ?  $post_category_home9[0]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+													</a>
 													<a href="{{ route('categories.show', $post_category_home9[0]->category) }}"
 														class="cat">{{ $post_category_home9[0]->category->name }}</a>
 													<a href="{{ route('categories.show', $post_category_home9[0]->category) }}" class="icon"><i class="fa fa-eye"></i></a>
@@ -1174,9 +1174,8 @@
 											<div class="post--item post--layout-1">
 												<div class="post--img">
 													<a href="{{ route('posts.show', $post_category_home9[$i]) }}"
-														class="thumb"><img
-															src="{{ asset($post_category_home9[$i]->image ? 'storage/' . $post_category_home9[$i]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-															alt=""></a>
+														class="thumb"><img src="{{ asset($post_category_home9[$i]->image ?  $post_category_home9[$i]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+													</a>
 
 													<div class="post--info">
 														<ul class="nav meta">
@@ -1385,7 +1384,8 @@
 			@forelse($posts as $post)
 
 			<div class="block-21 d-flex animate-box post">
-				<a href="{{ route('posts.show', $post) }}" class="blog-img" style="background-image: url({{ asset($post->image ? 'storage/' . $post->image->path : 'storage/placeholders/placeholder-image.png')}});"></a>
+				<a href="{{ route('posts.show', $post) }}" class="blog-img" style="background-image: url({{ asset($post->image ? $post->image->path : 'images/placeholders/placeholder-image.png') }});"></a>
+
 				<div class="text">
 					<h3 class="heading"><a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a></h3>
 					<p class="excerpt">{{ $post->excerpt }}</p></p>

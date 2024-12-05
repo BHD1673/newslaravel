@@ -35,9 +35,8 @@
                                                         <div class="col-md-6">
                                                             <div class="post--img">
                                                                 <a href="{{ route('posts.show', $viewPosts_category[$i] ) }}"
-                                                                    class="thumb"><img
-                                                                        src="{{ asset($viewPosts_category[$i]->image ? 'storage/' . $viewPosts_category[$i]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-                                                                        alt=""></a>
+                                                                    class="thumb"><img src="{{ asset($viewPosts_category[$i]->image ?  $viewPosts_category[$i]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+                                                                </a>
                                                                 <a href="{{ route('categories.show', $viewPosts_category[$i]->category) }}"
                                                                     class="cat">{{ $viewPosts_category[$i]->category->name }}</a>
 
