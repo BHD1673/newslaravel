@@ -13,13 +13,12 @@ class CheckPermission
         // Nếu là quản trị viện thì được cho phép tất cả mọi quyền
         if(auth()->user()->role->name === 'admin')
             return $next($request);
-
         // 1. Lấy tên điều hướng 
         $route_name = $request->route()->getName();
 
         // 2. Xác thực người nhận quyền của mình
         $route_arr = auth()->user()->role->permissions->toArray();
-        
+
         // 3. Kiểm tra tài khoản cho sự cho phép không
         foreach($route_arr as $route)
         {

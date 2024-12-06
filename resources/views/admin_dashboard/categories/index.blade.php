@@ -25,7 +25,7 @@
                     <div class="position-relative">
                         <input type="text" class="form-control ps-5 radius-30" placeholder="Tìm kiếm danh mục"> <span class="position-absolute top-50 product-show translate-middle-y"><i class="bx bx-search"></i></span>
                     </div>
-                    <div class="ms-auto"><a href="{{ route('admin.categories.create') }}" class="btn btn-primary radius-30 mt-2 mt-lg-0 {{ $isReporter ? 'd-none' : '' }}"><i class="bx bxs-plus-square"></i>Thêm danh mục mới</a></div>
+                    <div class="ms-auto"><a href="{{ route('admin.categories.create') }}" class="btn btn-primary radius-30 mt-2 mt-lg-0"><i class="bx bxs-plus-square"></i>Thêm danh mục mới</a></div>
                 </div>
                 <div class="table-responsive">
                     <table class="table mb-0">
@@ -36,7 +36,7 @@
                                 <th>Người tạo</th>
                                 <th>Xem chi tiết</th>
                                 <th>Ngày tạo</th>
-                                <th class="{{ $isReporter ? 'd-none' : '' }}">Chức năng</th>
+                                <th>Chức năng</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -59,7 +59,7 @@
                                 </td>
                                 <td>{{ $category->created_at->format('d/m/Y') }}</td>
                    
-                                <td class="{{ $isReporter ? 'd-none' : '' }}">
+                                <td>
                                     <div class="d-flex order-actions">
                                         <a href="{{ route('admin.categories.edit', $category)}}" class=""><i class='bx bxs-edit'></i></a>
                                         <a href="#" onclick="event.preventDefault(); document.querySelector('#delete_form_{{ $category->id }}').submit();" class="ms-3"><i class='bx bxs-trash'></i></a>

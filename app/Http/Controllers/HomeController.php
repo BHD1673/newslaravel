@@ -8,10 +8,11 @@ use App\Models\Tag;
 use App\Models\Comment;
 use App\Models\User;
 use App\Models\Image;
-
+use App\Models\Subscription;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -31,7 +32,6 @@ class HomeController extends Controller
 
         /*----- Lấy ra 4 bài viết mới nhất theo các danh mục khác nhau -----*/
         $category_unclassified = Category::where('name', 'Chưa phân loại')->first();
- 
         $posts_new[0] = Post::latest()->approved()
             ->where('category_id', '!=', $category_unclassified->id)
             ->take(1)->get();
@@ -51,18 +51,17 @@ class HomeController extends Controller
             ->where('category_id', '!=', $posts_new[2][0]->category->id)
             ->take(1)->get();
 
-
         // Lấy ra tin nổi bật -- Lấy theo views
         $outstanding_posts = Post::orderBy('views', 'DESC')->take(5)->get();
 
         // Lấy ra tất cả danh mục tin tức 
         $stt_home = 0;
-        $category_home = Category::where('name', '!=', 'Chưa phân loại')->orderBy('created_at', 'ASC')->take(10)->get();
+        $category_home = Category::where('name', '!=', 'Chưa phân loại')->orderBy('created_at', 'DESC')->take(10)->get();
         foreach ($category_home as $category_item) {
             // Tạo tin tức mới nhất cho layout master
             $stt_home = $stt_home + 1;
             if ($stt_home === 1)
-                $post_category_home0 =  Post::latest()->approved()->withCount('comments')->where('category_id', $category_item->id)->take(5)->get() ?? [];
+                $post_category_home0 =  Post::latest()->approved()->withCount('comments')->where('category_id', $category_item->id)->take(5)->get();
             if ($stt_home === 2)
                 $post_category_home1 =  Post::latest()->approved()->withCount('comments')->where('category_id', $category_item->id)->take(6)->get();
             if ($stt_home === 3)
@@ -82,14 +81,16 @@ class HomeController extends Controller
             if ($stt_home === 10)
                 $post_category_home9 =  Post::latest()->approved()->withCount('comments')->where('category_id', $category_item->id)->take(4)->get();
         }
+
+
         // Ý kiến người đọc, comments
         $top_commnents = Comment::take(5)->get();
 
         return view('home', [
-            'posts' => $posts ?? [],
+            'posts' => $posts,
             'recent_posts' => $recent_posts,
             'posts_new' => $posts_new, // Bài viết mới nhất theo mục
-            'post_category_home0' => $post_category_home0 ?? [], // Bài viết danh mục 5
+            'post_category_home0' => $post_category_home0, // Bài viết danh mục 5
             'post_category_home1' => $post_category_home1, // Bài viết danh mục 1
             'post_category_home2' => $post_category_home2, // Bài viết danh mục 2
             'post_category_home3' => $post_category_home3, // Bài viết danh mục 3
@@ -149,6 +150,17 @@ class HomeController extends Controller
         $time = '(0,36 giây) ';
 
         return view('search', compact('posts', 'title', 'time', 'recent_posts', 'categories', 'key', 'posts_new', 'outstanding_posts'));
+    }
+    public function premium()
+    {
+        $user = Auth::user();
+        $subscriptions = $user->subscriptions()->orderBy('starts_at', 'desc')->get();
+
+        return view('premium.upgrade', [
+            'isPremium' => $user->is_premium,
+            'premiumExpiresAt' => $user->premium_expires_at,
+            'subscriptions' => $subscriptions,
+        ]);
     }
 
     public function newPost()

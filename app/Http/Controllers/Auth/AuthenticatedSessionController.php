@@ -4,19 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Services\AuthService;
 
 class AuthenticatedSessionController extends Controller
 {
-    
-    protected $authService;
-    public function __construct()
-    {
-        $this->authService = new AuthService();
-    }
-
     /**
      * Display the login view.
      *
@@ -39,7 +32,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended($this->authService->handleRedirectAfterLogin());
+        return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     /**

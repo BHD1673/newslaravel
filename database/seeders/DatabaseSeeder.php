@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\Post::truncate();
         // \App\Models\Tag::truncate();
         // \App\Models\Comment::truncate();
-         // \App\Models\Image::truncate();
+        // \App\Models\Image::truncate();
 
         // Schema::enabledForeignKeyConstraints();
 
@@ -32,8 +32,8 @@ class DatabaseSeeder extends Seeder
 
         $permission_ids = [];
         $blog_route = Route::getRoutes();
-        foreach($blog_route as $route){
-            if(strpos($route->getName(), 'admin') !== false){
+        foreach ($blog_route as $route) {
+            if (strpos($route->getName(), 'admin') !== false) {
                 $permission = \App\Models\Permission::create(['name' => $route->getName()]);
                 $permission_ids[] = $permission->id;
             }
@@ -56,17 +56,31 @@ class DatabaseSeeder extends Seeder
             'email' => 'voanhquan@gmail.com',
             'role_id' => 2
         ]);
-  
-        foreach($users as $user){
-            $user -> image()->save( \App\Models\Image::factory()->make() );
+
+        foreach ($users as $user) {
+            $user->image()->save(\App\Models\Image::factory()->make());
         }
 
         // \App\Models\Category::factory(10)->create();
         //\App\Models\Category::factory()->create(['name' => 'Chưa phân loại']);
-        $Category_defaules = ['Chưa phân loại','Thế giới','Xã hội','Kinh tế','Văn hóa','Giáo dục','Thể thao',
-        'Giải trí','Pháp luật','Công nghệ','Khoa học','Đời sống','Xe cộ','Nhà đất']; 
-        foreach($Category_defaules as $Category_defaule){
-                \App\Models\Category::factory()->create(['name' => $Category_defaule]);
+        $Category_defaules = [
+            'Chưa phân loại',
+            'Thế giới',
+            'Xã hội',
+            'Kinh tế',
+            'Văn hóa',
+            'Giáo dục',
+            'Thể thao',
+            'Giải trí',
+            'Pháp luật',
+            'Công nghệ',
+            'Khoa học',
+            'Đời sống',
+            'Xe cộ',
+            'Nhà đất'
+        ];
+        foreach ($Category_defaules as $Category_defaule) {
+            \App\Models\Category::factory()->create(['name' => $Category_defaule]);
         }
 
         $posts = \App\Models\Post::factory(200)->create();
@@ -75,7 +89,7 @@ class DatabaseSeeder extends Seeder
 
         \App\Models\Tag::factory(20)->create();
 
-        foreach($posts as $post){
+        foreach ($posts as $post) {
             $tag_ids = [];
 
             $tag_ids = \App\Models\Tag::all()->random()->id;
@@ -83,10 +97,9 @@ class DatabaseSeeder extends Seeder
             $tag_ids = \App\Models\Tag::all()->random()->id;
 
             $post->tags()->sync($tag_ids);
-            $post -> image()->save( \App\Models\Image::factory()->make() );
+            $post->image()->save(\App\Models\Image::factory()->make());
         }
 
         \App\Models\Setting::factory(1)->create();
-
     }
 }

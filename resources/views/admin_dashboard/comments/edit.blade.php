@@ -38,22 +38,19 @@
 									<div class="border border-3 p-4 rounded">
 
 										<div class="mb-3">
-											<label for="inputProductTitle" class="form-label">Chi tiết bài viết</label>
+											<label for="inputProductTitle" class="form-label">Bài viết</label>
 												<div class="card">
 													<div class="card-body">
 														<div class="p-3 rounded">
 															<div class="mb-3">
-																<select name="post_id" required class="single-select">
-																	@foreach( $posts as $key => $post )
-																	<option {{ $comment->post_id === $key ? 'selected' : '' }} value="{{ $key }}">{{ $post }}</option>
-																	@endforeach
-																</select>
-
+																<input type="text" class="form-control" value="{{ $posts[$comment->post_id] ?? 'Bài viết không tồn tại' }}" disabled>
+																<input type="hidden" name="post_id" value="{{ $comment->post_id }}">
+														
 																@error('post_id')
-																	<p class="text-danger">{{ $message }}</p>
+																		<p class="text-danger">{{ $message }}</p>
 																@enderror
-
-															</div>
+														</div>
+														
 														</div>
 													</div>
 												</div>
@@ -61,7 +58,7 @@
 
 										<div class="mb-3">
 											<label for="inputProductDescription" class="form-label">Bình luận bài viết</label>
-											<textarea name="the_comment" id="post_comment" class="form-control" id="inputProductDescription" rows="3">{{ old("the_comment", $comment->the_comment) }}</textarea>
+											<textarea disabled name="the_comment" id="post_comment" class="form-control" id="inputProductDescription" rows="3">{{ old("the_comment", $comment->the_comment) }}</textarea>
 										
 											@error('the_comment')
 												<p class="text-danger">{{ $message }}</p>
@@ -69,7 +66,7 @@
 										
 										</div>
 
-										<button class="btn btn-primary" type="submit">Sửa bình luận</button>
+										{{-- <button class="btn btn-primary" type="submit">Sửa bình luận</button> --}}
 										<a class="btn btn-danger" onclick="event.preventDefault(); document.getElementById('delete_comment_{{ $comment->id }}').submit();" 
 										href="#">Xóa bình luận</a>
 

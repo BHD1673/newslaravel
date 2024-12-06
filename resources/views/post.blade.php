@@ -285,6 +285,74 @@
 	setTimeout(() => {
 		$(".global-message").fadeOut();
 	}, 5000)
+    
+	$.ajax({
+    url: "http://127.0.0.1:8000/binh-luan",
+    data: formData,
+    type: 'POST',
+    dataType: 'JSON',
+    processData: false,
+    contentType: false,
+    success: function (data) {
+        if (data.success) {
+            console.log(data.result);
+
+            // Xử lý thêm comment vào danh sách
+            count_comment = Number(count_comment) + 1;
+            $('.comment_error').text('');
+            $('.post_count_comment').text(count_comment);
+
+            const htmls = (() => {
+                return `
+                    <li>
+                        <div class="comment--item clearfix">
+                            <div class="comment--img float--left">
+                                <img style="border-radius: 50%; margin: auto; background-size: cover; width: 68px; height: 68px;" src="http://127.0.0.1:8000/storage/images/ecsuHY29fdhHh2Qeh9SrFvbQVbEtPFkMSKj7fX2V.jpg" alt="">
+                            </div>
+                            <div class="comment--info">
+                                <div class="comment--header clearfix">
+                                    <p class="name">nguyen Dam</p> 
+                                    <p class="date">vừa xong</p>
+                                    <a href="javascript:;" class="reply"><i class="fa fa-flag"></i></a>
+                                </div>
+                                <div class="comment--content">
+                                    <p>${data.result['the_comment']}</p>
+                                    <p class="star">
+                                        <span class="text-left"><a href="#" class="reply"><i class="icon-reply"></i></a></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                `;
+            });
+            ListComment.append(htmls);
+
+            // Hiển thị thông báo thành công
+            $('.global-message').addClass('alert alert-info');
+            $('.global-message').fadeIn();
+            $('.global-message').text(data.message);
+
+            clearData($($this).parents("form"), ['the_comment']);
+
+            setTimeout(() => {
+                $(".global-message").fadeOut();
+            }, 5000);
+        } else {
+            // Kiểm tra nếu lỗi là từ cấm
+            if (data.message && data.message.includes("Bình luận không được chứa từ ngữ không phù hợp")) {
+                $('.comment_error').text(data.message);
+            } else {
+                $('.comment_error').text(data.errors);
+            }
+        }
+    },
+    error: function (xhr, status, error) {
+        $('.comment_error').text("Đã xảy ra lỗi, vui lòng thử lại.");
+    }
+});
+
+
 </script>
 
 
