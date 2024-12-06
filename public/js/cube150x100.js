@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Document</title>
-</head>
-<body>
-   <script>
-      const style = `
+const style = `
 body { display: flex; justify-content: center; align-items: center; flex-direction: column; height: 100vh; background-color: #f4f4f4; margin: 0; perspective: 1000px; }
-.container { position: relative; left:0;}
+.container { position: relative; }
 .close-btn { position: absolute; top: 10px; right: 15px; font-size: 20px; color: black; cursor: pointer; background: none; border: none; border-radius: 50%;}
 .close-btn:hover { color: #333; background-color: none; }
 .ad-slideshow { position: relative; top: 60px; right: 30px; width: 150px; height: 150px; transform-style: preserve-3d; animation: 18s linear infinite rotate; }
@@ -78,6 +69,3 @@ document.body.appendChild(adWrapper);
 const closeAd = function () {
  adWrapper.style.display = 'none';
 };
-   </script>
-</body>
-</html>

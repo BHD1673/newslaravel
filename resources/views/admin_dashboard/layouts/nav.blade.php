@@ -169,6 +169,40 @@ function checkPermission($name) {
                     </ul>
                 </li>
                 @endif
+                @if(checkPermission("admin.post-history.index"))
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class='bx bx-history'></i>
+                </div>
+                <div class="menu-title">Lịch sử Bài viết</div>
+            </a>
+
+            <ul>
+                @if(checkPermission("admin.post-history.index"))
+                <li> <a href="{{ route('admin.post-history.index') }}"><i class="bx bx-history"></i>Lịch sử Bài viết</a>
+                </li>
+                @endif
+            </ul>
+        </li>
+        @endif
+
+        @if(checkPermission("admin.post-soft-delete"))
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class='bx bx-trash'></i>
+                </div>
+                <div class="menu-title">Bài viết đã xóa</div>
+            </a>
+
+            <ul>
+                @if(checkPermission("admin.post-soft-delete"))
+                <li> <a href="{{ route('admin.post-soft-delete') }}"><i class="bx bx-trash"></i>Bài viết đã xóa</a>
+                </li>
+                @endif
+            </ul>
+        </li>
+        @endif
+
 
                 @if(checkPermission("admin.users.index") || checkPermission("admin.users.create") )
                 <li>

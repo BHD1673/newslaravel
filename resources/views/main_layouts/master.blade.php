@@ -57,9 +57,11 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 	<!-- Theme style  -->
 	<link rel="stylesheet" href="{{ asset('blog_template/css/style.css') }}">
 	<link rel="stylesheet" href="{{ asset('css/mystyle.css') }}">
+	<link rel="stylesheet" href="{{ asset('js/cube.js') }}">
 
 	<!-- Modernizr JS -->
 	<script src="{{ asset('blog_template/js/modernizr-2.6.2.min.js') }}"></script>
+
 	<!-- FOR IE9 below -->
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
@@ -91,6 +93,8 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 
     <!-- ==== Custom Stylesheet ==== -->
     <link rel="stylesheet" href="{{ asset('kcnew/frontend/css/custom.css') }}">
+	<script src="{{ asset('js/cube.js') }}"></script>
+
 
     @yield('custom_css')
 

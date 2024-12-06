@@ -13,6 +13,9 @@ class Role extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
+    const ROLE_ADMIN = 'admin';
+    const ROLE_EMPLOYEE = 'employee';
+    const ROLE_REPORTER = 'reporter';
 
     public function users() {
         return $this->hasMany(User::class);
