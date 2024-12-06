@@ -48,12 +48,13 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth', 'check.premium'])->group(function () {
     Route::get('/premium', [HomeController::class, 'premium'])->name('premium');
+    // Nếu bạn muốn sử dụng route 'premium.upgrade', hãy đảm bảo nó xử lý tham số 'package'
+    // Ví dụ: Route::get('/premium/upgrade/{package}', ...)
     Route::get('/premium/upgrade', [PremiumController::class, 'upgrade'])->name('premium.upgrade');
 });
 
 Route::get('/payment/vnpay', [VNPayController::class, 'createPayment'])->name('vnpay.create');
 Route::get('/payment/vnpay/return', [VNPayController::class, 'returnPayment'])->name('vnpay.return');
-
 
 Route::get('/tai-khoan', [HomeController::class, 'profile'])->name('profile');
 Route::post('/tai-khoan', [HomeController::class, 'update'])->name('update');
@@ -82,9 +83,9 @@ Route::get('shop/{id}', [ShopController::class, 'show'])->name('shop.show');
 
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/checkout', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
-Route::post('/vnpay-payment', [CheckoutController::class,'vnpay_payment'])->name('vnpay-payment');
+Route::post('/vnpay-payment', [CheckoutController::class, 'vnpay_payment'])->name('vnpay-payment');
 Route::get('vnpay-index', [CheckoutController::class, 'vnpay_payment_callback'])->name('vnpay-index');
-Route::post('/momo-payment', [CheckoutController::class,'momo_payment'])->name('momo-payment');
+Route::post('/momo-payment', [CheckoutController::class, 'momo_payment'])->name('momo-payment');
 
 
 Route::middleware('auth')->group(function () {
