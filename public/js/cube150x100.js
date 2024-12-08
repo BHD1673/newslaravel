@@ -1,71 +1,90 @@
-const style = `
-body { display: flex; justify-content: center; align-items: center; flex-direction: column; height: 100vh; background-color: #f4f4f4; margin: 0; perspective: 1000px; }
-.container { position: relative; }
-.close-btn { position: absolute; top: 10px; right: 15px; font-size: 20px; color: black; cursor: pointer; background: none; border: none; border-radius: 50%;}
-.close-btn:hover { color: #333; background-color: none; }
-.ad-slideshow { position: relative; top: 60px; right: 30px; width: 150px; height: 150px; transform-style: preserve-3d; animation: 18s linear infinite rotate; }
-.ad-container { position: absolute; width: 150px; height: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center; background-color: #fff; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); backface-visibility: hidden; }
-.ad-link { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; text-decoration: none; color: inherit; }
-.ad-image { width: 100%; height: 70%; object-fit: cover; }
-.ad-content { text-align: left; flex: 1; padding: 10px; }
-.ad-title { font-size: 12px; font-weight: 700; color: #333; margin: 0; line-height: 1.2;    font-style: normal;    font-family: Arial, Helvetica, sans-serif;    display: -webkit-box; }
-.ad-title:hover { color:  rgb(52, 63, 207); }
-.ad-sponsor { font-size: 10px; color: #777; margin-top: 5px; }
-@keyframes rotate { 0%, 16.66% { transform: rotateY(0); } 33.33%, 50% { transform: rotateY(-90deg); } 66.66%, 83.33% { transform: rotateY(-180deg); } 100% { transform: rotateY(-270deg); } }
-.face1 { transform: rotateY(0) translateZ(75px); }
-.face2 { transform: rotateY(-90deg) translateZ(75px); }
-.face3 { transform: rotateY(-180deg) translateZ(75px); }
-.face4 { transform: rotateY(-270deg) translateZ(75px); }
-`;
+document.addEventListener('DOMContentLoaded', function () {
+    const style = `
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        .cube-custom-wrapper {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            z-index: 99999999 !important;
+            perspective: 1000px;
+        }
+        .cube-custom-container {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateX(0deg) rotateY(0deg);
+            animation: rotateCube 15s infinite linear;
+        }
+        .cube-custom-face {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            background-size: cover;
+            background-position: center;
+        }
+        .front  { transform: translateZ(50px); }
+        .back   { transform: translateZ(-50px) rotateY(180deg); }
+        .left   { transform: rotateY(-90deg) translateX(-50px); transform-origin: center left; }
+        .right  { transform: rotateY(90deg) translateX(50px); transform-origin: center right; }
+        .top    { transform: rotateX(90deg) translateY(-50px); transform-origin: top center; }
+        .bottom { transform: rotateX(-90deg) translateY(50px); transform-origin: bottom center; }
+        @keyframes rotateCube {
+            0% { transform: rotateX(0deg) rotateY(0deg); }
+            25% { transform: rotateX(0deg) rotateY(90deg); }
+            50% { transform: rotateX(90deg) rotateY(90deg); }
+            75% { transform: rotateX(90deg) rotateY(180deg); }
+            100% { transform: rotateX(0deg) rotateY(360deg); }
+        }
+        .btn-close {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #fff;
+            border: none;
+            padding: 5px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+        .btn-close img {
+            width: 20px;
+            height: 20px;
+        }
+    `;
 
-const styleElement = document.createElement("style");
-styleElement.textContent = style;
-document.head.appendChild(styleElement);
+    const html = `
+        <div class="cube-custom-wrapper">
+            <div class="cube-custom-container">
+                <div class="cube-custom-face front" style="background-image: url('https://picsum.photos/200/300');"></div>
+                <div class="cube-custom-face back" style="background-image: url('https://picsum.photos/200/300');"></div>
+                <div class="cube-custom-face left" style="background-image: url('https://picsum.photos/200/300');"></div>
+                <div class="cube-custom-face right" style="background-image: url('https://picsum.photos/200/300');"></div>
+                <div class="cube-custom-face top" style="background-image: url('https://picsum.photos/200/300');"></div>
+                <div class="cube-custom-face bottom" style="background-image: url('https://picsum.photos/200/300');"></div>
+            </div>
+            <button class="btn-close" onclick="closeAd()" style="top: -40px;">
+              
+                X
+            </button>
+        </div>
+    `;
 
-const ads = [
- {
-     image: "https://picsum.photos/200/300",
-     title: "Explore the World with Our New Adventure Tours",
-     link: "https://picsum.photos/"
- },
- {
-     image: "https://picsum.photos/id/237/200/300",
-     title: "Delicious Recipes for Every Season - Find Your Favorites!",
-     link: "https://picsum.photos/"
- },
- {
-     image: "https://picsum.photos/seed/picsum/200/300",
-     title: "Upgrade Your Tech: Latest Gadgets and Innovations",
-     link: "https://picsum.photos/"
- },
- {
-     image: "https://picsum.photos/200/300?grayscale",
-     title: "Discover Nature: The Best Places for Hiking and Camping",
-     link: "https://picsum.photos/"
- }
-];
+    const styleElement = document.createElement('style');
+    styleElement.textContent = style;
+    document.head.appendChild(styleElement);
 
-let adHTML =
- "<div class='container'>" +
- "<button class='close-btn' onclick='closeAd()'>&times;</button>" +
- "<div class='ad-slideshow'>" +
- ads.map((ad, index) => {
-     return "<div class='ad-container face" + (index + 1) + "'>" +
-         "<a href='" + ad.link + "' class='ad-link'>" +
-         "<img src='" + ad.image + "' alt='Ad Image' class='ad-image'>" +
-         "<div class='ad-content'>" +
-         "<p class='ad-title'>" + ad.title + "</p>" +
-         "</div>" +
-         "</a>" +
-         "</div>";
- }).join("") +
- "</div>" +
- "</div>";
+    const adWrapper = document.createElement('div');
+    adWrapper.innerHTML = html;
+    document.body.appendChild(adWrapper);
 
-const adWrapper = document.createElement("div");
-adWrapper.innerHTML = adHTML;
-document.body.appendChild(adWrapper);
-
-const closeAd = function () {
- adWrapper.style.display = 'none';
-};
+    // Hàm đóng quảng cáo
+    window.closeAd = function () {
+        adWrapper.style.display = 'none';
+    };
+});

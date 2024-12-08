@@ -39,7 +39,9 @@ use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PremiumController;
 use App\Http\Controllers\VNPayController;
 use App\Http\Controllers\WishlistController;
-use App\Http\Controllers\AdController;
+use App\Http\Controllers\AdsController;
+use App\Http\Controllers\AdsPaymentController;
+use App\Http\Controllers\AdsHistoryController;
 
 
 
@@ -50,11 +52,14 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::middleware(['auth', 'check.premium'])->group(function () {
     Route::get('/premium', [HomeController::class, 'premium'])->name('premium');
     Route::get('/premium/upgrade', [PremiumController::class, 'upgrade'])->name('premium.upgrade');
+    Route::get('ads/create', [AdsController::class, 'create'])->name('ads.form');
+    Route::post('ads/store', [AdsController::class, 'store'])->name('ads.store');
+    Route::get('ads/history', [AdsController::class, 'history'])->name('ads.history');
+    Route::get('ads/payment/{ad_id}', [AdsPaymentController::class, 'pay'])->name('ads.payment');
+    Route::post('ads/payment/{ad_id}', [AdsPaymentController::class, 'processPayment'])->name('ads.processPayment');
+    Route::get('ads/history/cancel/{ad_id}', [AdsHistoryController::class, 'cancel'])->name('ads.cancel');
 });
 
-Route::get('/ads/register', [AdController::class, 'showAdForm'])->name('ads.form');
-Route::post('/ads/check-availability', [AdController::class, 'checkAvailability']);
-Route::post('/ads/store', [AdController::class, 'store'])->name('ads.store');
 
 Route::get('/payment/vnpay', [VNPayController::class, 'createPayment'])->name('vnpay.create');
 Route::get('/payment/vnpay/return', [VNPayController::class, 'returnPayment'])->name('vnpay.return');

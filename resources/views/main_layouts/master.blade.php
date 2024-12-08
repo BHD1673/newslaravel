@@ -94,6 +94,10 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
     <!-- ==== Custom Stylesheet ==== -->
     <link rel="stylesheet" href="{{ asset('kcnew/frontend/css/custom.css') }}">
 	<script src="{{ asset('js/cube.js') }}"></script>
+	<script src="{{ asset('js/cube150x100.js') }}"></script>
+	<script src="{{ asset('js/ads.js') }}"></script>
+
+	
 
 
     @yield('custom_css')
@@ -450,8 +454,7 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 	<script src="{{ asset('blog_template/js/main.js') }}"></script>
 
 	<script src="{{ asset('js/function.js') }}"></script>
-	<script src='https://api-pop.diveinthebluesky.biz/mgid?zoneId=548721'></script>
-	<script src='https://api-pop.diveinthebluesky.biz/mgid?zoneId=860148'></script>
+
 
 	<!-- ==== JS TEAMPLATED KCNEWS jQuery Library ==== -->
 	<!-- <script src="{{ asset('kcnew/frontend/js/jquery-3.2.1.min.js') }}"></script> -->

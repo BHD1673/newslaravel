@@ -1,107 +1,70 @@
-@extends('main_layouts.master')
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-@section('content')
-<!-- resources/views/ads/form.blade.php -->
-<style>
-    .form-container {
-    max-width: 400px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
-}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!-- Toastr CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+<!-- Toastr JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<!-- Check for the session message and show toast -->
+@if (session('error'))
+    <script>
+        toastr.error("{{ session('error') }}");
+    </script>
+@endif
 
-.form-group {
-    margin-bottom: 15px;
-}
-
-label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.form-select, .form-input {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.form-button {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.form-button:hover {
-    background-color: #0056b3;
-}
-
-</style>
-
-<form action="{{ route('ads.store') }}" method="POST" class="p-4 bg-light rounded shadow-sm" mut>
-    @csrf
-    <div class="mb-3" style="margin-bottom: 20px;left: 10px;">
-        <label for="position" class="form-label">Vị trí quảng cáo:</label>
-        <select name="position" id="position" class="form-select">
-            @foreach ($positions as $position)
-                <option value="{{ $position }}">{{ ucfirst($position) }}</option>
-            @endforeach
-        </select>
-    </div>
-
-    <div class="mb-3" style="margin-bottom: 20px;">
-        <label for="time_slot" class="form-label">Khung giờ:</label>
-        <select name="time_slot" id="time_slot" class="form-select">
-            @foreach ($timeSlots as $slot)
-                <option value="{{ $slot }}">{{ ucfirst($slot) }}</option>
-            @endforeach
-        </select>
-    </div>
-
-    <div class="mb-3" style="margin-bottom: 20px;">
-        <label for="date" class="form-label">Chọn ngày:</label>
-        <input type="date" name="date" id="date" class="form-control" >
-    </div>
+<div class="container">
+    <h1>Đăng ký quảng cáo</h1>
     
+    <form action="{{ route('ads.store') }}" method="POST">
+        @csrf
+        <div class="form-group">
+            <label for="title">Tiêu đề quảng cáo</label>
+            <input type="text" name="title" id="title" class="form-control" required>
+        </div>
 
-    <button type="submit" class="btn btn-primary w-100" style="margin-bottom: 20px;">Kiểm tra</button>
-</form>
+        <div class="form-group">
+            <label for="img">Link hình ảnh</label>
+            <input type="text" name="img" id="img" class="form-control" required>
+        </div>
 
+        <div class="form-group">
+            <label for="link">Link quảng cáo</label>
+            <input type="text" name="link" id="link" class="form-control" required>
+        </div>
 
+        <div class="form-group">
+            <label for="email">Email liên hệ</label>
+            <input type="email" name="email" id="email" class="form-control" required>
+        </div>
 
+        <div class="form-group">
+            <label for="phone">Số điện thoại liên hệ</label>
+            <input type="text" name="phone" id="phone" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="start_time">Thời gian bắt đầu</label>
+            <input type="datetime-local" name="start_time" id="start_time" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="end_time">Thời gian kết thúc</label>
+            <input type="datetime-local" name="end_time" id="end_time" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="position">Vị trí quảng cáo</label>
+            <select name="position" id="position" class="form-control" required>
+                @foreach ($positions as $position)
+                    <option value="{{ $position->position }}">{{ ucfirst($position->position) }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Đăng ký quảng cáo</button>
+    </form>
+</div>
 
 <script>
-$('#position, #time_slot, #date').on('change', function() {
-    const position = $('#position').val();
-    const timeSlot = $('#time_slot').val();
-    const date = $('#date').val();
-
-    $.ajax({
-        url: '/ads/check-availability',
-        method: 'POST',
-        data: {
-            position: position,
-            time_slot: timeSlot,
-            date: date,
-            _token: '{{ csrf_token() }}',
-        },
-        success: function(response) {
-            alert(response.message);
-        }
-    });
-});
-
+      console.log('Toastr loaded:', typeof toastr !== 'undefined');
 </script>
-@endsection
