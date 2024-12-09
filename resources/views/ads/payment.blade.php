@@ -1,8 +1,9 @@
+@extends('main_layouts.master')
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+@section('title',' TDQ - Liên hệ')
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <div class="container">
+@section('content')
+    <div class="container" style="margin-bottom: 30px">
         <h1>Thanh toán quảng cáo</h1>
 
         <form action="{{ route('ads.processPayment', $ad->id) }}" method="POST">
@@ -34,3 +35,4 @@
             <button type="submit" class="btn btn-primary">Thanh toán</button>
         </form>
     </div>
+@endsection

@@ -93,9 +93,9 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 
     <!-- ==== Custom Stylesheet ==== -->
     <link rel="stylesheet" href="{{ asset('kcnew/frontend/css/custom.css') }}">
-	<script src="{{ asset('js/cube.js') }}"></script>
+	{{-- <script src="{{ asset('js/cube.js') }}"></script>
 	<script src="{{ asset('js/cube150x100.js') }}"></script>
-	<script src="{{ asset('js/ads.js') }}"></script>
+	<script src="{{ asset('js/ads.js') }}"></script> --}}
 
 	
 

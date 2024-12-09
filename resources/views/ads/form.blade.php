@@ -1,11 +1,8 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+@extends('main_layouts.master')
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<!-- Toastr CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-<!-- Toastr JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-<!-- Check for the session message and show toast -->
+@section('title',' TDQ - Liên hệ')
+
+@section('content')
 @if (session('error'))
     <script>
         toastr.error("{{ session('error') }}");
@@ -61,10 +58,12 @@
             </select>
         </div>
 
-        <button type="submit" class="btn btn-primary">Đăng ký quảng cáo</button>
+        <button type="submit" class="btn btn-primary" style="margin-bottom: 30px">Đăng ký quảng cáo</button>
     </form>
 </div>
 
 <script>
       console.log('Toastr loaded:', typeof toastr !== 'undefined');
 </script>
+
+@endsection
