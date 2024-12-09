@@ -368,14 +368,24 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 					<h4>Theo dõi chúng tôi</h4>
 					<div class="row">
 						<div class="col-md-12">
-							<form  class="form-inline qbstp-header-subscribe">
-									<div class="form-group">
-										<input name='subscribe-email' type="text" required class="form-control" id="text" placeholder="Nhập email của bạn" >
-									</div>
+						
+									
 									<div class="form-group ">
-										<button id='subscibe-btn'   type="submit" class="btn btn-primary">Đăng ký ngay</button>
+										<a href="{{route('ads.form')}}" class="btn-button">
+											<button class="btn btn-primary">Đăng ký Quảng Cáo Với Chúng Tôi Ngay</button>
+										</a>
+										
 									</div>
-							</form>
+							
+							<form  class="form-inline qbstp-header-subscribe">
+								<div class="form-group">
+									<input name='subscribe-email' type="text" required class="form-control" id="text" placeholder="Nhập email của bạn" >
+								</div>
+								
+								<div class="form-group" style="margin-top: 10px">
+									<button id='subscibe-btn'   type="submit" class="btn btn-primary">Đăng ký ngay</button>
+								</div>
+						</form>
 						</div>
 					</div>
 				</div>
@@ -400,15 +410,15 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 						<span style="font-size: 14px" class="block">Thuộc Bộ Khoa học Công nghệ</span>
 					</p>
 					<p>
-						<span style="font-size: 14px" class="block">Số giấy phép: 548/GP-BTTTT ngày 27/06/2022</span>
+						<span style="font-size: 14px" class="block">Số giấy phép: 548/GP-BTTTT ngày 27/11/2024</span>
 					</p>
 				</div>
 				<div class="col-md-4">
 					<p>
-						<span style="font-size: 14px" class="block">Tổng biên tập: Nhóm TDQ Hutech</span>
+						<span style="font-size: 14px" class="block">Tổng biên tập: FPT POLYTECHNIC</span>
 					</p>
 					<p>
-						<span style="font-size: 14px" class="block">Địa chỉ: E1, Khu Công Nghệ cao, Phường Hiệp Phú, TP.HCM</span>
+						<span style="font-size: 14px" class="block">Địa chỉ: Trịnh Văn Bô, Nam Từ Liêm, Quận Nam Từ Liêm, Thành Phố Hà Nội</span>
 					</p>
 					<p>
 						<span style="font-size: 14px" class="block">Điện thoại: 0392766630</span>
@@ -416,15 +426,15 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 				</div>
 				<div class="col-md-4">
 					<p>
-						<small style="font-size: 14px" class="block">&copy; 2022. Toàn bộ bản quyền thuộc DTQ</small>
+						<small style="font-size: 14px" class="block">&copy; 2024. Toàn bộ bản quyền thuộc FPT POLYTECHNIC</small>
 					</p>
 					<p>
 						<ul style="display: flex;" class="header--topbar-social nav hidden-sm hidden-xxs">
-							<li><a href="https://www.facebook.com/people/Anh-Tuan/100007007238964"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="https://www.youtube.com/c/H%E1%BB%93AnhTu%E1%BA%A5nYoutube"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="https://www.youtube.com/c/H%E1%BB%93AnhTu%E1%BA%A5nYoutube"><i class="fa fa-google-plus"></i></a></li>
-							<li><a href="https://www.youtube.com/c/H%E1%BB%93AnhTu%E1%BA%A5nYoutube"><i class="fa fa-rss"></i></a></li>
-							<li><a href="https://www.youtube.com/c/H%E1%BB%93AnhTu%E1%BA%A5nYoutube"><i class="fa fa-youtube-play"></i></a></li>
+							<li><a href="https://www.facebook.com/profile.php?id=100040124105868"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="https://www.facebook.com/profile.php?id=100040124105868"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="https://www.facebook.com/profile.php?id=100040124105868"><i class="fa fa-google-plus"></i></a></li>
+							<li><a href="https://www.facebook.com/profile.php?id=100040124105868"><i class="fa fa-rss"></i></a></li>
+							<li><a href="https://www.facebook.com/profile.php?id=100040124105868"><i class="fa fa-youtube-play"></i></a></li>
 						</ul>
 					</p>
 				</div>
@@ -544,6 +554,7 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 							$("body").append("<div class='global-message alert alert-danger subscribe-success'>"+ message +"</div>");
 						
 							_this.parents("form").find("input[name='subscribe-email']").val('');
+							window.location.href = "{{route('ads.form')}}";
 						},
 						statusCode: {
 							500: () => {								 

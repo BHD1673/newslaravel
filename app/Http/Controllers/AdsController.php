@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AdApprovedMail;
 use App\Mail\AdCancelledMail;
+use App\Mail\AdRunningMail;
+use App\Mail\AdCompletedMail;
 use Carbon\Carbon;
 
 class AdsController extends Controller
@@ -97,16 +99,38 @@ class AdsController extends Controller
                 $ad->save();
             }
     
-            // Kiểm tra nếu quảng cáo đã phê duyệt và chưa có thanh toán trong bảng ads_payment
+            // Kiểm tra nếu quảng cáo đã phê duyệt và có giao dịch thanh toán trong bảng ads_payment
             if ($ad->status === 'approved') {
                 // Kiểm tra trong bảng ads_payment xem có giao dịch nào với quảng cáo này chưa
                 $paymentExist = AdsPayment::where('ad_id', $ad->id)->exists();
     
-                // Nếu chưa có giao dịch thanh toán và thời gian còn lại trước khi hết hạn là ít hơn 8 tiếng
-                if (!$paymentExist) {
+                // Nếu đã thanh toán, kiểm tra thời gian và cập nhật trạng thái quảng cáo
+                if ($paymentExist) {
+                    $currentTime = Carbon::now(); // Lấy thời gian hiện tại
+                    $endTime = Carbon::parse($ad->end_time); // Lấy thời gian kết thúc của quảng cáo
+    
+                    // Nếu quảng cáo đã hết hạn và đã thanh toán
+                    if ($currentTime > $endTime) {
+                        $ad->status = 'completed'; // Cập nhật trạng thái thành 'completed'
+                        $ad->save();
+                        
+                        // Gửi email thông báo cho người dùng về việc quảng cáo đã hoàn thành
+                        Mail::to($ad->user->email)->send(new AdCompletedMail($ad)); // Tạo Mailable mới để gửi thông báo hoàn thành quảng cáo
+                    }
+                    // Nếu quảng cáo đang trong thời gian chạy và đã thanh toán
+                    elseif ($currentTime >= Carbon::parse($ad->start_time) && $currentTime <= $endTime) {
+                        $ad->status = 'running'; // Cập nhật trạng thái thành 'running'
+                        $ad->save();
+    
+                        // Gửi email thông báo cho người dùng về việc quảng cáo đang chạy
+                        Mail::to($ad->user->email)->send(new AdRunningMail($ad)); // Tạo Mailable mới để gửi thông báo quảng cáo đang chạy
+                    }
+                }
+                // Nếu chưa có thanh toán và thời gian còn lại ít hơn 8 tiếng
+                else {
                     $endTime = Carbon::parse($ad->end_time); // Lấy thời gian kết thúc
                     $currentTime = Carbon::now(); // Lấy thời gian hiện tại
-                    
+    
                     // Sự khác biệt giữa thời gian hiện tại và thời gian kết thúc
                     $timeDiff = $endTime->diff($currentTime);
     

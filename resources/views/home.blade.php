@@ -668,10 +668,26 @@
 							<div class="ad--widget--banner">
 								<div class="row">
 									<div class="col-sm-12">
-										<a
-											href="https://mwc.com.vn/products/giay-sandal-nu-mwc-nusd--2887?c=N%C3%82U">
-											<img src="{{ asset('kcnew/frontend/img/ads-img/banner_quangcao1.png') }}" alt="">
+										@foreach ($ads as $ad)
+										@if($ad->position == 'center2')
+										<a href="{{ $ad->link }}">
+											<div class="ad-banner" style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 500px; max-height: 200px; overflow: hidden; margin: 30px auto; z-index: 999999;">
+												<!-- Hiển thị tiêu đề "HOT HOT HOT" -->
+												<h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: white; font-weight: bold; z-index: 10;">HOT HOT HOT</h3>
+										
+												<!-- Hiển thị ảnh quảng cáo và tiêu đề lên ảnh -->
+												<a href="{{ $ad->link }}" style="display: block; width: 100%; height: 100%; position: relative; overflow: hidden;">
+													<img src="{{ $ad->img }}" alt="{{ $ad->title }}" style="width: 100%; max-height: 200px; object-fit: contain;">
+													
+													<!-- Hiển thị tiêu đề quảng cáo lên ảnh -->
+													<h3 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; color: white; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); z-index: 5;">
+														{{ $ad->title }}
+													</h3>
+												</a>
+											</div>
 										</a>
+										@endif
+										@endforeach
 									</div>
 								</div>
 							</div>
@@ -781,12 +797,26 @@
 								<i class="icon fa fa-bullhorn"></i>
 							</div>
 
-							<!-- Ad Widget Start -->
-							<div class="ad--widget--banner">
-								<a href="https://mwc.com.vn/products/giay-sandal-nu-mwc-nusd--2887?c=N%C3%82U">
-									<img src="{{ asset('kcnew/frontend/img/ads-img/banner_quangcao.png') }}" alt="">
-								</a>
-							</div>
+							@foreach ($ads as $ad)
+							@if($ad->position == 'center')
+							<a href="{{ $ad->link }}">
+								<div class="ad-banner" style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 500px; max-height: 200px; overflow: hidden; margin: 30px auto; z-index: 999999;">
+									<!-- Hiển thị tiêu đề "HOT HOT HOT" -->
+									<h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: white; font-weight: bold; z-index: 10;">HOT HOT HOT</h3>
+							
+									<!-- Hiển thị ảnh quảng cáo và tiêu đề lên ảnh -->
+									<a href="{{ $ad->link }}" style="display: block; width: 100%; height: 100%; position: relative; overflow: hidden;">
+										<img src="{{ $ad->img }}" alt="{{ $ad->title }}" style="width: 100%; max-height: 200px; object-fit: contain;">
+										
+										<!-- Hiển thị tiêu đề quảng cáo lên ảnh -->
+										<h3 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; color: white; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); z-index: 5;">
+											{{ $ad->title }}
+										</h3>
+									</a>
+								</div>
+							</a>
+							@endif
+							@endforeach
 							<!-- Ad Widget End -->
 						</div>
 						<!-- Widget End -->
@@ -878,9 +908,26 @@
 
 			<!-- Advertisement Start -->
 			<div class="ad--space pd--30-0">
-				<a href="https://burine.vn/">
-					<img src="{{ asset('kcnew/frontend/img/ads-img/970x90_banner_burine.png') }}" alt="" class="center-block">
+				@foreach ($ads as $ad)
+				@if($ad->position == 'center')
+				<a href="{{ $ad->link }}">
+					<div class="ad-banner" style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 500px; max-height: 200px; overflow: hidden; margin: 30px auto; z-index: 999999;">
+						<!-- Hiển thị tiêu đề "HOT HOT HOT" -->
+						<h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: white; font-weight: bold; z-index: 10;">HOT HOT HOT</h3>
+				
+						<!-- Hiển thị ảnh quảng cáo và tiêu đề lên ảnh -->
+						<a href="{{ $ad->link }}" style="display: block; width: 100%; height: 100%; position: relative; overflow: hidden;">
+							<img src="{{ $ad->img }}" alt="{{ $ad->title }}" style="width: 100%; max-height: 200px; object-fit: contain;">
+							
+							<!-- Hiển thị tiêu đề quảng cáo lên ảnh -->
+							<h3 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; color: white; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); z-index: 5;">
+								{{ $ad->title }}
+							</h3>
+						</a>
+					</div>
 				</a>
+				@endif
+				@endforeach
 			</div>
 			<!-- Advertisement End -->
 
@@ -1333,19 +1380,30 @@
 							<!-- Ad Widget Start -->
 							<div class="ad--widget">
 								<div class="row">
-									<div class="col-sm-6">
-										<a href="javascript:;">
-											<img src="{{ asset('kcnew/frontend/img/ads-img/banner_quangcao.png') }}"
-												alt="">
+									<div class="col-sm-12">
+										@foreach ($ads as $ad)
+										@if($ad->position == 'center')
+										<a href="{{ $ad->link }}">
+											<div class="ad-banner" style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 500px; max-height: 200px; overflow: hidden; margin: 30px auto; z-index: 999999;">
+												<!-- Hiển thị tiêu đề "HOT HOT HOT" -->
+												<h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: white; font-weight: bold; z-index: 10;">HOT HOT HOT</h3>
+										
+												<!-- Hiển thị ảnh quảng cáo và tiêu đề lên ảnh -->
+												<a href="{{ $ad->link }}" style="display: block; width: 100%; height: 100%; position: relative; overflow: hidden;">
+													<img src="{{ $ad->img }}" alt="{{ $ad->title }}" style="width: 100%; max-height: 200px; object-fit: contain;">
+													
+													<!-- Hiển thị tiêu đề quảng cáo lên ảnh -->
+													<h3 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; color: white; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); z-index: 5;">
+														{{ $ad->title }}
+													</h3>
+												</a>
+											</div>
 										</a>
+										@endif
+										@endforeach
 									</div>
 
-									<div class="col-sm-6">
-										<a href="javascript:;">
-											<img src="{{ asset('kcnew/frontend/img/ads-img/banner_quangcao.png') }}"
-												alt="">
-										</a>
-									</div>
+									
 								</div>
 							</div>
 							<!-- Ad Widget End -->
@@ -1388,6 +1446,28 @@
 										@endforeach
 									
 									</ul>
+								
+										@foreach ($ads as $ad)
+										@if($ad->position == 'center')
+										<a href="{{ $ad->link }}">
+											<div class="ad-banner" style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 500px; max-height: 200px; overflow: hidden; margin-top: 30px; z-index: 999999;">
+												<!-- Hiển thị tiêu đề "HOT HOT HOT" -->
+												<h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: white; font-weight: bold; z-index: 10;">HOT HOT HOT</h3>
+										
+												<!-- Hiển thị ảnh quảng cáo và tiêu đề lên ảnh -->
+												<a href="{{ $ad->link }}" style="display: block; width: 100%; height: 100%; position: relative; overflow: hidden;">
+													<img src="{{ $ad->img }}" alt="{{ $ad->title }}" style="width: 100%; max-height: 200px; object-fit: contain;">
+													
+													<!-- Hiển thị tiêu đề quảng cáo lên ảnh -->
+													<h3 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; color: white; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); z-index: 5;">
+														{{ $ad->title }}
+													</h3>
+												</a>
+											</div>
+										</a>
+										@endif
+										@endforeach
+									
 
 
 								</div>
@@ -1435,6 +1515,7 @@
 				<!-- phân trang -->
 				{{$posts->links() }} 
 			</div>
+			
 
 			<!-- SIDEBAR: start -->
 			<div class="col-md-4 animate-box">
@@ -1448,6 +1529,7 @@
 			</div>
 		</div>
 	</div>
+	
 </div>
 	
 @endsection
