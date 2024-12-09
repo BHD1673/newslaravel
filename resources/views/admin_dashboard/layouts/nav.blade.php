@@ -91,6 +91,48 @@ function checkPermission($name) {
     </ul>
 </li>
 @endif --}}
+                
+                    {{-- @if(checkPermission("admin.products.index") || checkPermission("admin.products.create")) --}}
+                    <li>
+                        <a href="javascript:;" class="has-arrow">
+                            <div class="parent-icon"><i class='bx bx-box'></i></div>
+                            <div class="menu-title">Quản lý quảng cáo</div>
+                        </a>
+
+                        <ul>
+                            {{-- @if(checkPermission("admin.products.index")) --}}
+                                <li><a href="{{ route('admin.products.index') }}"><i class="bx bx-right-arrow-alt"></i>Tất cả quảng cáo</a></li>
+                            {{-- @endif --}}
+
+                            {{-- @if(checkPermission("admin.products.create")) --}}
+                                <li><a href="{{ route('admin.products.create') }}"><i class="bx bx-right-arrow-alt"></i>Các dạng quảng cáo</a></li>
+                            {{-- @endif --}}
+                            {{-- @if(checkPermission("admin.products.create")) --}}
+                                <li><a href="{{ route('admin.orders.index') }}"><i class="bx bx-right-arrow-alt"></i>Thanh Toán</a></li>
+                            {{-- @endif --}}
+                            {{-- @if(checkPermission("admin.products.create")) --}}
+                                <li><a href="{{ route('admin.posts.create') }}"><i class="bx bx-right-arrow-alt"></i>Các quảng cáo đã hoàn thành</a></li>
+                            {{-- @endif --}}
+                        </ul>
+                    </li>
+                    {{-- @endif  --}}
+
+                        
+                    {{-- @if(checkPermission("admin.orders.index") || checkPermission("admin.orders.show"))
+                    <li>
+                        <a href="javascript:;" class="has-arrow">
+                            <div class="parent-icon"><i class='bx bx-cart'></i></div>
+                            <div class="menu-title">Đơn hàng</div>
+                        </a>
+
+                        <ul>
+                            @if(checkPermission("admin.orders.index"))
+                                <li><a href="{{ route('admin.orders.index') }}"><i class="bx bx-right-arrow-alt"></i>Tất cả đơn hàng</a></li>
+                            @endif
+
+                        </ul>
+                    </li>
+                    @endif --}}
 
                 @if(checkPermission("admin.categories.index") || checkPermission("admin.categories.create") )
                 <li>

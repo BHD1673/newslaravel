@@ -18,6 +18,13 @@ class AdsController extends Controller
         $positions = AdsPosition::all();
         return view('ads.form', compact('positions'));
     }
+        // public function index()
+        // {
+           
+        //     // dd($ads);
+        //     return view('home', compact('ads'));
+        // }
+
 
     public function store(Request $request)
     {
@@ -34,17 +41,21 @@ class AdsController extends Controller
         ]);
 
       // Kiểm tra trùng thời gian và vị trí
-            $overlap = Ads::where('position', $request->position)
-            ->where(function ($query) use ($request) {
-                $query->whereBetween('start_time', [$request->start_time, $request->end_time])
-                    ->orWhereBetween('end_time', [$request->start_time, $request->end_time]);
-            })
-            ->exists();
-
+                $overlap = Ads::where('position', $request->position)
+                ->where(function ($query) use ($request) {
+                    // Quảng cáo mới bắt đầu trước khi quảng cáo cũ kết thúc
+                    $query->where('start_time', '<', $request->end_time)
+                        // Quảng cáo mới kết thúc sau khi quảng cáo cũ bắt đầu
+                        ->where('end_time', '>', $request->start_time);
+                })
+                ->exists();
+            
             if ($overlap) {
-            // Trả về với thông báo lỗi dạng toast
-            return redirect()->back()->with('error', 'Quảng cáo đã trùng thời gian và vị trí. Vui lòng chọn lại.');
+                // Nếu có trùng, trả về thông báo lỗi
+                return redirect()->back()->with('error', 'Quảng cáo đã trùng thời gian và vị trí. Vui lòng chọn lại.');
             }
+
+  
 
 
         // Tính toán giá tiền quảng cáo

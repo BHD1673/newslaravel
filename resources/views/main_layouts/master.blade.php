@@ -96,6 +96,12 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 	{{-- <script src="{{ asset('js/cube.js') }}"></script>
 	<script src="{{ asset('js/cube150x100.js') }}"></script>
 	<script src="{{ asset('js/ads.js') }}"></script> --}}
+	<!-- Thêm vào trong <head> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+<!-- Thêm vào trước </body> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 
 	
 
@@ -246,7 +252,7 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 					</ul>
 					<!-- Header Menu Links End -->
 				</div>
-	
+				
 				<!-- Header Search Form Start -->
 				<form method="POST" action="{{ route('search') }}" class="header--search-form float--right" data-form="validate">
 					@csrf	
@@ -291,6 +297,7 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 				</ul>
 			</div>
 		</div>
+		@yield('ads.index')
 
 		<!-- News Ticker Start -->
 		<div class="news--ticker">

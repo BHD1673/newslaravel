@@ -55,6 +55,7 @@ Route::middleware(['auth', 'check.premium'])->group(function () {
     Route::get('/premium', [HomeController::class, 'premium'])->name('premium');
     Route::get('/premium/upgrade', [PremiumController::class, 'upgrade'])->name('premium.upgrade');
     Route::get('ads/create', [AdsController::class, 'create'])->name('ads.form');
+    Route::get('ads/index', [AdsController::class, 'index'])->name('ads.index');
     Route::post('ads/store', [AdsController::class, 'store'])->name('ads.store');
     Route::get('ads/history', [AdsController::class, 'history'])->name('ads.history');
     Route::get('ads/payment/{ad_id}', [AdsPaymentController::class, 'pay'])->name('ads.payment');
