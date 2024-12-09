@@ -25,6 +25,8 @@ use App\Http\Controllers\AdminControllers\AdminContactsController;
 use App\Http\Controllers\AdminControllers\AdminSettingController;
 use App\Http\Controllers\AdminControllers\AdminOrderItemsController;
 use App\Http\Controllers\AdminControllers\AdminOrdersController;
+use App\Http\Controllers\AdminControllers\AdminPostHistorieController;
+use App\Http\Controllers\AdminControllers\AdminPostImagesController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AdminControllers\AdminProductsController;
 use App\Http\Controllers\CartController;
@@ -140,7 +142,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'check_permissions']
     Route::delete('post-history/{postHistorie}',[AdminPostHistorieController::class, 'destroy'])->name('post-history.destroy');
     Route::delete('post-history',[AdminPostHistorieController::class, 'removeAll'])->name('post-history.removeAll');
     Route::post('/poststitle', [AdminPostsController::class, 'to_slug'])->name('posts.to_slug');
-    Route::delete('post-img/{id}',[AdminPostImagesController::class, 'destroy'])->name('post-img.destroy');
+    // Route::delete('post-img/{id}',[AdminPostImagesController::class, 'destroy'])->name('post-img.destroy');
     Route::resource('categories', AdminCategoriesController::class);
     Route::resource('tags', AdminTagsController::class)->only(['index', 'show', 'destroy']);
     Route::resource('comments', AdminCommentsController::class)->except('show');

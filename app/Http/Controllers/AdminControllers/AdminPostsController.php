@@ -101,14 +101,43 @@ class AdminPostsController extends Controller
 
     public function update(Request $request, Post $post)
     {
-        $this->rules['file'] = 'nullable|file||mimes:jpg,png,webp,svg,jpeg|dimensions:max-width:800,max-height:300';
-        if (Auth::user()->role->name !== Role::ROLE_EMPLOYEE) {
-            $validated = $request->validate($this->rules);
+        $this->rules['thumbnail'] = 'nullable|file|mimes:jpg,png,webp,svg,jpeg|dimensions:max-width:800,max-height:300';
+        $validated = $request->validate($this->rules);
+        $validated['approved'] = $request->input('approved') !== null;
+        $post->update($validated);
+        // dd($request->all());
+
+        // Xử lý upload ảnh nếu có
+        if ($request->hasFile('thumbnail')) {
+            $thumbnail = $request->file('thumbnail');
+            $filename = time() . '-' . $thumbnail->getClientOriginalName();
+
+            // Di chuyển ảnh vào thư mục public/images
+            $path = $thumbnail->move(public_path('images'), $filename);
+
+            // Cập nhật thông tin ảnh trong cơ sở dữ liệu
+            $post->image()->update([
+                'name' => $filename,
+                'extension' => $thumbnail->getClientOriginalExtension(),
+                'path' => 'images/' . $filename, // Lưu đường dẫn ảnh tương đối
+            ]);
         }
 
-        $this->postService->edit($request->all(), $post->id); 
+        // Xử lý tags và các dữ liệu khác
+        $tags = explode(',', $request->input('tags'));
+        $tags_ids = [];
+        foreach ($tags as $tag) {
+            $tag_exits = $post->tags()->where('name', trim($tag))->count();
+            if ($tag_exits == 0) {
+                $tag_ob = Tag::create(['name' => $tag]);
+                $tags_ids[]  = $tag_ob->id;
+            }
+        }
 
-        return redirect()->route('admin.posts.edit', $post)->with('success', 'Sửa viết thành công.');
+        if (count($tags_ids) > 0)
+            $post->tags()->syncWithoutDetaching($tags_ids);
+
+        return redirect()->route('admin.posts.index', $post)->with('success', 'Sửa bài viết thành công.');
     }
 
     public function softDelete(Post $post)
