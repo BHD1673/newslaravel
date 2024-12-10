@@ -626,7 +626,7 @@
 							<!-- Ad Widget End -->
 						</div>
 						<!-- Widget End -->
-						@endif
+						
 						<!-- Widget Start -->
 						<div class="widget">
 							<!-- Ad Widget Start -->
@@ -643,7 +643,7 @@
 							<!-- Ad Widget End -->
 						</div>
 						<!-- Widget End -->
-
+						@endif
 						<!-- Widget Start -->
 						<div class="widget">
 							<div class="widget--title">
@@ -739,13 +739,13 @@
 						</div>
 						<!-- Widget End -->
 
-						<!-- Widget Start -->
+						<!-- Widget Start -->	@if(!auth()->check() || !auth()->user()->is_premium)
 						<div class="widget">
 							<div class="widget--title">
 								<h2 class="h4">Quảng cáo</h2>
 								<i class="icon fa fa-bullhorn"></i>
 							</div>
-
+						
 							<!-- Ad Widget Start -->
 							<div class="ad--widget--banner">
 								<a href="https://mwc.com.vn/products/giay-sandal-nu-mwc-nusd--2887?c=N%C3%82U">
@@ -753,8 +753,9 @@
 								</a>
 							</div>
 							<!-- Ad Widget End -->
+							
 						</div>
-						<!-- Widget End -->
+						<!-- Widget End -->@endif
 					</div>
 				</div>
 				<!-- Main Sidebar End -->
@@ -1304,7 +1305,7 @@
 												alt="">
 										</a>
 									</div>
-@endif
+
 									<div class="col-sm-6">
 										<a href="javascript:;">
 											<img src="{{ asset('kcnew/frontend/img/ads-img/banner_quangcao.png') }}"
@@ -1316,7 +1317,7 @@
 							<!-- Ad Widget End -->
 						</div>
 						<!-- Widget End -->
-
+						@endif
 						<!-- Widget Start -->
 						<div class="widget">
 							<div class="widget--title" data-ajax="tab">
