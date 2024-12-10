@@ -176,11 +176,13 @@
                                     <li><span><i class="fa fm fa-eye"></i>{{ $post->views }}</span></li>
                                     <li><a href="#"><i class="fa fm fa-comments-o"></i>{{ count($post->comments) }}</a></li>
                                 </ul>
-                                @if(!auth()->check() || auth()->user()->is_premium)
+                              
+                                @if(auth()->check() && auth()->user()->is_premium == 1)
+                                <!-- Hiển thị nút nếu người dùng là Premium -->
                                 <button id="read-all-btn" class="read-btn">🔊 Đọc Tất Cả</button>
-                                <!-- Nút dừng âm thanh -->
                                 <button id="stop-btn" class="read-btn">❌ Dừng</button>
-                                @endif
+                            @endif
+                               
                                 <div class="title">
                                     <h2 class="post_title h4"id="post-title">{{ $post->title }}</h2>
                                 </div>
@@ -379,11 +381,12 @@
                         <!-- Widget Start -->
                         <x-blog.side-vote />
 	                    <!-- Widget End -->
-
+                        @if(!auth()->check() || !auth()->user()->is_premium)
+      
                       <!-- Widget Start -->
                       <x-blog.side-ad_banner />
                       <!-- Widget End -->
-
+                      @endif
                     </div>
                 </div>
                 <!-- Main Sidebar End -->
