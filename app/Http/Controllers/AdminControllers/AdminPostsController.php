@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\Image; // Nếu bạn đang sử dụng một bảng images để lưu thông tin ảnh
 
 class AdminPostsController extends Controller
 {
@@ -22,7 +23,6 @@ class AdminPostsController extends Controller
     // Hàm hiển thị danh sách bài viết
     public function index()
     {
-        // Lấy danh sách bài viết theo thứ tự tăng dần, có phân trang
         return view('admin_dashboard.posts.index', [
             'posts' => Post::with('category')->orderBy('id', 'ASC')->paginate(20),
         ]);
@@ -62,7 +62,7 @@ class AdminPostsController extends Controller
             $filename = time() . '-' . $thumbnail->getClientOriginalName();
             $path = $thumbnail->storeAs('images', $filename, 'public');
 
-            // Lưu thông tin ảnh vào bảng images
+            // Lưu thông tin ảnh vào bảng images (hoặc bảng liên quan)
             $post->image()->create([
                 'name' => $filename,
                 'extension' => $thumbnail->getClientOriginalExtension(),
@@ -166,5 +166,19 @@ class AdminPostsController extends Controller
             'success' => 1,
             'message' => $str,
         ]);
+    }
+
+    // Hàm xử lý upload ảnh cho TinyMCE (nếu có)
+    public function uploadTinymceImage(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|image|mimes:jpg,png,jpeg|max:2048',
+        ]);
+
+        $image = $request->file('file');
+        $filename = time() . '-' . $image->getClientOriginalName();
+        $path = $image->storeAs('images', $filename, 'public');
+
+        return response()->json(['location' => asset('storage/images/' . $filename)]);
     }
 }
