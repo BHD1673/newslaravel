@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function () {
     const style = `
         * { margin: 0; padding: 0; box-sizing: border-box; }
         .banner-overlay {
@@ -73,20 +73,20 @@ document.addEventListener('DOMContentLoaded', function () {
         </div>
     `;
 
-    const styleElement = document.createElement('style');
+    const styleElement = document.createElement("style");
     styleElement.textContent = style;
     document.head.appendChild(styleElement);
 
-    const adWrapper = document.createElement('div');
+    const adWrapper = document.createElement("div");
     adWrapper.innerHTML = html;
     document.body.appendChild(adWrapper);
 
     // Hàm đóng quảng cáo
     window.closeBanner = function () {
-        const banner = document.querySelector('.banner-overlay');
-        banner.style.opacity = '0';
+        const banner = document.querySelector(".banner-overlay");
+        banner.style.opacity = "0";
         setTimeout(function () {
-            banner.style.display = 'none';
+            banner.style.display = "none";
         }, 500); // Thời gian chuyển động ẩn đi banner
     };
 });
