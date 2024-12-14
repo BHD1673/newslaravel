@@ -38,6 +38,9 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PremiumController;
 use App\Http\Controllers\VNPayController;
+use App\Http\Controllers\AdsController;
+use App\Http\Controllers\AdsPaymentController;
+use App\Http\Controllers\AdsHistoryController;
 use App\Http\Controllers\WishlistController;
 
 
@@ -51,6 +54,13 @@ Route::middleware(['auth', 'check.premium'])->group(function () {
     // Nếu bạn muốn sử dụng route 'premium.upgrade', hãy đảm bảo nó xử lý tham số 'package'
     // Ví dụ: Route::get('/premium/upgrade/{package}', ...)
     Route::get('/premium/upgrade', [PremiumController::class, 'upgrade'])->name('premium.upgrade');
+    Route::get('ads/create', [AdsController::class, 'create'])->name('ads.form');
+    Route::get('ads/index', [AdsController::class, 'index'])->name('ads.index');
+    Route::post('ads/store', [AdsController::class, 'store'])->name('ads.store');
+    Route::get('ads/history', [AdsController::class, 'history'])->name('ads.history');
+    Route::get('ads/payment/{ad_id}', [AdsPaymentController::class, 'pay'])->name('ads.payment');
+    Route::post('ads/payment/{ad_id}', [AdsPaymentController::class, 'processPayment'])->name('ads.processPayment');
+    Route::get('ads/history/cancel/{ad_id}', [AdsHistoryController::class, 'cancel'])->name('ads.cancel');
 });
 
 Route::get('/payment/vnpay', [VNPayController::class, 'createPayment'])->name('vnpay.create');

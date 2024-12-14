@@ -45,11 +45,11 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 	<link rel="icon" type="image/png" href="{{ asset('kcnew/frontend/img/image_iconLogo.png') }}"  sizes="160x160">
 
 	<link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900" rel="stylesheet">
-	@if(!auth()->check() || !auth()->user()->is_premium)
+	{{-- @if(!auth()->check() || !auth()->user()->is_premium)
 	<script src="{{ asset('js/cube.js') }}"></script>
 	<script src="{{ asset('js/cube150x100.js') }}"></script>
 	<script src="{{ asset('js/ads.js') }}"></script>
-	@endif
+	@endif --}}
 	<!-- Animate.css -->
 	<link rel="stylesheet" href="{{ asset('blog_template/css/animate.css') }}">
 	<!-- Icomoon Icon Fonts-->
@@ -239,6 +239,7 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 									class="fa flm fa-angle-down"></i></a>
 							<ul class="dropdown-menu">
 								<li><a href="{{ route('about') }}">Giới thiệu</a></li>
+								<li><a href="{{ route('ads.form') }}">Đăng Ký Quảng Cáo</a></li>
 								<li><a href="{{ route('contact.create') }}">Liên hệ</a></li>
 									<li><a href="{{ route('shop.index') }}">Shop</a></li> 
 								{{-- <li><a href="{{ route('erorrs.404') }}">404</a></li> --}}
@@ -461,8 +462,7 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 	<script src="{{ asset('blog_template/js/main.js') }}"></script>
 
 	<script src="{{ asset('js/function.js') }}"></script>
-	<script src='https://api-pop.diveinthebluesky.biz/mgid?zoneId=548721'></script>
-	<script src='https://api-pop.diveinthebluesky.biz/mgid?zoneId=860148'></script>
+
 
 	<!-- ==== JS TEAMPLATED KCNEWS jQuery Library ==== -->
 	<!-- <script src="{{ asset('kcnew/frontend/js/jquery-3.2.1.min.js') }}"></script> -->
