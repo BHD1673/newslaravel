@@ -118,7 +118,10 @@
                                                 </div>
 
                                                 <div class="col-md-7 text-center">                                                
-													<img style="width: 100%; border-radius: 16px;" src="/storage/{{ $post->image ? $post->image->path : 'placeholders/placeholder-image.jpg' }}" class="img-responsive" alt="All thumbnail">
+																									<img style="width: 100%; border-radius: 16px;" 
+																									src="{{ asset($post->image ? $post->image->path : 'images/placeholders/placeholder-image.jpg') }}" 
+																									class="img-responsive" alt="All thumbnail">
+																						 
 												</div>
                                             </div>
 										
