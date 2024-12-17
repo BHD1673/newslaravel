@@ -4,8 +4,6 @@
 @endsection
 
 @section("wrapper")
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <div class="page-wrapper">
         <div class="page-content">
             <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
@@ -70,169 +68,57 @@
 
             <div class="row">
                 <div class="col-12 col-lg-8">
-                    <div class="card radius-10 mb-0 border shadow-none">
+                    <div class="card radius-10">
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <h6 class="mb-0">Biểu đồ Lượt Xem & Bình Luận</h6>
+                                    <h6 class="mb-0">Biểu đồ lượt xem</h6>
                                 </div>
                                 <div class="dropdown ms-auto">
-                                    <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
-                                        <i class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
+                                    <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown"><i class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="javascript:;" id="last7days">7 ngày qua</a></li>
-                                        <li><a class="dropdown-item" href="javascript:;" id="last30days">30 ngày qua</a></li>
-                                        <li><a class="dropdown-item" href="javascript:;" id="last90days">90 ngày qua</a></li>
-                                        <li><a class="dropdown-item" href="javascript:;" id="allTime">Tất cả thời gian</a></li>
+                                        <li><a class="dropdown-item" href="javascript:;">Action</a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="javascript:;">Another action</a>
+                                        </li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item" href="javascript:;">Something else here</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
-                    
-                            <!-- Biểu đồ kết hợp: Lượt xem và Bình Luận -->
-                            <canvas id="combinedChart" width="400" height="200"></canvas>
+                            <div class="d-flex align-items-center ms-auto font-13 gap-2 my-3">
+                                <span class="border px-1 rounded cursor-pointer"><i class="bx bxs-circle me-1" style="color: #14abef"></i>Số đã người đọc</span>
+                                <span class="border px-1 rounded cursor-pointer"><i class="bx bxs-circle me-1" style="color: #ffc107"></i>Số người đã bình luận</span>
+                            </div>
+                            <div class="chart-container-1">
+                                <canvas id="chart1"></canvas>
+                            </div>
+                        </div>
+                        <div class="row row-cols-1 row-cols-md-3 row-cols-xl-3 g-0 row-group text-center border-top">
+                            <div class="col">
+                                <div class="p-3">
+                                    <h5 class="mb-0">24.15M</h5>
+                                    <small class="mb-0">Overall Visitor <span> <i class="bx bx-up-arrow-alt align-middle"></i> 2.43%</span></small>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="p-3">
+                                    <h5 class="mb-0">12:38</h5>
+                                    <small class="mb-0">Visitor Duration <span> <i class="bx bx-up-arrow-alt align-middle"></i> 12.65%</span></small>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="p-3">
+                                    <h5 class="mb-0">639.82</h5>
+                                    <small class="mb-0">Pages/Visit <span> <i class="bx bx-up-arrow-alt align-middle"></i> 5.62%</span></small>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    
-                    <script>
-                        // Dữ liệu lượt xem, bình luận, và bài viết cho các khoảng thời gian
-                        const data = {
-        '7days': {
-            views: {{ $viewsLast7Days }},
-            comments: {{ $commentsLast7Days }},
-            posts: {{ $postsLast7Days }}
-        },
-        '30days': {
-            views: {{ $viewsLast30Days }},
-            comments: {{ $commentsLast30Days }},
-            posts: {{ $postsLast30Days }}
-        },
-        '90days': {
-            views: {{ $viewsLast90Days }},
-            comments: {{ $commentsLast90Days }},
-            posts: {{ $postsLast90Days }}
-        },
-        'allTime': {
-            views: {{ $viewsAllTime }},
-            comments: {{ $commentsAllTime }},
-            posts: {{ $postsAllTime }}
-        }
-    };
-
-    // Tạo biểu đồ ban đầu
-    const ctx = document.getElementById('combinedChart').getContext('2d');
-    let combinedChart = new Chart(ctx, {
-        type: 'bar',  // Biểu đồ cột cho lượt xem
-        data: {
-            labels: ['7 ngày qua', '30 ngày qua', '90 ngày qua', 'Tất cả thời gian'], // Labels mặc định
-            datasets: [{
-                label: 'Lượt xem',
-                data: [
-                    data['7days'].views, 
-                    data['30days'].views, 
-                    data['90days'].views, 
-                    data['allTime'].views
-                ],
-                backgroundColor: '#ff9800', // Màu nền cho biểu đồ cột
-                borderColor: '#f57c00', // Màu viền cho biểu đồ cột
-                borderWidth: 1
-            }, {
-                label: 'Bình luận',
-                data: [
-                    data['7days'].comments, 
-                    data['30days'].comments, 
-                    data['90days'].comments, 
-                    data['allTime'].comments
-                ],
-                backgroundColor: '#4caf50', // Không tô màu cho cột bình luận
-                borderColor: '#4caf50', // Màu đường cho bình luận
-                borderWidth: 2,
-                type: 'bar',  // Biểu đồ đường cho bình luận
-                fill: false,   // Không tô màu dưới đường
-                tension: 0.1
-            }, {
-                label: 'Bài viết',
-                data: [
-                    data['7days'].posts, 
-                    data['30days'].posts, 
-                    data['90days'].posts, 
-                    data['allTime'].posts
-                ],
-                backgroundColor: '#2196F3', // Màu nền cho cột bài viết
-                borderColor: '#1976D2', // Màu viền cho cột bài viết
-                borderWidth: 1,
-                type: 'bar',  // Biểu đồ cột cho bài viết
-                fill: false
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(tooltipItem) {
-                            if (tooltipItem.datasetIndex === 0) {
-                                return tooltipItem.raw + ' lượt xem'; // Lượt xem
-                            } else if (tooltipItem.datasetIndex === 1) {
-                                return tooltipItem.raw + ' bình luận'; // Bình luận
-                            } else if (tooltipItem.datasetIndex === 2) {
-                                return tooltipItem.raw + ' bài viết'; // Bài viết
-                            }
-                        }
-                    }
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        stepSize: 10
-                    }
-                }
-            }
-        }
-    });
-
-    // Hàm cập nhật biểu đồ và labels theo mốc thời gian
-    function updateChartData(timePeriod) {
-        // Cập nhật lại labels
-        const newLabels = {
-            '7days': ['7 ngày qua'],
-            '30days': ['30 ngày qua'],
-            '90days': ['90 ngày qua'],
-            'allTime': ['Tất cả thời gian']
-        };
-
-        combinedChart.data.labels = newLabels[timePeriod]; // Cập nhật labels
-
-        // Cập nhật lại dữ liệu của biểu đồ
-        combinedChart.data.datasets[0].data = [data[timePeriod].views];  // Lượt xem
-        combinedChart.data.datasets[1].data = [data[timePeriod].comments];  // Bình luận
-        combinedChart.data.datasets[2].data = [data[timePeriod].posts];     // Bài viết
-        
-        // Cập nhật lại biểu đồ với labels mới
-        combinedChart.update();
-    }
-
-    // Lắng nghe sự kiện khi người dùng chọn khoảng thời gian từ dropdown
-    document.getElementById('last7days').addEventListener('click', function() {
-        updateChartData('7days');
-    });
-    document.getElementById('last30days').addEventListener('click', function() {
-        updateChartData('30days');
-    });
-    document.getElementById('last90days').addEventListener('click', function() {
-        updateChartData('90days');
-    });
-    document.getElementById('allTime').addEventListener('click', function() {
-        updateChartData('allTime');
-    });
-</script>
-                    
-                    
                 </div>
             
                 <div class="col-12 col-lg-4 d-flex">
@@ -268,10 +154,10 @@
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
                                         <div>
-                                            <p class="mb-0 text-secondary">Tổng tài khoản premium</p>
-                                            <h5 class="my-1">{{ $countPremium }}</h5>
+                                            <p class="mb-0 text-secondary">Lượt thích</p>
+                                            <h5 class="my-1"></h5> Chờ cập nhật ... 
                                         </div>
-                                        <div class="widgets-icons-2 bg-warning text-white ms-auto"><i class='bx bxs-star'></i>
+                                        <div class="widgets-icons-2 bg-gradient-moonlit text-white ms-auto"><i class='bx bxs-like'></i>
                                         </div>
                                     </div>
                                 </div>

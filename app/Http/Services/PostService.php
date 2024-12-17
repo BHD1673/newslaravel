@@ -33,21 +33,20 @@ class PostService extends BaseService
             $query->where('user_id', Auth::id());
         }
 
-        return $query->where("is_delete_post",Post::POST_DELETE['flase'])->orderBy('id', 'DESC')->paginate(20);
+        return $query->where("is_delete_post", Post::POST_DELETE['false'])->orderBy('id', 'DESC')->paginate(20);
     }
 
     public function getPoStsoftDelete()
     {
         $query = Post::with('category');
-        return $query->where("is_delete_post",Post::POST_DELETE['true'])->orderBy('id', 'DESC')->paginate(20);
+        return $query->where("is_delete_post", Post::POST_DELETE['true'])->orderBy('id', 'DESC')->paginate(20);
     }
 
     public function  store(array $data, $request)
     {
-        if(Auth::user()->role->name === Role::ROLE_REPORTER)
-        {
+        if (Auth::user()->role->name === Role::ROLE_REPORTER) {
             $data['approved'] = Post::APPROVED['not_approved_yet'];
-        }else{
+        } else {
             $data['approved'] = (int) $request['approved'];
         }
         $data['user_id'] = auth()->id();
@@ -56,6 +55,11 @@ class PostService extends BaseService
 
         if (isset($request['files'])) {
             $this->handleThumbnail($request['files'], $post);
+        }
+
+        // upload file mp3, mp4
+        if (isset($request['videos'])) {
+            $this->handleVideos($request['videos'], $post);
         }
 
         if (isset($request['tags'])) {
@@ -72,74 +76,88 @@ class PostService extends BaseService
             if (isset($request['approved'])) {
                 $request['approved'] = (int) $request['approved'];
 
-            // log post
-            if(Auth::user()->role->name != Role::ROLE_REPORTER)
-            {
-                if(isset($request['note']) && $request['approved'] === 2){
-                    if($request['note'] != null){
-                        // edit post log
-                        if($request['id_post_log'] != null)
-                        {
-                            $postLog = PostLog::find((int) $request['id_post_log']);
-                            $postLog->note = $request['note'];
-                            $postLog->save();
-                        }else{
-                            PostLog::create([
-                                'user_id' => Auth::user()->id,
-                                'post_id' => $post->id,
-                                'status' => $post->approved,
-                                'role_log' => Auth::user()->role->name,
-                                'date_log' => Carbon::now()->toDateString(),
-                                'note' => $request['note']
-                            ]);
+                // log post
+                if (Auth::user()->role->name != Role::ROLE_REPORTER) {
+                    if (isset($request['note']) && $request['approved'] === 2) {
+                        if ($request['note'] != null) {
+                            // edit post log
+                            if ($request['id_post_log'] != null) {
+                                $postLog = PostLog::find((int) $request['id_post_log']);
+                                $postLog->note = $request['note'];
+                                $postLog->save();
+                            } else {
+                                PostLog::create([
+                                    'user_id' => Auth::user()->id,
+                                    'post_id' => $post->id,
+                                    'status' => $post->approved,
+                                    'role_log' => Auth::user()->role->name,
+                                    'date_log' => Carbon::now()->toDateString(),
+                                    'note' => $request['note']
+                                ]);
+                            }
                         }
                     }
                 }
-            }
 
                 // xóa bản post log khi user status là duyệt bài
-                if(isset($request['id_post_log']) && $request['id_post_log'] != null && $request['approved'] === 3 )
-                {
+                if (isset($request['id_post_log']) && $request['id_post_log'] != null && $request['approved'] === 3) {
                     $postLog = PostLog::find((int) $request['id_post_log']);
                     $postLog->delete();
                 }
             }
             $post->update($request);
-            
+
             if (Auth::user()->role->name === Role::ROLE_EMPLOYEE) {
                 $this->postHistorieService->handlePostHistory($post);
             } else {
                 $this->postHistorieService->handleEditPostHistory($post);
             }
 
-            if(isset($request['removed_post_images'])){
-                if($request['removed_post_images'] != null)
-                {
+            if (isset($request['removed_post_images'])) {
+                if ($request['removed_post_images'] != null) {
                     $postImgId = explode(',', $request['removed_post_images']);
-                    foreach($postImgId as $item)
-                    {
+                    foreach ($postImgId as $item) {
                         $image = Image::find($item);
-                        if($image){
+                        if ($image) {
                             Storage::disk('public')->delete($image->path);
                             $image->delete();
                         }
                     }
                 }
-           }
-           
+            }
+
+            if (isset($request['removed_post_videos'])) {
+                if ($request['removed_post_videos'] != null) {
+                    $videoFiles = explode(',', $request['removed_post_videos']);
+                    $postId = $post->id;
+                    foreach ($videoFiles as $video) {
+                        $video = trim($video);
+
+                        $videoPath = 'public/videos/' . $postId . '/' . $video;
+                        // Kiểm tra xem video có tồn tại trong thư mục không
+                        if (Storage::exists($videoPath)) {
+                            Storage::delete($videoPath);
+                        }
+                    }
+                }
+            }
+
             if (isset($request['files'])) {
-               if(isset($request['removed_post_images'])){
+                if (isset($request['removed_post_images'])) {
                     $postImgId = explode(',', $request['removed_post_images']);
-                    foreach($postImgId as $item)
-                    {
+                    foreach ($postImgId as $item) {
                         $image = Image::find($item);
-                        if($image){
+                        if ($image) {
                             Storage::disk('public')->delete($image->path);
                             $image->delete();
                         }
                     }
-               }
+                }
                 $this->handleThumbnail($request['files'], $post);
+            }
+
+            if (isset($request['videos'])) {
+                $this->handleVideos($request['videos'], $post);
             }
 
             if (isset($request['tags'])) {
@@ -157,12 +175,21 @@ class PostService extends BaseService
             $filename = $thumbnail->getClientOriginalName();
             $file_extension = $thumbnail->getClientOriginalExtension();
             $path = $thumbnail->store('images', 'public');
-    
+
             $post->image()->create([
                 'name' => $filename,
                 'extension' => $file_extension,
                 'path' => $path,
             ]);
+        }
+    }
+
+    protected function handleVideos($videos, Post $post)
+    {
+        foreach ($videos as $video) {
+            $filename = $video->getClientOriginalName();
+            $fileName = time() . '_' . $filename;
+            $video->storeAs('public/videos/' . $post->id, $fileName);
         }
     }
 
@@ -198,8 +225,7 @@ class PostService extends BaseService
     public function softDeleteService(Post $post)
     {
         $post = Post::find($post->id);
-        if($post)
-        {
+        if ($post) {
             $post->is_delete_post = true;
             $post->save();
 
@@ -221,8 +247,7 @@ class PostService extends BaseService
     public function undoSoftDeleteService(Post $post)
     {
         $post = Post::find($post->id);
-        if($post)
-        {
+        if ($post) {
             $post->is_delete_post = false;
             $post->save();
 
