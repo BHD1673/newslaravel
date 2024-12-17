@@ -16,6 +16,7 @@ use App\Models\Image;
 use App\Models\PostLog;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class AdminPostsController extends Controller
 {
@@ -44,7 +45,7 @@ class AdminPostsController extends Controller
         $isAdmin = $this->postService->isAdmin();
         $isReporter = $this->postService->isReporter();
         $postLog = PostLog::all();
-        return view('admin_dashboard.posts.index', compact('posts', 'isEmployee', 'isAdmin', 'postLog','isReporter'));
+        return view('admin_dashboard.posts.index', compact('posts', 'isEmployee', 'isAdmin', 'postLog', 'isReporter'));
     }
 
     public function postSoftDelete()
@@ -57,7 +58,7 @@ class AdminPostsController extends Controller
     {
         $categories = Category::pluck('name', 'id');
         $isReporter = $this->postService->isReporter();
-        return view('admin_dashboard.posts.create',compact('categories', 'isReporter'));
+        return view('admin_dashboard.posts.create', compact('categories', 'isReporter'));
     }
 
     public function store(Request $request)
@@ -73,11 +74,12 @@ class AdminPostsController extends Controller
     }
 
 
-    public function edit(Post $post){
+    public function edit(Post $post)
+    {
         $tags = '';
-        foreach($post->tags as $key => $tag){
+        foreach ($post->tags as $key => $tag) {
             $tags .= $tag->name;
-            if($key !== count($post->tags) - 1)
+            if ($key !== count($post->tags) - 1)
                 $tags .= ', ';
         }
 
@@ -86,8 +88,10 @@ class AdminPostsController extends Controller
         $isReporter = $this->postService->isReporter();
         $postImages = Image::query()->where("imageable_id", $post->id)->get();
         $postLog = PostLog::query()->where("post_id", $post->id)->first();
-        
-        return view('admin_dashboard.posts.edit',[
+        $videoPath = storage_path('app/public/videos/' . $post->id);
+        $videoFiles = File::files($videoPath);
+
+        return view('admin_dashboard.posts.edit', [
             'post' => $post,
             'tags' => $tags,
             'isEmployee' => $isEmployee,
@@ -95,10 +99,10 @@ class AdminPostsController extends Controller
             'categories' => Category::pluck('name', 'id'),
             'postImages' => $postImages,
             'postLog' => $postLog,
-            'isAdmin' => $isAdmin
+            'isAdmin' => $isAdmin,
+            'videoFiles' => $videoFiles
         ]);
     }
-
 
     public function update(Request $request, Post $post)
     {
@@ -107,7 +111,7 @@ class AdminPostsController extends Controller
             $validated = $request->validate($this->rules);
         }
 
-        $this->postService->edit($request->all(), $post->id); 
+        $this->postService->edit($request->all(), $post->id);
 
         return redirect()->route('admin.posts.edit', $post)->with('success', 'Sửa viết thành công.');
     }
@@ -133,16 +137,13 @@ class AdminPostsController extends Controller
 
         // admin xóa post log user phản hồi
         if (Auth::user()->role->name === Role::ROLE_ADMIN) {
-            if($postLog)
-            {
+            if ($postLog) {
                 $postLog->delete();
             }
         }
 
-        if($postImg)
-        {
-            foreach($postImg as $item)
-            {   
+        if ($postImg) {
+            foreach ($postImg as $item) {
                 Storage::disk('public')->delete($item->path);
                 $item->delete();
             }
@@ -151,15 +152,16 @@ class AdminPostsController extends Controller
         $post->comments()->delete();
         $post->delete();
         $this->postHistorieService->handleDeletePostHistory($post);
-        if($post->is_delete_post){
+        if ($post->is_delete_post) {
             return redirect()->route('admin.post-soft-delete')->with('success', 'Xóa bài viết thành công.');
-        }else{
-            return redirect()->route('admin.posts.index')->with('success','Xóa bài viết thành công.');
+        } else {
+            return redirect()->route('admin.posts.index')->with('success', 'Xóa bài viết thành công.');
         }
     }
 
     // Hàm tạo slug tự động
-    public function to_slug(Request $request) {
+    public function to_slug(Request $request)
+    {
         $str = $request->title;
         $data['success'] = 1;
         $str = trim(mb_strtolower($str));

@@ -79,7 +79,7 @@
                                     <div class="d-flex order-actions">
                                         <a class="{{ $isReporter && $post->approved === 3 ? 'd-none' : '' }}" href="{{ route('admin.posts.edit', $post)}}" ><i class='bx bxs-edit'></i></a>
                                         @if($post->approved === 1 || $post->approved === 3 )
-                                        <a href="#"onclick="event.preventDefault(); document.querySelector('#delete_form_{{ $post->id }}').submit();" class="ms-3 {{ $isEmployee || $isReporter  ? 'd-none' : '' }}"><i class='bx bxs-trash'></i></a>
+                                        <a href="#"onclick="event.preventDefault(); document.querySelector('#delete_form_{{ $post->id }}').submit();" class="ms-3 {{ $isEmployee ? 'd-none' : '' }}"><i class='bx bxs-trash'></i></a>
                                         @else
                                         <a href="#" onclick="return confirmDelete({{ $post->approved }}, {{ $post->id }});" class="ms-3 {{ $isEmployee ? 'd-none' : '' }}"><i class='bx bxs-trash'></i></a>
                                         @endif

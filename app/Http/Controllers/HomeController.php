@@ -56,7 +56,7 @@ class HomeController extends Controller
 
         // Lấy ra tất cả danh mục tin tức 
         $stt_home = 0;
-        $category_home = Category::where('name', '!=', 'Chưa phân loại')->orderBy('created_at', 'DESC')->take(10)->get();
+        $category_home = Category::where('name', '!=', 'Chưa phân loại')->orderBy('created_at', 'ASC')->take(10)->get();
         foreach ($category_home as $category_item) {
             // Tạo tin tức mới nhất cho layout master
             $stt_home = $stt_home + 1;

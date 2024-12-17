@@ -13,12 +13,16 @@ class Role extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
-
-    public function users() {
+    const ROLE_ADMIN = 'admin';
+    const ROLE_EMPLOYEE = 'employee';
+    const ROLE_REPORTER = 'reporter';
+    public function users()
+    {
         return $this->hasMany(User::class);
-    } 
+    }
 
-    public function permissions(){
+    public function permissions()
+    {
         return $this->belongsToMany(Permission::class, 'permission_role')->withTimestamps();
     }
 }

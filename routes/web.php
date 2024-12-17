@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\AdminControllers\DashboardController;
 use App\Http\Controllers\AdminControllers\AdminPostsController;
+use App\Http\Controllers\AdminControllers\AdminPostHistorieController;
 use App\Http\Controllers\AdminControllers\TinyMCEController;
 use App\Http\Controllers\AdminControllers\AdminCategoriesController;
 use App\Http\Controllers\AdminControllers\AdminTagsController;
@@ -82,9 +83,9 @@ Route::get('shop/{id}', [ShopController::class, 'show'])->name('shop.show');
 
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/checkout', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
-Route::post('/vnpay-payment', [CheckoutController::class,'vnpay_payment'])->name('vnpay-payment');
+Route::post('/vnpay-payment', [CheckoutController::class, 'vnpay_payment'])->name('vnpay-payment');
 Route::get('vnpay-index', [CheckoutController::class, 'vnpay_payment_callback'])->name('vnpay-index');
-Route::post('/momo-payment', [CheckoutController::class,'momo_payment'])->name('momo-payment');
+Route::post('/momo-payment', [CheckoutController::class, 'momo_payment'])->name('momo-payment');
 
 
 Route::middleware('auth')->group(function () {
@@ -123,6 +124,12 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'check_permissions']
     Route::post('upload_tinymce_image', [TinyMCEController::class, 'upload_tinymce_image'])->name('upload_tinymce_image');
 
     Route::resource('posts', AdminPostsController::class);
+    Route::get('post-soft-delete', [AdminPostsController::class, 'postSoftDelete'])->name('post-soft-delete');
+    Route::put('posts/soft-delete/{post}', [AdminPostsController::class, 'softDelete'])->name('post.softDelete');
+    Route::put('posts/undo-soft-delete/{post}', [AdminPostsController::class, 'undoSoftDelete'])->name('post.undoSoftDelete');
+    Route::get('post-history', [AdminPostHistorieController::class, 'index'])->name('post-history.index');
+    Route::delete('post-history/{postHistorie}', [AdminPostHistorieController::class, 'destroy'])->name('post-history.destroy');
+    Route::delete('post-history', [AdminPostHistorieController::class, 'removeAll'])->name('post-history.removeAll');
     Route::post('/poststitle', [AdminPostsController::class, 'to_slug'])->name('posts.to_slug');
     Route::resource('categories', AdminCategoriesController::class);
     Route::resource('tags', AdminTagsController::class)->only(['index', 'show', 'destroy']);
