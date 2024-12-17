@@ -60,7 +60,12 @@
 
                             <div class="post--info">
                                 <ul class="nav meta">
-									<li class="text capitalize"><a href="#">{{ $post->created_at->locale('vi')->translatedFormat('l'), }} {{  $post->created_at->locale('vi')->format('d/m/Y') }}<a></li>
+                                    <li class="text capitalize">
+                                        <a href="#">
+                                            {{ $post->created_at->locale('vi')->translatedFormat('l') }} 
+                                            {{ $post->created_at->locale('vi')->format('d/m/Y') }}
+                                        </a>
+                                    </li>                                    
                                     <li><a href="#">{{ $post->author->name }}</a></li>
                                     <li><span><i class="fa fm fa-eye"></i>{{ $post->views }}</span></li>
                                     <li><a href="#"><i class="fa fm fa-comments-o"></i>{{ count($post->comments) }}</a></li>
