@@ -50,11 +50,11 @@ class AdminPostsController extends Controller
 
         // Lưu ID người dùng (nếu cần)
         $validated['user_id'] = auth()->id();
-         // Xử lý upload ảnh
-         if ($request->hasFile('thumbnail')) {
+        // Xử lý upload ảnh
+        if ($request->hasFile('thumbnail')) {
             $thumbnail = $request->file('thumbnail');
             $filename = time() . '-' . $thumbnail->getClientOriginalName();
-
+            $post = Post::create($validated);
             // Lưu ảnh vào thư mục public/images
             $path = $thumbnail->move(public_path('images'), $filename);
 
@@ -65,14 +65,11 @@ class AdminPostsController extends Controller
                 'path' => 'images/' . $filename, // Lưu đường dẫn ảnh tương đối
             ]);
         }
-        dd($request->all());
-        die();
+
+
 
         // Tạo bài viết mới
-        $post = Post::create($validated);
 
-       
-       
         // Xử lý tags (nếu cần)
         // Chuyển hướng về trang thêm bài viết với thông báo thành công
         return redirect()->route('admin.posts.create')->with('success', 'Thêm bài viết thành công.');

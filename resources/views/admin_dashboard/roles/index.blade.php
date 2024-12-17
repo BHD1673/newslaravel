@@ -66,7 +66,7 @@
                                             <i class='bx bxs-edit'></i>
                                         </a>
                                         
-                                        @if($role->name !== 'admin')
+                                        @if($role->name !== 'admin' && $role->name !== 'user')
                                             <a href="#" onclick="event.preventDefault(); document.querySelector('#delete_form_{{ $role->id }}').submit();" class="text-danger" title="Xóa">
                                                 <i class='bx bxs-trash'></i>
                                             </a>

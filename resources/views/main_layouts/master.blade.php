@@ -45,11 +45,11 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 	<link rel="icon" type="image/png" href="{{ asset('kcnew/frontend/img/image_iconLogo.png') }}"  sizes="160x160">
 
 	<link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900" rel="stylesheet">
-	{{-- @if(!auth()->check() || !auth()->user()->is_premium)
+	@if(!auth()->check() || !auth()->user()->is_premium)
 	<script src="{{ asset('js/cube.js') }}"></script>
 	<script src="{{ asset('js/cube150x100.js') }}"></script>
 	<script src="{{ asset('js/ads.js') }}"></script>
-	@endif --}}
+	@endif
 	<!-- Animate.css -->
 	<link rel="stylesheet" href="{{ asset('blog_template/css/animate.css') }}">
 	<!-- Icomoon Icon Fonts-->
@@ -195,11 +195,11 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 	
 					<!-- Header Topbar Social Start -->
 					<ul class="header--topbar-social nav hidden-sm hidden-xxs">
-						<li><a href="https://www.facebook.com/people/Anh-Tuan/100007007238964"><i class="fa fa-facebook"></i></a></li>
-						<li><a href="https://www.youtube.com/c/H%E1%BB%93AnhTu%E1%BA%A5nYoutube"><i class="fa fa-twitter"></i></a></li>
-						<li><a href="https://www.youtube.com/c/H%E1%BB%93AnhTu%E1%BA%A5nYoutube"><i class="fa fa-google-plus"></i></a></li>
-						<li><a href="https://www.youtube.com/c/H%E1%BB%93AnhTu%E1%BA%A5nYoutube"><i class="fa fa-rss"></i></a></li>
-						<li><a href="https://www.youtube.com/c/H%E1%BB%93AnhTu%E1%BA%A5nYoutube"><i class="fa fa-youtube-play"></i></a></li>
+						<li><a href=""><i class="fa fa-facebook"></i></a></li>
+						<li><a href=""><i class="fa fa-twitter"></i></a></li>
+						<li><a href=""><i class="fa fa-google-plus"></i></a></li>
+						<li><a href=""><i class="fa fa-rss"></i></a></li>
+						<li><a href=""><i class="fa fa-youtube-play"></i></a></li>
 					</ul>
 					<!-- Header Topbar Social End -->
 				</div>
@@ -241,7 +241,6 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 								<li><a href="{{ route('about') }}">Giới thiệu</a></li>
 								<li><a href="{{ route('ads.form') }}">Đăng Ký Quảng Cáo</a></li>
 								<li><a href="{{ route('contact.create') }}">Liên hệ</a></li>
-									<li><a href="{{ route('shop.index') }}">Shop</a></li> 
 								{{-- <li><a href="{{ route('erorrs.404') }}">404</a></li> --}}
 							</ul>
 						</li>
@@ -421,11 +420,11 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 					</p>
 					<p>
 						<ul style="display: flex;" class="header--topbar-social nav hidden-sm hidden-xxs">
-							<li><a href="https://www.facebook.com/people/Anh-Tuan/100007007238964"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="https://www.youtube.com/c/H%E1%BB%93AnhTu%E1%BA%A5nYoutube"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="https://www.youtube.com/c/H%E1%BB%93AnhTu%E1%BA%A5nYoutube"><i class="fa fa-google-plus"></i></a></li>
-							<li><a href="https://www.youtube.com/c/H%E1%BB%93AnhTu%E1%BA%A5nYoutube"><i class="fa fa-rss"></i></a></li>
-							<li><a href="https://www.youtube.com/c/H%E1%BB%93AnhTu%E1%BA%A5nYoutube"><i class="fa fa-youtube-play"></i></a></li>
+							<li><a href=""><i class="fa fa-facebook"></i></a></li>
+							<li><a href=""><i class="fa fa-twitter"></i></a></li>
+							<li><a href=""><i class="fa fa-google-plus"></i></a></li>
+							<li><a href=""><i class="fa fa-rss"></i></a></li>
+							<li><a href=""><i class="fa fa-youtube-play"></i></a></li>
 						</ul>
 					</p>
 				</div>

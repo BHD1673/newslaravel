@@ -3,6 +3,7 @@
 @section('title','TDQ - Trang Tin Tức Việt Nam')
 
 @section('content')
+@if(!auth()->check() || !auth()->user()->is_premium)
 @foreach ($ads as $ad)
 @if($ad->position == 'top')
 <a href="{{ $ad->link }}">
@@ -22,7 +23,7 @@
 </a>
 @endif
 @endforeach
-
+@endif
 <div class="wrapper">
 
 	<!-- Main Content Section Start -->
@@ -1471,6 +1472,7 @@
 										@endforeach
 									
 									</ul>
+									@if(!auth()->check() || !auth()->user()->is_premium)
 									@foreach ($ads as $ad)
 										@if($ad->position == 'bottom')
 										<a href="{{ $ad->link }}">
@@ -1492,7 +1494,7 @@
 										@endif
 										@endforeach
 
-
+										@endif
 								</div>
 								<!-- Post Items End -->
 							</div>
