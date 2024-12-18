@@ -232,7 +232,7 @@
 								{{ $isEmployee ? 'Duyệt bài' : 'Sửa bài viết' }}
 							</button>
 
-							<a class="btn btn-danger {{ ($isEmployee && $post->approved === 3)  ? 'd-none' : '' }}" onclick="event.preventDefault(); document.getElementById('delete_post_{{ $post->id }}').submit();"
+							<a class="btn btn-danger {{ ($isEmployee && $post->approved === 3) || $post->approved === 3  ? 'd-none' : '' }}" onclick="event.preventDefault(); document.getElementById('delete_post_{{ $post->id }}').submit();"
 								href="#">Xóa bài viết</a>
 
 						</div>
