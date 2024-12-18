@@ -218,7 +218,7 @@
 									</b>
 								</label>
 								<input type="hidden" name="id_post_log" value="{{  $postLog ? $postLog->id : '' }}" />
-								<textarea {{ $postLog ? $postLog->role_log === 'admin' && $isEmployee ? 'disabled' : ''  : ''}} name="note" class="form-control" rows="3">{{ $postLog ? $postLog->note : ""  }}</textarea>
+								<textarea required {{ $postLog ? $postLog->role_log === 'admin' && $isEmployee ? 'disabled' : ''  : ''}} name="note" class="form-control" rows="3">{{ $postLog ? $postLog->note : ""  }}</textarea>
 								@error('note')
 								<p class="text-danger">{{ $message }}</p>
 								@enderror
@@ -226,13 +226,13 @@
 							@endif
 
 							<button
-								{{ ($postLog && $postLog->role_log === 'admin') || ( $isEmployee && $post->approved === 3 ) ? 'disabled' : '' }}
+								{{ ( $isEmployee && $post->approved === 3 ) || ( $postLog ? $postLog->role_log === 'admin' && $isEmployee : '') ? 'disabled' : '' }}
 								class="btn btn-primary {{ $isReporter && $post->approved === 3 ? 'd-none' : "" }}"
 								type="submit">
 								{{ $isEmployee ? 'Duyệt bài' : 'Sửa bài viết' }}
 							</button>
 
-							<a class="btn btn-danger {{ $isEmployee ? 'd-none' : '' }}" onclick="event.preventDefault(); document.getElementById('delete_post_{{ $post->id }}').submit();"
+							<a class="btn btn-danger {{ ($isEmployee && $post->approved === 3)  ? 'd-none' : '' }}" onclick="event.preventDefault(); document.getElementById('delete_post_{{ $post->id }}').submit();"
 								href="#">Xóa bài viết</a>
 
 						</div>
@@ -279,42 +279,54 @@
 		});
 
 		tinymce.init({
-			selector: '#post_content',
-			// plugins: 'advlist autolink lists link image media charmap print preview hr anchor pagebreak',
+			selector: 'textarea#post_content',
 			plugins: 'advlist autolink lists link image media charmap preview anchor pagebreak',
-			height: '500',
-
 			toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image code | rtl ltr',
-			toolbar_mode: 'floating',
-
+			/* enable title field in the Image dialog*/
 			image_title: true,
+			toolbar_mode: 'floating',
+			height: '500',
+			/* enable automatic uploads of images represented by blob or data URIs*/
 			automatic_uploads: true,
-			readonly: <?php echo $isEmployee ? 'true' : 'false'; ?>,
+			/*
+			  URL of our upload handler (for more details check: https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_url)
+			  images_upload_url: 'postAcceptor.php',
+			  here we add custom filepicker only to Image dialog
+			*/
+			file_picker_types: 'image',
+			/* and here's our custom image picker*/
+			file_picker_callback: (cb, value, meta) => {
+				const input = document.createElement('input');
+				input.setAttribute('type', 'file');
+				input.setAttribute('accept', 'image/*');
 
-			images_upload_handler: function(blobinfo, success, failure) {
-				let formData = new FormData();
-				let _token = $("input[name='_token']").val();
-				let xhr = new XMLHttpRequest();
-				xhr.open('post', "{{ route('admin.upload_tinymce_image') }}");
-				xhr.onload = () => {
-					if (xhr.status !== 200) {
-						failure("Http Error: " + xhr.status);
-						return
-					}
-					let json = JSON.parse(xhr.responseText);
-					if (!json || typeof json.location != 'string') {
-						failure("Invalid JSON: " + xhr.responseText);
-						return
-					}
-					success(json.location);
+				input.addEventListener('change', (e) => {
+					const file = e.target.files[0];
 
-				}
+					const reader = new FileReader();
+					reader.addEventListener('load', () => {
+						/*
+						  Note: Now we need to register the blob in TinyMCEs image blob
+						  registry. In the next release this part hopefully won't be
+						  necessary, as we are looking to handle it internally.
+						*/
+						const id = 'blobid' + (new Date()).getTime();
+						const blobCache = tinymce.activeEditor.editorUpload.blobCache;
+						const base64 = reader.result.split(',')[1];
+						const blobInfo = blobCache.create(id, file, base64);
+						blobCache.add(blobInfo);
 
-				formData.append('_token', _token);
-				formData.append('file', blobinfo.blob(), blobinfo.filename());
-				xhr.send(formData);
-			}
+						/* call the callback and populate the Title field with the file name */
+						cb(blobInfo.blobUri(), {
+							title: file.name
+						});
+					});
+					reader.readAsDataURL(file);
+				});
 
+				input.click();
+			},
+			content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
 		});
 
 		setTimeout(() => {
