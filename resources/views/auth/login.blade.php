@@ -8,6 +8,14 @@
             align-items: center;
             margin: 0;
         }
+
+        .note-section {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.2); /* Nền trong suốt nhẹ */
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
     </style>
 
     <x-auth-card>
@@ -69,6 +77,24 @@
                     </x-button>
                 </div>
             </form>
+
+            <!-- Note Section -->
+            <div class="note-section">
+                <h3 class="text-white font-bold mb-2">{{ __('Thêm ghi chú') }}</h3>
+                <form method="POST" action="{{ route('notes.store') }}">
+                    @csrf
+                    <textarea 
+                        name="note" 
+                        rows="3" 
+                        class="block w-full mt-1 p-2 rounded-lg border-gray-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" 
+                        placeholder="Nhập ghi chú tại đây..."></textarea>
+                    <div class="mt-4">
+                        <x-button class="bg-green-600 text-white hover:bg-green-700 font-bold py-2 px-4 rounded-lg">
+                            {{ __('Thêm ghi chú') }}
+                        </x-button>
+                    </div>
+                </form>
+            </div>
         </div>
     </x-auth-card>
 </x-guest-layout>
