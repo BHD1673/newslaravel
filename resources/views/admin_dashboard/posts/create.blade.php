@@ -69,7 +69,7 @@
 								<div class="border border-3 p-4 rounded">
 									<div class="mb-3">
 										<label for="inputProductTitle" class="form-label">Tiêu đề bài viết</label>
-										<input type="text" value=' {{ old("title" ) }}' name="title" required class="inputPostTitle form-control" id="inputProductTitle" placeholder="Nhập tiêu đề bài viết">
+										<input type="text" value=' {{ old("title" ) }}' name="title"  class="inputPostTitle form-control" id="inputProductTitle" placeholder="Nhập tiêu đề bài viết">
 
 										@error('title')
 										<p class="text-danger">{{ $message }}</p>
@@ -78,7 +78,7 @@
 
 									<div class="mb-3">
 										<label for="inputProductTitle" class="form-label">Slug - liên kết</label>
-										<input type="text" value=' {{ old("slug" ) }}' name="slug" required class="slugPost form-control" id="inputProductTitle" placeholder="Nhập slug">
+										<input type="text" value=' {{ old("slug" ) }}' name="slug"  class="slugPost form-control" id="inputProductTitle" placeholder="Nhập slug">
 
 										@error('slug')
 										<p class="text-danger">{{ $message }}</p>
@@ -87,7 +87,7 @@
 
 									<div class="mb-3">
 										<label for="inputProductDescription" class="form-label">Mô tả</label>
-										<textarea required name="excerpt" class="form-control" id="inputProductDescription" rows="3">{{ old("excerpt") }}</textarea>
+										<textarea  name="excerpt" class="form-control" id="inputProductDescription" rows="3">{{ old("excerpt") }}</textarea>
 
 
 										@error('excerpt')
@@ -102,7 +102,7 @@
 											<div class="card-body">
 												<div class="p-3 rounded">
 													<div class="mb-3">
-														<select name="category_id" required class="single-select">
+														<select name="category_id"  class="single-select">
 															@foreach( $categories as $key => $category )
 															<option value="{{ $key }}">{{ $category }}</option>
 															@endforeach
@@ -148,16 +148,16 @@
 											</div>
 										</div>
 										@if(!$isReporter)
-											<div class="col-4 mb-3">
-												<label for="inputProductDescription" class="form-label">Trạng thái bài viết</label>
-												<select class="form-select" name="approved" aria-label="Default select example">
-													<option value="1">Chưa phê duyệt</option>
-													<option value="2">Từ chối</option>
-													<option value="3">Duyệt bài viết</option>
-												</select>
-											</div>
+										<div class="col-4 mb-3">
+											<label for="inputProductDescription" class="form-label">Trạng thái bài viết</label>
+											<select class="form-select" name="approved" aria-label="Default select example">
+												<option value="1">Chưa phê duyệt</option>
+												<option value="2">Từ chối</option>
+												<option value="3">Duyệt bài viết</option>
+											</select>
+										</div>
 										@endif
-										
+
 									</div>
 									<div class="mb-3">
 										<label for="inputProductDescription" class="form-label">Nội dung bài viết</label>
@@ -208,43 +208,112 @@
 			allowClear: Boolean($(this).data('allow-clear')),
 		});
 
+		// tinymce.init({
+		// 	selector: '#post_content',
+		// 	// plugins: 'advlist autolink lists link image media charmap print preview hr anchor pagebreak',
+		// 	plugins: 'advlist autolink lists link image media charmap preview anchor pagebreak',
+		// 	toolbar_mode: 'floating',
+		// 	height: '500',
+
+		// 	toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image code | rtl ltr',
+		// 	toolbar_mode: 'floating',
+
+		// 	image_title: true,
+		// 	automatic_uploads: true,
+
+		// 	images_upload_handler: function(blobinfo, success, failure) {
+		// 		let formData = new FormData();
+		// 		let _token = $("input[name='_token']").val(); // Lấy CSRF token từ input
+		// 		let xhr = new XMLHttpRequest();
+
+		// 		xhr.open('POST', "{{ route('admin.upload_tinymce_image') }}", true); // Gọi đến route xử lý upload
+
+		// 		xhr.onload = function() {
+		// 			// Kiểm tra status của xhr
+		// 			if (xhr.status !== 200) {
+		// 				failure("HTTP Error: " + xhr.status);
+		// 				return;
+		// 			}
+		// 			console.log(xhr.response);
+		// 			let json;
+		// 			try {
+		// 				json = JSON.parse(xhr.responseText); // Parse phản hồi JSON từ server
+		// 			} catch (e) {
+		// 				failure("Invalid JSON: " + xhr.responseText); // Nếu phản hồi không phải là JSON hợp lệ
+		// 				return;
+		// 			}
+
+		// 			// Kiểm tra nếu JSON có trường 'location'
+		// 			if (json && typeof json.location === 'string') {
+		// 				// In ra giá trị của 'location' trong console
+		// 				console.log("Image URL:", json.location);
+		// 				// Gọi hàm success với đường dẫn của ảnh
+		// 				success(json.location);
+		// 			} else {
+		// 				failure("Invalid response format or missing 'location' field.");
+		// 			}
+		// 		};
+
+		// 		xhr.onerror = function() {
+		// 			failure("Request failed"); // Xử lý lỗi khi request không thành công
+		// 		};
+
+		// 		// Thêm token và file vào FormData
+		// 		formData.append('_token', _token);
+		// 		formData.append('file', blobinfo.blob(), blobinfo.filename());
+		// 		xhr.send(formData); // Gửi formData lên server
+		// 	}
+
+		// });
 		tinymce.init({
-			selector: '#post_content',
-			// plugins: 'advlist autolink lists link image media charmap print preview hr anchor pagebreak',
+			selector: 'textarea#post_content',
 			plugins: 'advlist autolink lists link image media charmap preview anchor pagebreak',
+			toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image code | rtl ltr',
+			/* enable title field in the Image dialog*/
+			image_title: true,
 			toolbar_mode: 'floating',
 			height: '500',
-
-			toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image code | rtl ltr',
-			toolbar_mode: 'floating',
-
-			image_title: true,
+			/* enable automatic uploads of images represented by blob or data URIs*/
 			automatic_uploads: true,
+			/*
+			  URL of our upload handler (for more details check: https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_url)
+			  images_upload_url: 'postAcceptor.php',
+			  here we add custom filepicker only to Image dialog
+			*/
+			file_picker_types: 'image',
+			/* and here's our custom image picker*/
+			file_picker_callback: (cb, value, meta) => {
+				const input = document.createElement('input');
+				input.setAttribute('type', 'file');
+				input.setAttribute('accept', 'image/*');
 
-			images_upload_handler: function(blobinfo, success, failure) {
-				let formData = new FormData();
-				let _token = $("input[name='_token']").val();
-				let xhr = new XMLHttpRequest();
-				xhr.open('post', "{{ route('admin.upload_tinymce_image') }}");
-				xhr.onload = () => {
-					if (xhr.status !== 200) {
-						failure("Http Error: " + xhr.status);
-						return
-					}
-					let json = JSON.parse(xhr.responseText);
-					if (!json || typeof json.location != 'string') {
-						failure("Invalid JSON: " + xhr.responseText);
-						return
-					}
-					success(json.location);
+				input.addEventListener('change', (e) => {
+					const file = e.target.files[0];
 
-				}
+					const reader = new FileReader();
+					reader.addEventListener('load', () => {
+						/*
+						  Note: Now we need to register the blob in TinyMCEs image blob
+						  registry. In the next release this part hopefully won't be
+						  necessary, as we are looking to handle it internally.
+						*/
+						const id = 'blobid' + (new Date()).getTime();
+						const blobCache = tinymce.activeEditor.editorUpload.blobCache;
+						const base64 = reader.result.split(',')[1];
+						const blobInfo = blobCache.create(id, file, base64);
+						blobCache.add(blobInfo);
 
-				formData.append('_token', _token);
-				formData.append('file', blobinfo.blob(), blobinfo.filename());
-				xhr.send(formData);
-			}
+						/* call the callback and populate the Title field with the file name */
+						cb(blobInfo.blobUri(), {
+							title: file.name
+						});
+					});
+					reader.readAsDataURL(file);
+				});
 
+				input.click();
+			},
+			content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }'
 		});
 
 		setTimeout(() => {
@@ -290,7 +359,7 @@
 	function previewFiles() {
 		const fileInput = document.getElementById('file-input');
 		const filePreview = document.getElementById('file-preview');
-		filePreview.innerHTML = ''; 
+		filePreview.innerHTML = '';
 
 		Array.from(fileInput.files).forEach(file => {
 			const reader = new FileReader();
@@ -322,59 +391,59 @@
 <script>
 	function previewFileVideos() {
 		const fileInput = document.getElementById('file-input-video')
-    const previewContainer = document.getElementById('preview-list');
-    const files = fileInput.files;
+		const previewContainer = document.getElementById('preview-list');
+		const files = fileInput.files;
 
-    // Clear the previous preview content
-    previewContainer.innerHTML = '';
+		// Clear the previous preview content
+		previewContainer.innerHTML = '';
 
-    for (const file of files) {
-        const fileExtension = file.name.split('.').pop().toLowerCase();
+		for (const file of files) {
+			const fileExtension = file.name.split('.').pop().toLowerCase();
 
-        if (fileExtension === 'mp4') {
-            const listItem = document.createElement('li');
-            const video = document.createElement('video');
-            const source = document.createElement('source');
-            const deleteButton = document.createElement('button');
+			if (fileExtension === 'mp4') {
+				const listItem = document.createElement('li');
+				const video = document.createElement('video');
+				const source = document.createElement('source');
+				const deleteButton = document.createElement('button');
 
-            // Tạo video và source
-            source.src = URL.createObjectURL(file);
-            source.type = 'video/mp4';
-            video.controls = true;
-            video.width = 300;
-            video.appendChild(source);
+				// Tạo video và source
+				source.src = URL.createObjectURL(file);
+				source.type = 'video/mp4';
+				video.controls = true;
+				video.width = 300;
+				video.appendChild(source);
 
-            // Tạo nút xóa
-            deleteButton.textContent = 'X';
-            deleteButton.style.background = 'red';
-            deleteButton.style.color = 'white';
-            deleteButton.style.border = 'none';
-            deleteButton.style.padding = '5px 10px';
-			deleteButton.style.margin = '5px';
-            deleteButton.style.cursor = 'pointer';
+				// Tạo nút xóa
+				deleteButton.textContent = 'X';
+				deleteButton.style.background = 'red';
+				deleteButton.style.color = 'white';
+				deleteButton.style.border = 'none';
+				deleteButton.style.padding = '5px 10px';
+				deleteButton.style.margin = '5px';
+				deleteButton.style.cursor = 'pointer';
 
-            // Xử lý khi bấm nút xóa
-            deleteButton.onclick = function() {
-                // Xóa video khỏi danh sách hiển thị
-                listItem.remove();
-                // Xóa file khỏi input
-                const index = Array.from(fileInput.files).indexOf(file);
-                const dt = new DataTransfer();
-                for (let i = 0; i < fileInput.files.length; i++) {
-                    if (i !== index) {
-                        dt.items.add(fileInput.files[i]);
-                    }
-                }
-                fileInput.files = dt.files;
-            };
+				// Xử lý khi bấm nút xóa
+				deleteButton.onclick = function() {
+					// Xóa video khỏi danh sách hiển thị
+					listItem.remove();
+					// Xóa file khỏi input
+					const index = Array.from(fileInput.files).indexOf(file);
+					const dt = new DataTransfer();
+					for (let i = 0; i < fileInput.files.length; i++) {
+						if (i !== index) {
+							dt.items.add(fileInput.files[i]);
+						}
+					}
+					fileInput.files = dt.files;
+				};
 
-            // Thêm video và nút xóa vào danh sách
-            listItem.appendChild(video);
-            listItem.appendChild(deleteButton);
-            previewContainer.appendChild(listItem);
-        }
-    }
-}
+				// Thêm video và nút xóa vào danh sách
+				listItem.appendChild(video);
+				listItem.appendChild(deleteButton);
+				previewContainer.appendChild(listItem);
+			}
+		}
+	}
 </script>
 
 @endsection
