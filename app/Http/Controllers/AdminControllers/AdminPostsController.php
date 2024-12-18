@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\AdminControllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostRequest;
 use Illuminate\Http\Request;
 
 use App\Models\Category;
@@ -14,9 +15,10 @@ use App\Http\Services\PostService;
 use App\Http\Services\PostHistorieService;
 use App\Models\Image;
 use App\Models\PostLog;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
+
 
 class AdminPostsController extends Controller
 {
@@ -61,9 +63,9 @@ class AdminPostsController extends Controller
         return view('admin_dashboard.posts.create', compact('categories', 'isReporter'));
     }
 
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        $validated = $request->validate($this->rules);
+        $validated = $request->all();
         $this->postService->store($validated, $request->all());
         return redirect()->route('admin.posts.create')->with('success', 'Thêm bài viết thành công.');
     }
@@ -89,7 +91,13 @@ class AdminPostsController extends Controller
         $postImages = Image::query()->where("imageable_id", $post->id)->get();
         $postLog = PostLog::query()->where("post_id", $post->id)->first();
         $videoPath = storage_path('app/public/videos/' . $post->id);
-        $videoFiles = File::files($videoPath);
+        if (File::exists($videoPath)) {
+            // Nếu thư mục tồn tại, lấy danh sách các file
+            $videoFiles = File::files($videoPath);
+        } else {
+            // Nếu thư mục không tồn tại, trả về mảng rỗng
+            $videoFiles = [];
+        }
 
         return view('admin_dashboard.posts.edit', [
             'post' => $post,
@@ -100,9 +108,10 @@ class AdminPostsController extends Controller
             'postImages' => $postImages,
             'postLog' => $postLog,
             'isAdmin' => $isAdmin,
-            'videoFiles' => $videoFiles
+            'videoFiles' => $videoFiles ?? ""
         ]);
     }
+
 
     public function update(Request $request, Post $post)
     {
