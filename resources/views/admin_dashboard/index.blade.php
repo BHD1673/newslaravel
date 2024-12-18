@@ -72,8 +72,8 @@
                 <div class="col-12 col-lg-8">
                     <div class="card radius-10 mb-0 border shadow-none">
                         <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div>
+                            <div class="d-flex align-items-center mb-3">
+                                
                                     <h6 class="mb-0 w-20">Biểu đồ Lượt Xem & Bình Luận</h6>
                                     <div class="dropdown ms-auto">
                                         <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
@@ -86,7 +86,7 @@
                                             <li><a class="dropdown-item" href="javascript:;" id="allTime">Tất cả thời gian</a></li>
                                         </ul>
                                     </div>
-                                </div>
+                             
                                
                             </div>
                     
