@@ -104,7 +104,27 @@
 													</div>
 												</div>
 										</div>
-
+										<div class="mb-3">
+											<label for="input_is_premium" class="form-label">Trạng thái Premium</label>
+											<select name="is_premium" id="input_is_premium" class="form-control">
+													<option value="1" {{ $user->is_premium ? 'selected' : '' }}>Đang Premium</option>
+													<option value="0" {{ !$user->is_premium ? 'selected' : '' }}>Không Premium</option>
+											</select>
+											<div class="mb-3">
+												<label for="input_premium_expires_at" class="form-label">Ngày hết hạn Premium</label>
+												<input name="premium_expires_at" type="datetime-local" class="form-control" id="input_premium_expires_at"
+															 value="{{ old('premium_expires_at', $user->premium_expires_at ? \Carbon\Carbon::parse($user->premium_expires_at)->timezone('Asia/Ho_Chi_Minh')->format('Y-m-d\TH:i:s') : '') }}">
+										
+												@error('premium_expires_at')
+														<p class="text-danger">{{ $message }}</p>
+												@enderror
+										</div>
+										
+										
+											@error('is_premium')
+													<p class="text-danger">{{ $message }}</p>
+											@enderror
+									</div>
 										<button class="btn btn-primary" type="submit">Sửa tài khoản</button>
 
 										<a class="btn btn-danger" onclick="event.preventDefault(); document.getElementById('delete_user_{{ $user->id }}').submit();" 

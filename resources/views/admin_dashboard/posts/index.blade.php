@@ -68,16 +68,26 @@
                                 <td>{{ $post->views }}</td>
                                
                                 <td>
-                                    <div class="d-flex order-actions">
-                                        <a href="{{ route('admin.posts.edit', $post)}}" class=""><i class='bx bxs-edit'></i></a>
-                                        <a href="#" onclick="event.preventDefault(); document.querySelector('#delete_form_{{ $post->id }}').submit();" class="ms-3"><i class='bx bxs-trash'></i></a>
+                           
+    <div class="d-flex order-actions">
+        <a href="{{ route('admin.posts.edit', $post) }}" class=""><i class='bx bxs-edit'></i></a>
 
-                                        <form method="post" action="{{ route('admin.posts.destroy', $post) }}" id="delete_form_{{ $post->id }}">
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
-                                    
-                                    </div>
+        <!-- Nếu bài viết chưa phê duyệt thì cho phép xóa -->
+        @if ($post->approved !== 1)
+            <a href="#" onclick="event.preventDefault(); document.querySelector('#delete_form_{{ $post->id }}').submit();" class="ms-3"><i class='bx bxs-trash'></i></a>
+        @else
+            <!-- Nếu bài viết đã phê duyệt, không cho phép xóa, hiển thị thông báo -->
+            <span class="ms-3 text-muted"><i class='bx bxs-lock'></i></span>
+        @endif
+
+        <form method="post" action="{{ route('admin.posts.destroy', $post) }}" id="delete_form_{{ $post->id }}">
+            @csrf
+            @method('DELETE')
+        </form>
+
+    </div>
+
+
                                 </td>
                             </tr>
                             @endforeach
