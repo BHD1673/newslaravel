@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\AdminControllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\PostRequest;
 use Illuminate\Http\Request;
 
 use App\Models\Category;
@@ -63,7 +62,7 @@ class AdminPostsController extends Controller
         return view('admin_dashboard.posts.create', compact('categories', 'isReporter'));
     }
 
-    public function store(PostRequest $request)
+    public function store(Request $request)
     {
         $validated = $request->all();
         $this->postService->store($validated, $request->all());
@@ -108,7 +107,7 @@ class AdminPostsController extends Controller
             'postImages' => $postImages,
             'postLog' => $postLog,
             'isAdmin' => $isAdmin,
-            'videoFiles' => $videoFiles ?? ""
+            'videoFiles' => $videoFiles
         ]);
     }
 

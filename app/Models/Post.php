@@ -16,6 +16,7 @@ class Post extends Model
     use HasFactory;
 
     protected $fillable = ['title', 'slug', 'excerpt', 'body', 'user_id', 'category_id', 'approved'];
+
     const APPROVED = [
         'not_approved_yet' => 1,
         'refuse' => 2,

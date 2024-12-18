@@ -43,7 +43,7 @@
 									<tr>
 										<td>{{ $contact->first_name }} {{ $contact->last_name }}</td>
 										<td>{{ $contact->email }}</td>
-										<td>{{ $contact->first_subject }}</td>
+										<td>{{ $contact->subject }}</td>
 										<td>{{ $contact->message }}</td>
                                         <td>
                                         <div class="d-flex order-actions">

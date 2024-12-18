@@ -3,6 +3,101 @@
 @section('title', $post->title. ' - TDQ ')
 
 @section('custom_css')
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Nhập API Key của bạn
+        const API_KEY = 'AIzaSyAML2E3ccsu7dHtX761MCZAgGfexas-JkM';
+    
+        let audio = null; // Biến toàn cục để lưu trữ đối tượng Audio
+
+        // Hàm gọi API Text-to-Speech
+        async function textToSpeech(text) {
+            const url = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${API_KEY}`;
+            const payload = {
+                input: { text: text },
+                voice: { languageCode: "vi-VN", name: "vi-VN-Standard-A" },
+                audioConfig: { audioEncoding: "MP3" }
+            };
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+    
+                if (result.audioContent) {
+                    // Nếu có âm thanh, tạo đối tượng Audio mới và phát
+                    if (audio) {
+                        audio.pause(); // Dừng âm thanh hiện tại nếu có
+                    }
+                    audio = new Audio("data:audio/mp3;base64," + result.audioContent);
+                    audio.play();
+                } else {
+                    console.error("Lỗi từ API:", result);
+                }
+            } catch (error) {
+                console.error("Lỗi khi gọi API Text-to-Speech:", error);
+            }
+        }
+
+        // Gắn sự kiện cho các nút đọc riêng biệt
+        document.querySelectorAll('.read-btn[data-target]').forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.getAttribute('data-target');
+                const element = document.getElementById(targetId);
+                if (element) {
+                    const text = element.innerText.trim();
+                    if (text) {
+                        textToSpeech(text);
+                    } else {
+                        console.warn(`Không có văn bản để đọc trong phần tử có ID: ${targetId}`);
+                    }
+                } else {
+                    console.error(`Không tìm thấy phần tử với ID: ${targetId}`);
+                }
+            });
+        });
+
+        // Gắn sự kiện cho nút đọc tất cả
+        const readAllBtn = document.getElementById('read-all-btn');
+        if (readAllBtn) {
+            readAllBtn.addEventListener('click', () => {
+                const titleElement = document.getElementById('post-title');
+                const bodyElement = document.getElementById('post-body');
+                if (titleElement && bodyElement) {
+                    const titleText = titleElement.innerText.trim();
+                    const bodyText = bodyElement.innerText.trim();
+                    if (titleText || bodyText) {
+                        const combinedText = `${titleText}. ${bodyText}`;
+                        textToSpeech(combinedText);
+                    } else {
+                        console.warn("Không có văn bản nào để đọc.");
+                    }
+                } else {
+                    console.error("Không tìm thấy phần tử tiêu đề hoặc nội dung bài viết.");
+                }
+            });
+        }
+
+        // Gắn sự kiện cho nút dừng
+        const stopBtn = document.getElementById('stop-btn');
+        if (stopBtn) {
+            stopBtn.addEventListener('click', () => {
+                if (audio) {
+                    audio.pause(); // Dừng âm thanh
+                    audio.currentTime = 0; // Đặt lại vị trí phát về đầu
+                    console.log("Đã dừng âm thanh.");
+                }
+            });
+        }
+
+    });
+</script>
+
 	<style>
 		.post--body.post--content{
 			color: black;
@@ -20,7 +115,23 @@
 			font-size: 14px !important;
 			text-align: right;
 		}
-
+        .read-btn {
+  background-color: #4CAF50;
+  /* Màu xanh lá */
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.read-btn:hover {
+  background-color: #45a049;
+}
 	</style>
 @endsection
 
@@ -70,9 +181,15 @@
                                     <li><span><i class="fa fm fa-eye"></i>{{ $post->views }}</span></li>
                                     <li><a href="#"><i class="fa fm fa-comments-o"></i>{{ count($post->comments) }}</a></li>
                                 </ul>
-
+                              
+                                @if(auth()->check() && auth()->user()->is_premium == 1)
+                                <!-- Hiển thị nút nếu người dùng là Premium -->
+                                <button id="read-all-btn" class="read-btn">🔊 Đọc Tất Cả</button>
+                                <button id="stop-btn" class="read-btn">❌ Dừng</button>
+                            @endif
+                               
                                 <div class="title">
-                                    <h2 class="post_title h4">{{ $post->title }}</h2>
+                                    <h2 class="post_title h4"id="post-title">{{ $post->title }}</h2>
                                 </div>
                                 <div class="row" style="margin: 50px 0;">
                                     <h5>Ảnh bài viết</h5>
@@ -102,7 +219,7 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="post--body post--content">
+                            <div class="post--body post--content" id="post-body">
 								{!! $post->body !!}
                             </div>
                         </div>
@@ -133,14 +250,53 @@
                             <!-- Social Widget Start -->
                             <div class="social--widget style--4">
                                 <ul class="nav">
-                                    <li><a href="javascript:"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="javascript:"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="javascript:"><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href="javascript:"><i class="fa fa-linkedin"></i></a></li>
-                                    <li><a href="javascript:"><i class="fa fa-rss"></i></a></li>
-                                    <li><a href="javascript:"><i class="fa fa-youtube-play"></i></a></li>
+                                    <li><a href="#" onclick="shareFacebook()"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#" onclick="shareTwitter()"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#" onclick="shareLinkedIn()"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="#" onclick="sharePinterest()">  <i class="fa fa-pinterest" style="color:#E60023;"></i></a></li>
+                                    <li><a href="#" onclick="shareWhatsApp()">  <i class="fa fa-whatsapp" style="color:#25D366;"></i></a></li>
                                 </ul>
                             </div>
+                            <script>
+                                function getCurrentURL() {
+                                    return encodeURIComponent(window.location.href);
+                                }
+                            
+                                function shareFacebook() {
+                                    const url = getCurrentURL();
+                                    const shareURL = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                                    window.open(shareURL, '_blank', 'width=600,height=400');
+                                }
+                            
+                                function shareTwitter() {
+                                    const url = getCurrentURL();
+                                    const text = encodeURIComponent(document.title);
+                                    const shareURL = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+                                    window.open(shareURL, '_blank', 'width=600,height=400');
+                                }
+                            
+                                function shareLinkedIn() {
+                                    const url = getCurrentURL();
+                                    const shareURL = `https://www.linkedin.com/shareArticle?mini=true&url=${url}`;
+                                    window.open(shareURL, '_blank', 'width=600,height=400');
+                                }
+                            
+                                function sharePinterest() {
+                                    const url = getCurrentURL();
+                                    const media = encodeURIComponent('URL_đến_hình_ảnh'); // Thay thế bằng URL hình ảnh nếu có
+                                    const description = encodeURIComponent(document.title);
+                                    const shareURL = `https://pinterest.com/pin/create/button/?url=${url}&media=${media}&description=${description}`;
+                                    window.open(shareURL, '_blank', 'width=600,height=400');
+                                }
+                            
+                                function shareWhatsApp() {
+                                    const url = getCurrentURL();
+                                    const text = encodeURIComponent(document.title);
+                                    const shareURL = `https://api.whatsapp.com/send?text=${text}%20${url}`;
+                                    window.open(shareURL, '_blank', 'width=600,height=400');
+                                }
+                            </script>
+                            
                             <!-- Social Widget End -->
                         </div>
                         <!-- Post Social End -->
@@ -241,8 +397,8 @@
 												<div class="post--img">
 													<a href="{{ route('posts.show', $postTheSame) }}"
 														class="thumb">
-                                                        <img src="{{ asset($postTheSame->image ? 'storage/' .$postTheSame->image->path : 'storage/placeholders/placeholder-image.png')}}"
-															alt="">
+                                                        <img src="{{ asset($postTheSame->image ?  $postTheSame->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+
                                                     </a>
 
 													<div class="post--info">
@@ -296,11 +452,12 @@
                         <!-- Widget Start -->
                         <x-blog.side-vote />
 	                    <!-- Widget End -->
-
+                        @if(!auth()->check() || !auth()->user()->is_premium)
+      
                       <!-- Widget Start -->
                       <x-blog.side-ad_banner />
                       <!-- Widget End -->
-
+                      @endif
                     </div>
                 </div>
                 <!-- Main Sidebar End -->
@@ -386,7 +543,6 @@
 
 
 </script>
-
 
 
 @endsection

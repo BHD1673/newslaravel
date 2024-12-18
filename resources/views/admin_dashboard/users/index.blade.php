@@ -48,6 +48,7 @@
                                 <th>Quyền</th>
                                 <th>Thông tin</th>
                                 <th>Premium</th>
+                                <th>Thời gian Premium</th>
                                 <th>Ngày tạo</th>
                                 <th>Chức năng</th>
                             </tr>
@@ -77,6 +78,8 @@
                                 </td>
                                 @endif
                              <td>{{ $user->is_premium ? 'Có' : 'Không' }}</td>
+                               <td>{{ $user->premium_expires_at ? : 'trống' }}</td>
+
                                 <td>{{ $user->created_at->format('d/m/Y') }}</td>
                    
                                 <td>
