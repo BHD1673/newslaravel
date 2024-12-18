@@ -74,6 +74,33 @@
                                 <div class="title">
                                     <h2 class="post_title h4">{{ $post->title }}</h2>
                                 </div>
+                                <div class="row" style="margin: 50px 0;">
+                                    <h5>Ảnh bài viết</h5>
+                                    @if(isset($postImages) && count($postImages) > 0)
+                                    <div class="{{ count($postImages) > 1 ? 'col-12 col-md-6': 'col-12' }}">
+                                         @foreach($postImages as $image)
+                                            <div class="image-wrapper" style="border: 1px solid;">
+                                                <img accept="image/*" src="{{ asset('storage/' . $image->path) }}" data-id="{{ $image->id }}" alt="Image" />
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    @endif
+                                </div>
+                                <div class="row" style="margin: 50px 0;">
+                                    <h5>Video bài viết</h5>
+                                    @if(!empty($videoFiles))
+                                    <div class="{{ count($videoFiles) > 1 ? 'col-12 col-md-6': 'col-12' }}">
+                                        @foreach($videoFiles as $videoFile)
+                                            <div id="video-{{ $loop->index }}">
+                                                <video width="100%" controls>
+                                                    <source src="{{ asset('storage/videos/' . $post->id . '/' . basename($videoFile)) }}" type="video/mp4">
+                                                    Your browser does not support the video tag.
+                                                </video>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    @endif
+                                </div>
                             </div>
                             <div class="post--body post--content">
 								{!! $post->body !!}
