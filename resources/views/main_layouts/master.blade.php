@@ -145,7 +145,15 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 									<ul class="dropdown-menu">
 										@if(auth()->user()->role->name !== 'user')
 										<li>
-											<a href="{{ route('admin.index') }}">Admin - Dashbroad</a>
+											@if(auth()->user()->role->name === 'admin')
+												<a href="{{ route('admin.index') }}">Admin - Dashboard</a>
+											@elseif(auth()->user()->role->name === 'reporter')
+												<a href="{{ route('admin.posts.index') }}">Reporter - Dashboard</a>
+											@elseif(auth()->user()->role->name === 'employee')
+												<a href="{{ route('admin.posts.index') }}">Employee - Dashboard</a>
+											@else
+												<a href="{{ route('default.dashboard') }}">Default - Dashboard</a>
+											@endif
 										</li>
 										@endif
 										<li>
