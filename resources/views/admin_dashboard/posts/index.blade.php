@@ -54,10 +54,9 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>{{ $post->title }}</td>
+                                <td>{{ \Illuminate\Support\Str::limit($post->title, 40, '...') }}</td>
 
-
-                                <td>{{ $post->excerpt }}</td>
+                                <td>{{ \Illuminate\Support\Str::limit($post->excerpt, 50, '...') }}</td>
                                 <td>{{ $post->category->name }}</td>
                                 <td>{{ $post->created_at->format('d/m/Y') }}</td>
                                 <td>
@@ -77,11 +76,12 @@
 
                                 <td>
                                     <div class="d-flex order-actions">
-                                        <a class="{{ $isReporter && $post->approved === 3 ? 'd-none' : '' }}" href="{{ route('admin.posts.edit', $post)}}" ><i class='bx bxs-edit'></i></a>
+                                        {{-- {{ $isReporter && $post->approved === 3 ? 'd-none' : '' }} --}}
+                                        <a class="" href="{{ route('admin.posts.edit', $post)}}" ><i class='bx bxs-edit'></i></a>
                                         @if($post->approved === 1 || $post->approved === 3 )
-                                        <a href="#"onclick="event.preventDefault(); document.querySelector('#delete_form_{{ $post->id }}').submit();" class="ms-3 {{ $isEmployee ? 'd-none' : '' }}"><i class='bx bxs-trash'></i></a>
+                                        <a href="#"onclick="event.preventDefault(); document.querySelector('#delete_form_{{ $post->id }}').submit();" class="ms-3 {{ $isEmployee || $post->approved === 3 ? 'd-none' : '' }}"><i class='bx bxs-trash'></i></a>
                                         @else
-                                        <a href="#" onclick="return confirmDelete({{ $post->approved }}, {{ $post->id }});" class="ms-3 {{ $isEmployee ? 'd-none' : '' }}"><i class='bx bxs-trash'></i></a>
+                                        <a href="#" onclick="return confirmDelete({{ $post->approved }}, {{ $post->id }});" class="ms-3 {{ $isEmployee || $post->approved === 3  ? 'd-none' : '' }}"><i class='bx bxs-trash'></i></a>
                                         @endif
                                         @if($post->approved === 2 )
                                         <a href="#" class="mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$post->id}}"><i class='bx bxs-x-circle'></i></a>
