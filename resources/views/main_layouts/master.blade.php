@@ -73,9 +73,11 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 	<!-- Theme style  -->
 	<link rel="stylesheet" href="{{ asset('blog_template/css/style.css') }}">
 	<link rel="stylesheet" href="{{ asset('css/mystyle.css') }}">
+	<link rel="stylesheet" href="{{ asset('js/cube.js') }}">
 
 	<!-- Modernizr JS -->
 	<script src="{{ asset('blog_template/js/modernizr-2.6.2.min.js') }}"></script>
+
 	<!-- FOR IE9 below -->
 	<!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
@@ -107,6 +109,11 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 
     <!-- ==== Custom Stylesheet ==== -->
     <link rel="stylesheet" href="{{ asset('kcnew/frontend/css/custom.css') }}">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+
+
+	
+
 
     @yield('custom_css')
 
@@ -246,10 +253,13 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Trang<i
 									class="fa flm fa-angle-down"></i></a>
 							<ul class="dropdown-menu">
-								<li><a href="{{ route('about') }}">Giới thiệu</a></li>
 								<li><a href="{{ route('ads.form') }}">Đăng Ký Quảng Cáo</a></li>
+								<li><a href="{{ route('ads.history') }}">Theo Dõi Quảng Cáo</a></li>
+								<li><a href="{{ route('about') }}">Giới thiệu</a></li>
 								<li><a href="{{ route('contact.create') }}">Liên hệ</a></li>
-								{{-- <li><a href="{{ route('erorrs.404') }}">404</a></li> --}}
+								
+								<!-- <li><a href="{{ route('shop.index') }}">Shop</a></li> 
+								<li><a href="{{ route('erorrs.404') }}">404</a></li> -->
 							</ul>
 						</li>
 						<li>
@@ -261,7 +271,7 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 					</ul>
 					<!-- Header Menu Links End -->
 				</div>
-	
+				
 				<!-- Header Search Form Start -->
 				<form method="POST" action="{{ route('search') }}" class="header--search-form float--right" data-form="validate">
 					@csrf	
@@ -306,6 +316,7 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 				</ul>
 			</div>
 		</div>
+		@yield('ads.index')
 
 		<!-- News Ticker Start -->
 		<div class="news--ticker">
@@ -376,14 +387,24 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 					<h4>Theo dõi chúng tôi</h4>
 					<div class="row">
 						<div class="col-md-12">
-							<form  class="form-inline qbstp-header-subscribe">
-									<div class="form-group">
-										<input name='subscribe-email' type="text" required class="form-control" id="text" placeholder="Nhập email của bạn" >
-									</div>
+						
+									
 									<div class="form-group ">
-										<button id='subscibe-btn'   type="submit" class="btn btn-primary">Đăng ký ngay</button>
+										<a href="{{route('ads.form')}}" class="btn-button">
+											<button class="btn btn-primary">Đăng ký Quảng Cáo Với Chúng Tôi Ngay</button>
+										</a>
+										
 									</div>
-							</form>
+							
+							<form  class="form-inline qbstp-header-subscribe">
+								<div class="form-group">
+									<input name='subscribe-email' type="text" required class="form-control" id="text" placeholder="Nhập email của bạn" >
+								</div>
+								
+								<div class="form-group" style="margin-top: 10px">
+									<button id='subscibe-btn'   type="submit" class="btn btn-primary">Đăng ký ngay</button>
+								</div>
+						</form>
 						</div>
 					</div>
 				</div>
@@ -408,15 +429,15 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 						<span style="font-size: 14px" class="block">Thuộc Bộ Khoa học Công nghệ</span>
 					</p>
 					<p>
-						<span style="font-size: 14px" class="block">Số giấy phép: 548/GP-BTTTT ngày 27/06/2024</span>
+						<span style="font-size: 14px" class="block">Số giấy phép: 548/GP-BTTTT ngày 27/11/2024</span>
 					</p>
 				</div>
 				<div class="col-md-4">
 					<p>
-						<span style="font-size: 14px" class="block">Tổng biên tập: Nhóm FPT Vnews</span>
+						<span style="font-size: 14px" class="block">Tổng biên tập: FPT POLYTECHNIC</span>
 					</p>
 					<p>
-						<span style="font-size: 14px" class="block">Địa chỉ: Vân Canh - Hoài Đức - Hà Nội</span>
+						<span style="font-size: 14px" class="block">Địa chỉ: Trịnh Văn Bô, Nam Từ Liêm, Quận Nam Từ Liêm, Thành Phố Hà Nội</span>
 					</p>
 					<p>
 						<span style="font-size: 14px" class="block">Điện thoại: 0394240007</span>
@@ -424,15 +445,15 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 				</div>
 				<div class="col-md-4">
 					<p>
-						<small style="font-size: 14px" class="block">&copy; 2024. Toàn bộ bản quyền thuộc Vnews</small>
+						<small style="font-size: 14px" class="block">&copy; 2024. Toàn bộ bản quyền thuộc FPT POLYTECHNIC</small>
 					</p>
 					<p>
 						<ul style="display: flex;" class="header--topbar-social nav hidden-sm hidden-xxs">
-							<li><a href=""><i class="fa fa-facebook"></i></a></li>
-							<li><a href=""><i class="fa fa-twitter"></i></a></li>
-							<li><a href=""><i class="fa fa-google-plus"></i></a></li>
-							<li><a href=""><i class="fa fa-rss"></i></a></li>
-							<li><a href=""><i class="fa fa-youtube-play"></i></a></li>
+							<li><a href="https://www.facebook.com/profile.php?id=100040124105868"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="https://www.facebook.com/profile.php?id=100040124105868"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="https://www.facebook.com/profile.php?id=100040124105868"><i class="fa fa-google-plus"></i></a></li>
+							<li><a href="https://www.facebook.com/profile.php?id=100040124105868"><i class="fa fa-rss"></i></a></li>
+							<li><a href="https://www.facebook.com/profile.php?id=100040124105868"><i class="fa fa-youtube-play"></i></a></li>
 						</ul>
 					</p>
 				</div>
@@ -469,7 +490,17 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 	<script src="{{ asset('blog_template/js/main.js') }}"></script>
 
 	<script src="{{ asset('js/function.js') }}"></script>
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script>
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+        };
+    </script>								
 
 	<!-- ==== JS TEAMPLATED KCNEWS jQuery Library ==== -->
 	<!-- <script src="{{ asset('kcnew/frontend/js/jquery-3.2.1.min.js') }}"></script> -->
@@ -553,6 +584,7 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 							$("body").append("<div class='global-message alert alert-danger subscribe-success'>"+ message +"</div>");
 						
 							_this.parents("form").find("input[name='subscribe-email']").val('');
+							window.location.href = "{{route('ads.form')}}";
 						},
 						statusCode: {
 							500: () => {								 

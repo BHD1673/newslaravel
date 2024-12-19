@@ -93,7 +93,6 @@ class HomeController extends Controller
             ->where('start_time', '<=', now())  // Quảng cáo bắt đầu
             ->where('end_time', '>=', now())  // Quảng cáo chưa kết thúc
             ->get();
-        // dd($ads);
         // die();
 
 

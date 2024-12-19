@@ -9,11 +9,9 @@ class AdsPayment extends Model
 {
     use HasFactory;
 
-    // Định nghĩa bảng mà model này liên kết
     protected $table = 'ads_payment';
-    public $timestamps = false;
+    public $timestamps = false; 
 
-    // Các trường có thể được gán giá trị
     protected $fillable = [
         'ad_id',
         'amount',
@@ -21,12 +19,12 @@ class AdsPayment extends Model
         'paid_amount',
         'payment_status',
         'payment_method',
-        'paid_at'
+        'paid_at',
     ];
 
-    // Quan hệ với bảng Ads (một AdsPayment thuộc về một quảng cáo)
+    // Quan hệ với bảng Ads
     public function ad()
     {
-        return $this->belongsTo(Ads::class, 'ad_id');
+        return $this->belongsTo(Ads::class, 'ad_id', 'id');
     }
 }

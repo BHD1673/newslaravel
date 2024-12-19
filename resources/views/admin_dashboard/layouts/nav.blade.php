@@ -56,6 +56,25 @@ function checkPermission($name) {
             </ul>
         </li>
         @endif
+        <li>
+                        <a href="javascript:;" class="has-arrow">
+                            <div class="parent-icon"><i class='bx bx-box'></i></div>
+                            <div class="menu-title">Quản lý quảng cáo</div>
+                        </a>
+
+                        <ul>
+                            {{-- @if(checkPermission("admin.products.index")) --}}
+                                <li><a href="{{ route('admin.ads.index') }}"><i class="bx bx-right-arrow-alt"></i>Tất cả quảng cáo</a></li>
+                            {{-- @endif --}}
+
+                            {{-- @if(checkPermission("admin.products.create")) --}}
+                                <li><a href="{{ route('admin.ads_position.index') }}"><i class="bx bx-right-arrow-alt"></i>Các dạng quảng cáo</a></li>
+                            {{-- @endif --}}
+                            {{-- @if(checkPermission("admin.products.create")) --}}
+                                <li><a href="{{ route('admin.ads_payment.index') }}"><i class="bx bx-right-arrow-alt"></i>Thanh Toán</a></li>
+                            {{-- @endif --}}
+                        </ul>
+                    </li>
 
         {{-- @if(checkPermission("admin.products.index") || checkPermission("admin.products.create"))
         <li>

@@ -21,7 +21,6 @@ class Post extends Model
         'not_approved_yet' => 1,
         'refuse' => 2,
         'browse' => 3
-
     ];
 
     const POST_DELETE = [

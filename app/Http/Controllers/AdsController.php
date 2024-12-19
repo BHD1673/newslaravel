@@ -1,17 +1,15 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Ads;
 use App\Models\AdsPayment;
 use App\Models\AdsPosition;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\AdApprovedMail;
-use App\Mail\AdCancelledMail;
-use App\Mail\AdRunningMail;
-use App\Mail\AdCompletedMail;
-use Carbon\Carbon;
+use App\Models\Post;
+use App\Models\Category;
+use App\Models\Tag;
+use App\Models\Comment;
+
 
 class AdsController extends Controller
 {
@@ -21,138 +19,177 @@ class AdsController extends Controller
         $positions = AdsPosition::all();
         return view('ads.form', compact('positions'));
     }
-    // public function index()
-    // {
-
-    //     // dd($ads);
-    //     return view('home', compact('ads'));
-    // }
-
-
     public function store(Request $request)
     {
         // Kiểm tra tính hợp lệ thời gian và vị trí quảng cáo
         $request->validate([
             'title' => 'required|string|max:255',
-            'img' => 'required|string|max:255',
+            'img' => 'required|file|mimes:jpeg,png,jpg,gif|max:2048', // Chấp nhận các loại file ảnh
             'link' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:50',
             'start_time' => 'required|date',
             'end_time' => 'required|date|after:start_time',
-            'position' => 'required|in:top,center,bottom,detail',
+            'position_id' => 'required|exists:ads_position,id',
         ]);
-
-        // Kiểm tra trùng thời gian và vị trí
-        $overlap = Ads::where('position', $request->position)
-            ->where(function ($query) use ($request) {
-                // Quảng cáo mới bắt đầu trước khi quảng cáo cũ kết thúc
-                $query->where('start_time', '<', $request->end_time)
-                    // Quảng cáo mới kết thúc sau khi quảng cáo cũ bắt đầu
-                    ->where('end_time', '>', $request->start_time);
-            })
-            ->exists();
-
-        if ($overlap) {
-            // Nếu có trùng, trả về thông báo lỗi
-            return redirect()->back()->with('error', 'Quảng cáo đã trùng thời gian và vị trí. Vui lòng chọn lại.');
+        if ($request->hasFile('img')) {
+            $file = $request->file('img');
+            $filePath = $file->store('ads_images', 'public'); // Lưu file trong thư mục storage/app/public/ads_images
+        } else {
+            session()->flash('error', 'Hình ảnh không hợp lệ.');
+            return redirect()->back()->withInput();
         }
+        
+        $overlap = Ads::where('position_id', $request->position_id)
+        ->where(function ($query) use ($request) {
+            $query->where('start_time', '<', $request->end_time)
+                ->where('end_time', '>', $request->start_time);
+        })
+        ->exists();
+    
+        if ($overlap) {
+            // Lưu thông báo lỗi vào session để sử dụng trong giao diện
+            session()->flash('error', 'Quảng cáo đã trùng thời gian và vị trí. Vui lòng chọn lại.');
+            return redirect()->back()->withInput(); // Trả lại dữ liệu đã nhập
+        }
+        
 
-
-
-
-        // Tính toán giá tiền quảng cáo
-        $position_price = AdsPosition::where('position', $request->position)->first()->price;
-        $hours = Carbon::parse($request->start_time)->diffInHours(Carbon::parse($request->end_time));
-        $total_price = $position_price * $hours;
+    
 
         // Tạo quảng cáo
-        $ad = Ads::create([
+        Ads::create([
             'user_id' => auth()->id(),
             'title' => $request->title,
-            'img' => $request->img,
+            'img' => $filePath, 
             'link' => $request->link,
             'email' => $request->email,
             'phone' => $request->phone,
             'start_time' => $request->start_time,
             'end_time' => $request->end_time,
-            'position' => $request->position,
+            'position_id' => $request->position_id,
             'status' => 'pending',
         ]);
-
+        
         return redirect()->route('ads.history');
     }
-
     public function history()
     {
-        // Lấy danh sách quảng cáo của người dùng
-        $ads = Ads::where('user_id', auth()->id())->get();
+            // Lấy danh sách quảng cáo của người dùng
+            $ads = Ads::where('user_id', auth()->id())->with('position')->get();
+        
+            // Kiểm tra trạng thái quảng cáo, nếu là approved thì gửi email thông báo
 
-        // Kiểm tra trạng thái quảng cáo, nếu là approved thì gửi email thông báo
-        foreach ($ads as $ad) {
-            // Kiểm tra nếu quảng cáo có trạng thái 'approved' và chưa gửi email
-            if ($ad->status === 'approved' && !$ad->email_sent) {
-                // Gửi email thông báo quảng cáo đã được phê duyệt
-                Mail::to($ad->user->email)->send(new AdApprovedMail($ad)); // Truyền $ad vào email
-
-                // Cập nhật trường email_sent để đảm bảo chỉ gửi một lần
-                $ad->email_sent = true;
-                $ad->save();
-            }
-
-            // Kiểm tra nếu quảng cáo đã phê duyệt và có giao dịch thanh toán trong bảng ads_payment
-            if ($ad->status === 'approved') {
-                // Kiểm tra trong bảng ads_payment xem có giao dịch nào với quảng cáo này chưa
-                $paymentExist = AdsPayment::where('ad_id', $ad->id)->exists();
-
-                // Nếu đã thanh toán, kiểm tra thời gian và cập nhật trạng thái quảng cáo
-                if ($paymentExist) {
-                    $currentTime = Carbon::now(); // Lấy thời gian hiện tại
-                    $endTime = Carbon::parse($ad->end_time); // Lấy thời gian kết thúc của quảng cáo
-
-                    // Nếu quảng cáo đã hết hạn và đã thanh toán
-                    if ($currentTime > $endTime) {
-                        $ad->status = 'completed'; // Cập nhật trạng thái thành 'completed'
-                        $ad->save();
-
-                        // Gửi email thông báo cho người dùng về việc quảng cáo đã hoàn thành
-                        Mail::to($ad->user->email)->send(new AdCompletedMail($ad)); // Tạo Mailable mới để gửi thông báo hoàn thành quảng cáo
-                    }
-                    // Nếu quảng cáo đang trong thời gian chạy và đã thanh toán
-                    elseif ($currentTime >= Carbon::parse($ad->start_time) && $currentTime <= $endTime) {
-                        $ad->status = 'running'; // Cập nhật trạng thái thành 'running'
-                        $ad->save();
-
-                        // Gửi email thông báo cho người dùng về việc quảng cáo đang chạy
-                        Mail::to($ad->user->email)->send(new AdRunningMail($ad)); // Tạo Mailable mới để gửi thông báo quảng cáo đang chạy
-                    }
-                }
-                // Nếu chưa có thanh toán và thời gian còn lại ít hơn 8 tiếng
-                else {
-                    $endTime = Carbon::parse($ad->end_time); // Lấy thời gian kết thúc
-                    $currentTime = Carbon::now(); // Lấy thời gian hiện tại
-
-                    // Sự khác biệt giữa thời gian hiện tại và thời gian kết thúc
-                    $timeDiff = $endTime->diff($currentTime);
-
-                    // Tính tổng thời gian chênh lệch theo giờ và ngày
-                    $totalTimeInHours = $timeDiff->days * 24 + $timeDiff->h; // Tổng số giờ = (số ngày * 24) + số giờ
-                    $totalTimeInMinutes = $totalTimeInHours * 60 + $timeDiff->i; // Tổng số phút
-
-                    // Kiểm tra nếu thời gian còn lại ít hơn hoặc bằng 8 tiếng (480 phút) và chưa thanh toán
-                    if ($totalTimeInMinutes <= 480) {
-                        // Chuyển trạng thái quảng cáo sang 'cancelled'
-                        $ad->status = 'cancelled';
-                        $ad->save();
-
-                        // Gửi email thông báo cho người dùng về việc quảng cáo đã bị hủy
-                        Mail::to($ad->user->email)->send(new AdCancelledMail($ad)); // Tạo Mailable mới để gửi thông báo hủy quảng cáo
-                    }
-                }
-            }
+        
+            // Trả về view với danh sách quảng cáo
+            return view('ads.history', compact('ads'));
         }
+                public function destroy($id)
+            {
+                // Tìm quảng cáo theo ID
+                $ad = Ads::findOrFail($id);
 
-        // Trả về view với danh sách quảng cáo
-        return view('ads.history', compact('ads'));
+                // Xóa quảng cáo
+                $ad->delete();
+
+                // Trả về lịch sử quảng cáo kèm thông báo thành công
+                return redirect()->route('ads.history')->with('success', 'Quảng cáo đã được xóa thành công.');
+            }
+        public function demo(){
+                $posts = Post::latest()
+                ->approved()
+                // where('approved',1)
+                ->withCount('comments')->paginate(8);
+            // phân trang 8 bài
+            $recent_posts = Post::latest()->take(5)->get();
+            $categories = Category::where('name', '!=', 'Chưa phân loại')->orderBy('created_at', 'DESC')->take(10)->get();
+            // $categories = Category::where('name','!=','Chưa phân loại')->withCount('posts')->orderBy('posts_count', 'desc')->take(10)->get();
+            $tags = Tag::latest()->take(50)->get();
+
+
+            /*----- Lấy ra 4 bài viết mới nhất theo các danh mục khác nhau -----*/
+            $category_unclassified = Category::where('name', 'Chưa phân loại')->first();
+            $posts_new[0] = Post::latest()->approved()
+                ->where('category_id', '!=', $category_unclassified->id)
+                ->take(1)->get();
+            $posts_new[1] = Post::latest()->approved()
+                ->where('category_id', '!=', $category_unclassified->id)
+                ->where('category_id', '!=', $posts_new[0][0]->category->id)
+                ->take(1)->get();
+            $posts_new[2] = Post::latest()->approved()
+                ->where('category_id', '!=', $category_unclassified->id)
+                ->where('category_id', '!=', $posts_new[0][0]->category->id)
+                ->where('category_id', '!=', $posts_new[1][0]->category->id)
+                ->take(1)->get();
+            $posts_new[3] = Post::latest()->approved()
+                ->where('category_id', '!=', $category_unclassified->id)
+                ->where('category_id', '!=', $posts_new[0][0]->category->id)
+                ->where('category_id', '!=', $posts_new[1][0]->category->id)
+                ->where('category_id', '!=', $posts_new[2][0]->category->id)
+                ->take(1)->get();
+
+            // Lấy ra tin nổi bật -- Lấy theo views
+            $outstanding_posts = Post::orderBy('views', 'DESC')->take(5)->get();
+
+            // Lấy ra tất cả danh mục tin tức 
+            $stt_home = 0;
+            $category_home = Category::where('name', '!=', 'Chưa phân loại')->orderBy('created_at', 'DESC')->take(10)->get();
+            foreach ($category_home as $category_item) {
+                // Tạo tin tức mới nhất cho layout master
+                $stt_home = $stt_home + 1;
+                if ($stt_home === 1)
+                    $post_category_home0 =  Post::latest()->approved()->withCount('comments')->where('category_id', $category_item->id)->take(5)->get();
+                if ($stt_home === 2)
+                    $post_category_home1 =  Post::latest()->approved()->withCount('comments')->where('category_id', $category_item->id)->take(6)->get();
+                if ($stt_home === 3)
+                    $post_category_home2 =  Post::latest()->approved()->withCount('comments')->where('category_id', $category_item->id)->take(8)->get();
+                if ($stt_home === 4)
+                    $post_category_home3 =  Post::latest()->approved()->withCount('comments')->where('category_id', $category_item->id)->take(5)->get();
+                if ($stt_home === 5)
+                    $post_category_home4 =  Post::latest()->approved()->withCount('comments')->where('category_id', $category_item->id)->take(6)->get();
+                if ($stt_home === 6)
+                    $post_category_home5 =  Post::latest()->approved()->withCount('comments')->where('category_id', $category_item->id)->take(5)->get();
+                if ($stt_home === 7)
+                    $post_category_home6 =  Post::latest()->approved()->withCount('comments')->where('category_id', $category_item->id)->take(5)->get();
+                if ($stt_home === 8)
+                    $post_category_home7 =  Post::latest()->approved()->withCount('comments')->where('category_id', $category_item->id)->take(5)->get();
+                if ($stt_home === 9)
+                    $post_category_home8 =  Post::latest()->approved()->withCount('comments')->where('category_id', $category_item->id)->take(8)->get();
+                if ($stt_home === 10)
+                    $post_category_home9 =  Post::latest()->approved()->withCount('comments')->where('category_id', $category_item->id)->take(4)->get();
+            }
+            $ads = Ads::with('position')  // Lấy các quảng cáo kèm vị trí
+            ->where('status', 'active')  // Quảng cáo đang hoạt động
+            ->where('start_time', '<=', now())  // Thời gian bắt đầu hợp lệ
+            ->where('end_time', '>=', now())  // Thời gian kết thúc hợp lệ
+            ->get();
+
+            // die();
+
+
+
+            // Ý kiến người đọc, comments
+            $top_commnents = Comment::take(5)->get();
+
+            return view('demo', [
+                'posts' => $posts,
+                'recent_posts' => $recent_posts,
+                'posts_new' => $posts_new, // Bài viết mới nhất theo mục
+                'post_category_home0' => $post_category_home0, // Bài viết danh mục 5
+                'post_category_home1' => $post_category_home1, // Bài viết danh mục 1
+                'post_category_home2' => $post_category_home2, // Bài viết danh mục 2
+                'post_category_home3' => $post_category_home3, // Bài viết danh mục 3
+                'post_category_home4' => $post_category_home4, // Bài viết danh mục 4
+                'post_category_home5' => $post_category_home5, // Bài viết danh mục 10
+                'post_category_home6' => $post_category_home6, // Bài viết danh mục 6
+                'post_category_home7' => $post_category_home7, // Bài viết danh mục 7
+                'post_category_home8' => $post_category_home8, // Bài viết danh mục 8
+                'post_category_home9' => $post_category_home9, // Bài viết danh mục 9
+                'outstanding_posts' => $outstanding_posts, // Bài viết nỗi bật
+                'categories' => $categories,
+                'category_home' => $category_home,
+                'tags' => $tags,
+                'top_commnents' => $top_commnents, // Lấy ý kiến người đọc mới nhất
+                'ads' => $ads,
+            ]);
     }
 }

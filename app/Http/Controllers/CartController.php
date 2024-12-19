@@ -27,9 +27,11 @@ class CartController extends Controller
     {
         $product = Product::findOrFail($productId); // Tìm sản phẩm
         $user = Auth::user(); // Lấy người dùng hiện tại
+        // dd($user);
 
         // Lấy giỏ hàng của người dùng hoặc tạo mới nếu chưa có
         $cart = Cart::firstOrCreate(['user_id' => $user->id]);
+       
 
         // Lấy số lượng từ request, nếu không có thì mặc định là 1
         $quantity = $request->input('quantity', 1);

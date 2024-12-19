@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text-to-Speech</title>
+</head>
+<body>
+    <div id="text-to-read">
+        Đây là đoạn văn bản cần được đọc bằng Google Cloud Text-to-Speech API. 
+    </div>
+    <button id="read-btn">🔊 Đọc</button>
+
+    <script>
+        // Nhập API Key của bạn
+        const API_KEY = 'AIzaSyAML2E3ccsu7dHtX761MCZAgGfexas-JkM';
+
+        // Hàm gọi API Text-to-Speech
+        async function textToSpeech(text) {
+            const url = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${API_KEY}`;
+            const payload = {
+                input: { text: text },
+                voice: {
+                    languageCode: "vi-VN", // Giọng tiếng Việt
+                    name: "vi-VN-Standard-A" // Có thể đổi thành "vi-VN-Standard-B", "vi-VN-Wavenet-A", v.v.
+                },
+                audioConfig: { audioEncoding: "MP3" }
+            };
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+                if (result.audioContent) {
+                    const audio = new Audio("data:audio/mp3;base64," + result.audioContent);
+                    audio.play();
+                } else {
+                    console.error("Error:", result);
+                }
+            } catch (error) {
+                console.error("Error calling Text-to-Speech API:", error);
+            }
+        }
+
+        // Gắn sự kiện cho nút bấm
+        document.getElementById('read-btn').addEventListener('click', () => {
+            const text = document.getElementById('text-to-read').innerText;
+            textToSpeech(text);
+        });
+    </script>
+</body>
+</html>
