@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -7,8 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class AdsHistory extends Model
 {
     use HasFactory;
+
     protected $table = 'ads_history';
-    public $timestamps = false;
+    public $timestamps = false; 
+
     protected $fillable = [
         'ad_id',
         'status',
@@ -17,9 +20,9 @@ class AdsHistory extends Model
         'refund_amount',
     ];
 
-    // Quan hệ với bảng 'ads'
+    // Quan hệ với bảng Ads
     public function ad()
     {
-        return $this->belongsTo(Ads::class);
+        return $this->belongsTo(Ads::class, 'ad_id', 'id');
     }
 }

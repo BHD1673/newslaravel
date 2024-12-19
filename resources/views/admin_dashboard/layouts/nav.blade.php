@@ -101,11 +101,11 @@ function checkPermission($name) {
 
                         <ul>
                             {{-- @if(checkPermission("admin.products.index")) --}}
-                                <li><a href="{{ route('admin.products.index') }}"><i class="bx bx-right-arrow-alt"></i>Tất cả quảng cáo</a></li>
+                                <li><a href="{{ route('admin.ads.index') }}"><i class="bx bx-right-arrow-alt"></i>Tất cả quảng cáo</a></li>
                             {{-- @endif --}}
 
                             {{-- @if(checkPermission("admin.products.create")) --}}
-                                <li><a href="{{ route('admin.products.create') }}"><i class="bx bx-right-arrow-alt"></i>Các dạng quảng cáo</a></li>
+                                <li><a href="{{ route('admin.ads_position.index') }}"><i class="bx bx-right-arrow-alt"></i>Các dạng quảng cáo</a></li>
                             {{-- @endif --}}
                             {{-- @if(checkPermission("admin.products.create")) --}}
                                 <li><a href="{{ route('admin.orders.index') }}"><i class="bx bx-right-arrow-alt"></i>Thanh Toán</a></li>

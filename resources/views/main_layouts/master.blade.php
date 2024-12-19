@@ -93,14 +93,7 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 
     <!-- ==== Custom Stylesheet ==== -->
     <link rel="stylesheet" href="{{ asset('kcnew/frontend/css/custom.css') }}">
-	{{-- <script src="{{ asset('js/cube.js') }}"></script>
-	<script src="{{ asset('js/cube150x100.js') }}"></script>
-	<script src="{{ asset('js/ads.js') }}"></script> --}}
-	<!-- Thêm vào trong <head> -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-
-<!-- Thêm vào trước </body> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 
 
 	
@@ -236,11 +229,13 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Trang<i
 									class="fa flm fa-angle-down"></i></a>
 							<ul class="dropdown-menu">
+								<li><a href="{{ route('ads.form') }}">Đăng Ký Quảng Cáo</a></li>
+								<li><a href="{{ route('ads.history') }}">Theo Dõi Quảng Cáo</a></li>
 								<li><a href="{{ route('about') }}">Giới thiệu</a></li>
 								<li><a href="{{ route('contact.create') }}">Liên hệ</a></li>
-								<li><a href="{{ route('ads.form') }}">Đăng Ký Quảng Cáo</a></li>
-								<li><a href="{{ route('shop.index') }}">Shop</a></li> 
-								<li><a href="{{ route('erorrs.404') }}">404</a></li>
+								
+								<!-- <li><a href="{{ route('shop.index') }}">Shop</a></li> 
+								<li><a href="{{ route('erorrs.404') }}">404</a></li> -->
 							</ul>
 						</li>
 						<li>
@@ -471,7 +466,17 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 	<script src="{{ asset('blog_template/js/main.js') }}"></script>
 
 	<script src="{{ asset('js/function.js') }}"></script>
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script>
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+        };
+    </script>								
 
 	<!-- ==== JS TEAMPLATED KCNEWS jQuery Library ==== -->
 	<!-- <script src="{{ asset('kcnew/frontend/js/jquery-3.2.1.min.js') }}"></script> -->

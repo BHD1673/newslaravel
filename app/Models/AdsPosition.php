@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -6,9 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class AdsPosition extends Model
 {
-    // Đảm bảo tên bảng là 'ads_position' (không phải 'ads_positions')
-    protected $table = 'ads_position';
+    use HasFactory;
 
-    // Các cột khác (nếu có)
-    protected $fillable = ['position', 'price'];
+    protected $table = 'ads_position';
+    public $timestamps = false; 
+
+    protected $fillable = [
+        'position',
+        'price',
+        'created_at'
+    ];
+
+    // Quan hệ với bảng Ads
+    public function ads()
+    {
+        return $this->hasMany(Ads::class, 'position_id', 'id');
+    }
 }

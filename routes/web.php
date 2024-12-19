@@ -27,6 +27,8 @@ use App\Http\Controllers\AdminControllers\AdminOrderItemsController;
 use App\Http\Controllers\AdminControllers\AdminOrdersController;
 use App\Http\Controllers\AdminControllers\AdminPostHistorieController;
 use App\Http\Controllers\AdminControllers\AdminPostImagesController;
+use App\Http\Controllers\AdminControllers\AdsPositionController;
+use App\Http\Controllers\AdminControllers\AdsAdminController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AdminControllers\AdminProductsController;
 use App\Http\Controllers\CartController;
@@ -57,6 +59,7 @@ Route::middleware(['auth', 'check.premium'])->group(function () {
     Route::get('ads/create', [AdsController::class, 'create'])->name('ads.form');
     Route::get('ads/index', [AdsController::class, 'index'])->name('ads.index');
     Route::post('ads/store', [AdsController::class, 'store'])->name('ads.store');
+    Route::delete('ads/{id}', [AdsController::class, 'destroy'])->name('ads.destroy');
     Route::get('ads/history', [AdsController::class, 'history'])->name('ads.history');
     Route::get('ads/payment/{ad_id}', [AdsPaymentController::class, 'pay'])->name('ads.payment');
     Route::post('ads/payment/{ad_id}', [AdsPaymentController::class, 'processPayment'])->name('ads.processPayment');
@@ -134,7 +137,8 @@ require __DIR__ . '/auth.php';
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'check_permissions'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
     Route::post('upload_tinymce_image', [TinyMCEController::class, 'upload_tinymce_image'])->name('upload_tinymce_image');
-
+    Route::resource('ads_position', AdsPositionController::class);
+    Route::resource('ads', AdsAdminController::class);
     Route::resource('posts', AdminPostsController::class);
     Route::get('post-soft-delete', [AdminPostsController::class , 'postSoftDelete'])->name('post-soft-delete');
     Route::put('posts/soft-delete/{post}', [AdminPostsController::class , 'softDelete'])->name('post.softDelete');
