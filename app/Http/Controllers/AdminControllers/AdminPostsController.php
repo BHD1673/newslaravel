@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AdminControllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule; // Import Rule class
 
 use App\Models\Category;
 use App\Models\Post;
@@ -11,30 +12,39 @@ use App\Models\Tag;
 
 class AdminPostsController extends Controller
 {
-
+    // Quy tắc xác thực chung
     private $rules = [
         'title' => 'required|max:200',
-        'slug' => 'required|max:200',
+        'slug' => 'required|string|max:255|unique:posts,slug',
         'excerpt' => 'required|max:300',
         'category_id' => 'required|numeric',
-        'thumbnail' => 'nullable|mimes:jpg,png,webp,svg,jpeg|dimensions:max-width:800,max-height:300', // Thêm xác thực ảnh
+        'thumbnail' => 'nullable|mimes:jpg,png,webp,svg,jpeg|dimensions:max-width=800,max-height=300',
         'body' => 'required',
     ];
 
+    /**
+     * Hiển thị danh sách bài viết
+     */
     public function index()
     {
         return view('admin_dashboard.posts.index', [
-            // 'posts' => Post::with('category')->get(),
             'posts' => Post::with('category')->orderBy('id', 'DESC')->paginate(20),
         ]);
     }
 
+    /**
+     * Hiển thị form tạo bài viết mới
+     */
     public function create()
     {
         return view('admin_dashboard.posts.create', [
             'categories' => Category::pluck('name', 'id')
         ]);
     }
+
+    /**
+     * Lưu bài viết mới vào cơ sở dữ liệu
+     */
     public function store(Request $request)
     {
         // Xác thực dữ liệu nhập vào
@@ -50,11 +60,14 @@ class AdminPostsController extends Controller
 
         // Lưu ID người dùng (nếu cần)
         $validated['user_id'] = auth()->id();
-        // Xử lý upload ảnh
+
+        // Tạo bài viết mới
+        $post = Post::create($validated);
+
+        // Xử lý upload ảnh nếu có
         if ($request->hasFile('thumbnail')) {
             $thumbnail = $request->file('thumbnail');
             $filename = time() . '-' . $thumbnail->getClientOriginalName();
-            $post = Post::create($validated);
             // Lưu ảnh vào thư mục public/images
             $path = $thumbnail->move(public_path('images'), $filename);
 
@@ -66,22 +79,33 @@ class AdminPostsController extends Controller
             ]);
         }
 
-
-
-        // Tạo bài viết mới
-
         // Xử lý tags (nếu cần)
+        if ($request->input('tags')) {
+            $tags = explode(',', $request->input('tags'));
+            $tags_ids = [];
+            foreach ($tags as $tag) {
+                $tag = trim($tag);
+                if ($tag === '') continue;
+                $tag_exists = Tag::where('name', $tag)->first();
+                if (!$tag_exists) {
+                    $tag_ob = Tag::create(['name' => $tag]);
+                    $tags_ids[] = $tag_ob->id;
+                } else {
+                    $tags_ids[] = $tag_exists->id;
+                }
+            }
+            if (count($tags_ids) > 0) {
+                $post->tags()->sync($tags_ids);
+            }
+        }
+
         // Chuyển hướng về trang thêm bài viết với thông báo thành công
         return redirect()->route('admin.posts.create')->with('success', 'Thêm bài viết thành công.');
     }
 
-
-    public function show($id)
-    {
-        //
-    }
-
-
+    /**
+     * Hiển thị form chỉnh sửa bài viết
+     */
     public function edit(Post $post)
     {
         $tags = '';
@@ -98,12 +122,25 @@ class AdminPostsController extends Controller
         ]);
     }
 
-
+    /**
+     * Cập nhật bài viết vào cơ sở dữ liệu
+     */
     public function update(Request $request, Post $post)
     {
-        $this->rules['thumbnail'] = 'nullable|file|mimes:jpg,png,webp,svg,jpeg|dimensions:max-width:800,max-height:300';
-        $validated = $request->validate($this->rules);
+        // Điều chỉnh quy tắc xác thực để loại trừ bài viết hiện tại
+        $rules = $this->rules;
+        $rules['slug'] = [
+            'required',
+            'string',
+            'max:255',
+            Rule::unique('posts')->ignore($post->id),
+        ];
+
+        // Xác thực dữ liệu nhập vào
+        $validated = $request->validate($rules);
         $validated['approved'] = $request->input('approved') !== null;
+
+        // Cập nhật bài viết
         $post->update($validated);
 
         // Xử lý upload ảnh nếu có
@@ -114,40 +151,74 @@ class AdminPostsController extends Controller
             // Di chuyển ảnh vào thư mục public/images
             $path = $thumbnail->move(public_path('images'), $filename);
 
-            // Cập nhật thông tin ảnh trong cơ sở dữ liệu
-            $post->image()->update([
-                'name' => $filename,
-                'extension' => $thumbnail->getClientOriginalExtension(),
-                'path' => 'images/' . $filename, // Lưu đường dẫn ảnh tương đối
-            ]);
+            // Kiểm tra xem bài viết đã có ảnh trước đó chưa
+            if ($post->image) {
+                // Xóa ảnh cũ nếu cần
+                @unlink(public_path($post->image->path));
+                // Cập nhật thông tin ảnh trong cơ sở dữ liệu
+                $post->image()->update([
+                    'name' => $filename,
+                    'extension' => $thumbnail->getClientOriginalExtension(),
+                    'path' => 'images/' . $filename, // Lưu đường dẫn ảnh tương đối
+                ]);
+            } else {
+                // Tạo mới thông tin ảnh
+                $post->image()->create([
+                    'name' => $filename,
+                    'extension' => $thumbnail->getClientOriginalExtension(),
+                    'path' => 'images/' . $filename,
+                ]);
+            }
         }
 
         // Xử lý tags và các dữ liệu khác
         $tags = explode(',', $request->input('tags'));
         $tags_ids = [];
         foreach ($tags as $tag) {
-            $tag_exits = $post->tags()->where('name', trim($tag))->count();
-            if ($tag_exits == 0) {
+            $tag = trim($tag);
+            if ($tag === '') continue;
+            $tag_exists = Tag::where('name', $tag)->first();
+            if (!$tag_exists) {
                 $tag_ob = Tag::create(['name' => $tag]);
-                $tags_ids[]  = $tag_ob->id;
+                $tags_ids[] = $tag_ob->id;
+            } else {
+                $tags_ids[] = $tag_exists->id;
             }
         }
 
-        if (count($tags_ids) > 0)
-            $post->tags()->syncWithoutDetaching($tags_ids);
+        if (count($tags_ids) > 0) {
+            $post->tags()->sync($tags_ids);
+        }
 
         return redirect()->route('admin.posts.edit', $post)->with('success', 'Sửa bài viết thành công.');
     }
+
+    /**
+     * Xóa bài viết khỏi cơ sở dữ liệu
+     */
     public function destroy(Post $post)
     {
-        $post->tags()->delete();
+        // Xóa các tag liên kết nếu cần (tùy vào cấu trúc mối quan hệ)
+        $post->tags()->detach();
+
+        // Xóa các bình luận liên kết nếu có
         $post->comments()->delete();
+
+        // Xóa ảnh liên kết nếu có
+        if ($post->image) {
+            @unlink(public_path($post->image->path));
+            $post->image()->delete();
+        }
+
+        // Xóa bài viết
         $post->delete();
+
         return redirect()->route('admin.posts.index')->with('success', 'Xóa bài viết thành công.');
     }
 
-
-    // Hàm tạo slug tự động
+    /**
+     * Hàm tạo slug tự động
+     */
     public function to_slug(Request $request)
     {
         $str = $request->title;

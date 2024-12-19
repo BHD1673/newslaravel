@@ -834,6 +834,7 @@
 			<div class="main--content pd--30-0">
 				<!-- Post Items Title Start -->
 				<div class="post--items-title" data-ajax="tab">
+				
 					<h2 class="h4">{{ $category_home[5]->name }}</h2>
 				</div>
 				<!-- Post Items Title End -->
@@ -989,8 +990,9 @@
 											<!-- Post Item Start -->
 											<div class="post--item post--layout-3">
 												<div class="post--img">
+													
 													<a href="{{ route('posts.show', $post_category_home6[$i]) }}"
-														class="thumb"><img src="{{ asset($post_category_home6[0]->image ?  $post_category_home6[0]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+														class="thumb"><img src="{{ asset($post_category_home6[$i]->image ?  $post_category_home6[$i]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
 													</a>
 
 													<div class="post--info">

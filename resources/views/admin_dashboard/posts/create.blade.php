@@ -14,7 +14,7 @@
 		}
 	</style> -->
 
-	<script src="https://cdn.tiny.cloud/1/5nk94xe9fcwk22fkp6gou9ymszwidnujnr2mu3n3xe2biap3/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+	<script src="https://cdn.tiny.cloud/1/lznr63210nbzoewpj5ol9gmlo87s0u29t65bf1essng7cak1/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 @endsection
 		
 @section("wrapper")
@@ -49,7 +49,7 @@
 									<div class="border border-3 p-4 rounded">
 										<div class="mb-3">
 											<label for="inputProductTitle" class="form-label">Tiêu đề bài viết</label>
-											<input type="text" value=' {{ old("title" ) }}' name="title" required  class="inputPostTitle form-control" id="inputProductTitle" placeholder="Nhập tiêu đề bài viết">
+											<input type="text" value=' {{ old("title" ) }}' name="title"   class="inputPostTitle form-control" id="inputProductTitle" placeholder="Nhập tiêu đề bài viết">
 										
 											@error('title')
 												<p class="text-danger">{{ $message }}</p>
@@ -58,7 +58,7 @@
 
 										<div class="mb-3">
 											<label for="inputProductTitle" class="form-label">Slug - liên kết</label>
-											<input type="text" value=' {{ old("slug" ) }}' name="slug" required  class="slugPost form-control" id="inputProductTitle" placeholder="Nhập slug">
+											<input type="text" value=' {{ old("slug" ) }}' name="slug"   class="slugPost form-control" id="inputProductTitle" placeholder="Nhập slug">
 										
 											@error('slug')
 												<p class="text-danger">{{ $message }}</p>
@@ -67,7 +67,7 @@
 
 										<div class="mb-3">
 											<label for="inputProductDescription" class="form-label">Mô tả</label>
-											<textarea required name="excerpt" class="form-control" id="inputProductDescription" rows="3">{{ old("excerpt") }}</textarea>
+											<textarea  name="excerpt" class="form-control" id="inputProductDescription" rows="3">{{ old("excerpt") }}</textarea>
 
 													
 											@error('excerpt')
@@ -82,7 +82,7 @@
 													<div class="card-body">
 														<div class="p-3 rounded">
 															<div class="mb-3">
-																<select name="category_id" required class="single-select">
+																<select name="category_id"  class="single-select">
 																	@foreach( $categories as $key => $category )
 																	<option value="{{ $key }}">{{ $category }}</option>
 																	@endforeach
@@ -106,7 +106,7 @@
 										<!-- <input id="image-uploadify" name="thumbnail" type="file" id="file" accept="image/*" multiple> -->								
 										<div class="mb-3">
 											<label for="thumbnail" class="form-label">Hình ảnh bài viết</label>
-											<input id="thumbnail" name="thumbnail" type="file" required class="form-control">
+											<input id="thumbnail" name="thumbnail" type="file"  class="form-control">
 											@error('thumbnail')
 													<p class="text-danger">{{ $message }}</p>
 											@enderror

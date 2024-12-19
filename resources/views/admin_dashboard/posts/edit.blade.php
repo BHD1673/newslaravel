@@ -12,7 +12,7 @@
 		}
 	</style>
 
-	<script src="https://cdn.tiny.cloud/1/5nk94xe9fcwk22fkp6gou9ymszwidnujnr2mu3n3xe2biap3/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+	<script src="https://cdn.tiny.cloud/1/lznr63210nbzoewpj5ol9gmlo87s0u29t65bf1essng7cak1/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 @endsection
 		
 @section("wrapper")
@@ -47,7 +47,7 @@
 									<div class="border border-3 p-4 rounded">
 										<div class="mb-3">
 											<label for="inputProductTitle" class="form-label">Tiêu đề bài viết</label>
-											<input type="text" value='{{ old("title", $post->title) }}' name="title" required  class="inputPostTitle form-control" id="inputProductTitle" placeholder="Nhập tiêu đề bài viết">
+											<input type="text" value='{{ old("title", $post->title) }}' name="title"   class="inputPostTitle form-control" id="inputProductTitle" placeholder="Nhập tiêu đề bài viết">
 										
 											@error('title')
 												<p class="text-danger">{{ $message }}</p>
@@ -56,7 +56,7 @@
 
 										<div class="mb-3">
 											<label for="inputProductTitle" class="form-label">Slug - liên kết</label>
-											<input type="text" value='{{ old("slug", $post->slug) }}' name="slug" required  class="slugPost form-control" id="inputProductTitle" placeholder="Nhập slug">
+											<input type="text" value='{{ old("slug", $post->slug) }}' name="slug"   class="slugPost form-control" id="inputProductTitle" placeholder="Nhập slug">
 										
 											@error('slug')
 												<p class="text-danger">{{ $message }}</p>
@@ -65,7 +65,7 @@
 
 										<div class="mb-3">
 											<label for="inputProductDescription" class="form-label">Mô tả</label>
-											<textarea required name="excerpt" class="form-control" id="inputProductDescription" rows="3">{{ old("excerpt", $post->excerpt) }}</textarea>
+											<textarea  name="excerpt" class="form-control" id="inputProductDescription" rows="3">{{ old("excerpt", $post->excerpt) }}</textarea>
 
 													
 											@error('excerpt')
@@ -80,7 +80,7 @@
 													<div class="card-body">
 														<div class="p-3 rounded">
 															<div class="mb-3">
-																<select name="category_id" required class="single-select">
+																<select name="category_id"  class="single-select">
 																	@foreach( $categories as $key => $category )
 																	<option {{ $post->category_id === $key ? 'selected' : '' }} value="{{ $key }}">{{ $category }}</option>
 																	@endforeach
@@ -146,9 +146,9 @@
 										</div>
 
 										<button class="btn btn-primary" type="submit">Sửa bài viết</button>
-
+{{-- 
 										<a class="btn btn-danger" onclick="event.preventDefault(); document.getElementById('delete_post_{{ $post->id }}').submit();" 
-										href="#">Xóa bài viết</a>
+										href="#">Xóa bài viết</a> --}}
 
 									</div>
 								</div>
@@ -157,10 +157,10 @@
 
 					</form>
 
-					<form id="delete_post_{{ $post->id }}" action="{{ route('admin.posts.destroy', $post) }}"  method="post">
+					{{-- <form id="delete_post_{{ $post->id }}" action="{{ route('admin.posts.destroy', $post) }}"  method="post">
 						@csrf
 						@method('DELETE')
-					</form>
+					</form> --}}
 
 				  </div>
 			  </div>
