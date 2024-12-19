@@ -56,13 +56,6 @@ class AdminPostsController extends Controller
         $posts = $this->postService->getPoStsoftDelete();
         return view('admin_dashboard.posts.post-soft-delete', compact('posts'));
     }
-
-    public function postSoftDelete()
-    {
-        $posts = $this->postService->getPoStsoftDelete();
-        return view('admin_dashboard.posts.post-soft-delete', compact('posts'));
-    }
-
     /**
      * Hiển thị form tạo bài viết mới
      */
@@ -168,18 +161,7 @@ class AdminPostsController extends Controller
         return redirect()->route('admin.post-soft-delete')->with('success', 'xóa khỏi thùng rác thành công.');
     }
 
-    public function softDelete(Post $post)
-    {
-        $this->postService->softDeleteService($post);
-        return redirect()->route('admin.posts.index')->with('success', 'Chuyển bài viết vào thùng rác thành công.');
-    }
-
-    public function undoSoftDelete(Post $post)
-    {
-        $this->postService->undoSoftDeleteService($post);
-        return redirect()->route('admin.post-soft-delete')->with('success', 'xóa khỏi thùng rác thành công.');
-    }
-
+   
     public function destroy(Post $post)
     {
         $post->tags()->delete();

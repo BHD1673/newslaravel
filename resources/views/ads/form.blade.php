@@ -15,6 +15,11 @@
 
 <!-- Form đăng ký quảng cáo -->
 <div class="container">
+<button class="btn btn-success" style="margin-top: 30px">
+        <a href="{{route('pricing.index')}}" style="text-decoration: none; color: inherit; display: block; width: 100%; height: 20px">
+          Chi tiết từng quảng cáo
+        </a>
+    </button>
     <h1>Đăng ký quảng cáo</h1>
     
     <form action="{{ route('ads.store') }}" method="POST"  enctype="multipart/form-data">
@@ -103,11 +108,7 @@
         <button type="submit" class="btn btn-primary" style="margin-bottom: 30px">Đăng ký quảng cáo</button>
         
     </form>
-    <button class="btn btn-secondary" style="margin-bottom: 30px">
-        <a href="{{route('pricing.index')}}" style="text-decoration: none; color: inherit; display: block; width: 100%; height: 100%">
-          Chi tiết từng quảng cáo
-        </a>
-    </button>
+   
     
 </div>
 

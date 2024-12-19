@@ -256,7 +256,6 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 								<li><a href="{{ route('ads.form') }}">Đăng Ký Quảng Cáo</a></li>
 								<li><a href="{{ route('ads.history') }}">Theo Dõi Quảng Cáo</a></li>
 								<li><a href="{{ route('about') }}">Giới thiệu</a></li>
-								<li><a href="{{ route('ads.form') }}">Đăng Ký Quảng Cáo</a></li>
 								<li><a href="{{ route('contact.create') }}">Liên hệ</a></li>
 								
 								<!-- <li><a href="{{ route('shop.index') }}">Shop</a></li> 

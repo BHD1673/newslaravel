@@ -26,7 +26,6 @@ use App\Http\Controllers\AdminControllers\AdminContactsController;
 use App\Http\Controllers\AdminControllers\AdminSettingController;
 use App\Http\Controllers\AdminControllers\AdminOrderItemsController;
 use App\Http\Controllers\AdminControllers\AdminOrdersController;
-use App\Http\Controllers\AdminControllers\AdminPostHistorieController;
 use App\Http\Controllers\AdminControllers\AdminPostImagesController;
 use App\Http\Controllers\AdminControllers\AdsPositionController;
 use App\Http\Controllers\AdminControllers\AdsAdminController;
@@ -48,9 +47,7 @@ use App\Http\Controllers\AdsController;
 use App\Http\Controllers\AdsPaymentController;
 use App\Http\Controllers\AdsHistoryController;
 use App\Http\Controllers\WishlistController;
-use App\Http\Controllers\AdsController;
-use App\Http\Controllers\AdsPaymentController;
-use App\Http\Controllers\AdsHistoryController;
+
 
 
 

@@ -33,12 +33,30 @@ function checkPermission($name) {
         </li>
         @endif
 
-    </ul>
-</li>
+        @if(checkPermission("admin.posts.index") || checkPermission("admin.posts.create") )
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class='bx bx-message-square-edit'></i>
+                </div>
+                <div class="menu-title">Bài viết</div>
+            </a>
 
-                
-                    {{-- @if(checkPermission("admin.products.index") || checkPermission("admin.products.create")) --}}
-                    <li>
+            <ul>
+                @if(checkPermission("admin.posts.index"))
+                <li> <a href="{{ route('admin.posts.index') }}"><i class="bx bx-right-arrow-alt"></i>Tất cả bài viết</a>
+                </li>
+                @endif
+
+                @if(checkPermission("admin.posts.create"))
+                <li> <a href="{{ route('admin.posts.create') }}"><i class="bx bx-right-arrow-alt"></i>Thêm bài viết
+                        mới</a>
+                </li>
+                @endif
+
+            </ul>
+        </li>
+        @endif
+        <li>
                         <a href="javascript:;" class="has-arrow">
                             <div class="parent-icon"><i class='bx bx-box'></i></div>
                             <div class="menu-title">Quản lý quảng cáo</div>
@@ -55,29 +73,43 @@ function checkPermission($name) {
                             {{-- @if(checkPermission("admin.products.create")) --}}
                                 <li><a href="{{ route('admin.ads_payment.index') }}"><i class="bx bx-right-arrow-alt"></i>Thanh Toán</a></li>
                             {{-- @endif --}}
-                            {{-- @if(checkPermission("admin.products.create")) --}}
-                                <li><a href="{{ route('admin.posts.create') }}"><i class="bx bx-right-arrow-alt"></i>Các quảng cáo đã hoàn thành</a></li>
-                            {{-- @endif --}}
                         </ul>
                     </li>
-                    {{-- @endif  --}}
 
-                        
-                    {{-- @if(checkPermission("admin.orders.index") || checkPermission("admin.orders.show"))
-                    <li>
-                        <a href="javascript:;" class="has-arrow">
-                            <div class="parent-icon"><i class='bx bx-cart'></i></div>
-                            <div class="menu-title">Đơn hàng</div>
-                        </a>
+        {{-- @if(checkPermission("admin.products.index") || checkPermission("admin.products.create"))
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class='bx bx-box'></i></div>
+                <div class="menu-title">Sản phẩm</div>
+            </a>
 
-                        <ul>
-                            @if(checkPermission("admin.orders.index"))
-                                <li><a href="{{ route('admin.orders.index') }}"><i class="bx bx-right-arrow-alt"></i>Tất cả đơn hàng</a></li>
-                            @endif
+            <ul>
+                @if(checkPermission("admin.products.index"))
+                <li><a href="{{ route('admin.products.index') }}"><i class="bx bx-right-arrow-alt"></i>Tất cả sản
+                        phẩm</a></li>
+                @endif
 
-                        </ul>
-                    </li>
-                    @endif --}}
+                @if(checkPermission("admin.products.create"))
+                <li><a href="{{ route('admin.products.create') }}"><i class="bx bx-right-arrow-alt"></i>Thêm sản phẩm
+                        mới</a></li>
+                @endif
+            </ul>
+        </li>
+        @endif --}}
+
+
+        {{-- @if(checkPermission("admin.orders.index") || checkPermission("admin.orders.show"))
+        <li>
+            <a href="javascript:;" class="has-arrow">
+                <div class="parent-icon"><i class='bx bx-cart'></i></div>
+                <div class="menu-title">Đơn hàng</div>
+            </a>
+
+            <ul>
+                @if(checkPermission("admin.orders.index"))
+                <li><a href="{{ route('admin.orders.index') }}"><i class="bx bx-right-arrow-alt"></i>Tất cả đơn hàng</a>
+                </li>
+                @endif
 
                 @if(checkPermission("admin.categories.index") || checkPermission("admin.categories.create") )
                 <li>
@@ -198,40 +230,6 @@ function checkPermission($name) {
                     </ul>
                 </li>
                 @endif
-                @if(checkPermission("admin.post-history.index"))
-        <li>
-            <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><i class='bx bx-history'></i>
-                </div>
-                <div class="menu-title">Lịch sử Bài viết</div>
-            </a>
-
-            <ul>
-                @if(checkPermission("admin.post-history.index"))
-                <li> <a href="{{ route('admin.post-history.index') }}"><i class="bx bx-history"></i>Lịch sử Bài viết</a>
-                </li>
-                @endif
-            </ul>
-        </li>
-        @endif
-
-        @if(checkPermission("admin.post-soft-delete"))
-        <li>
-            <a href="javascript:;" class="has-arrow">
-                <div class="parent-icon"><i class='bx bx-trash'></i>
-                </div>
-                <div class="menu-title">Bài viết đã xóa</div>
-            </a>
-
-            <ul>
-                @if(checkPermission("admin.post-soft-delete"))
-                <li> <a href="{{ route('admin.post-soft-delete') }}"><i class="bx bx-trash"></i>Bài viết đã xóa</a>
-                </li>
-                @endif
-            </ul>
-        </li>
-        @endif
-
 
                 @if(checkPermission("admin.users.index") || checkPermission("admin.users.create") )
                 <li>
