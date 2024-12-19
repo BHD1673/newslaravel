@@ -75,7 +75,7 @@
 								<div class="border border-3 p-4 rounded">
 									<div class="mb-3">
 										<label for="inputProductTitle" class="form-label">Tiêu đề bài viết</label>
-										<input type="text" {{ $isEmployee ? 'disabled' : '' }} value='{{ old("title", $post->title) }}' name="title" required class="inputPostTitle form-control" id="inputProductTitle" placeholder="Nhập tiêu đề bài viết">
+										<input type="text" {{ $isEmployee ? 'disabled' : '' }} value='{{ old("title", $post->title) }}' name="title"  class="inputPostTitle form-control" id="inputProductTitle" placeholder="Nhập tiêu đề bài viết">
 
 										@error('title')
 										<p class="text-danger">{{ $message }}</p>
@@ -84,7 +84,7 @@
 
 									<div class="mb-3">
 										<label for="inputProductTitle" class="form-label">Slug - liên kết</label>
-										<input type="text" {{ $isEmployee ? 'disabled' : '' }} value='{{ old("slug", $post->slug) }}' name="slug" required class="slugPost form-control" id="inputProductTitle" placeholder="Nhập slug">
+										<input type="text" {{ $isEmployee ? 'disabled' : '' }} value='{{ old("slug", $post->slug) }}' name="slug"  class="slugPost form-control" id="inputProductTitle" placeholder="Nhập slug">
 
 										@error('slug')
 										<p class="text-danger">{{ $message }}</p>
@@ -93,7 +93,7 @@
 
 									<div class="mb-3">
 										<label for="inputProductDescription" class="form-label">Mô tả</label>
-										<textarea required name="excerpt" {{ $isEmployee ? 'disabled' : '' }} class="form-control" id="inputProductDescription" rows="3">{{ old("excerpt", $post->excerpt) }}</textarea>
+										<textarea  name="excerpt" {{ $isEmployee ? 'disabled' : '' }} class="form-control" id="inputProductDescription" rows="3">{{ old("excerpt", $post->excerpt) }}</textarea>
 
 										@error('excerpt')
 										<p class="text-danger">{{ $message }}</p>
@@ -107,7 +107,7 @@
 											<div class="card-body">
 												<div class="p-3 rounded">
 													<div class="mb-3">
-														<select {{ $isEmployee ? 'disabled' : '' }} name="category_id" required class="single-select form-control">
+														<select {{ $isEmployee ? 'disabled' : '' }} name="category_id"  class="single-select form-control">
 															@foreach( $categories as $key => $category )
 
 															<option {{ $post->category_id === $key ? 'selected' : '' }} value="{{ $key }}">{{ $category }}</option>
@@ -144,7 +144,7 @@
 													<div class="img-container d-flex justify-content-center">
 														@foreach($postImages as $image)
 														<div class="image-wrapper">
-															<img accept="image/*" src="{{ asset('storage/' . $image->path) }}" data-id="{{ $image->id }}" alt="Image" />
+															<img accept="image/*" src="{{ asset($image->path) }}" data-id="{{ $image->id }}" alt="Image" />
 															<span class="remove-post-img" role="button" data-id="{{ $image->id }}">x</span>
 														</div>
 														@endforeach
@@ -217,7 +217,7 @@
 									</b>
 								</label>
 								<input type="hidden" name="id_post_log" value="{{  $postLog ? $postLog->id : '' }}" />
-								<textarea required {{ $postLog ? $postLog->role_log === 'admin' && $isEmployee ? 'disabled' : ''  : ''}} name="note" class="form-control" rows="3">{{ $postLog ? $postLog->note : ""  }}</textarea>
+								<textarea  {{ $postLog ? $postLog->role_log === 'admin' && $isEmployee ? 'disabled' : ''  : ''}} name="note" class="form-control" rows="3">{{ $postLog ? $postLog->note : ""  }}</textarea>
 								@error('note')
 								<p class="text-danger">{{ $message }}</p>
 								@enderror
@@ -230,6 +230,7 @@
 								type="submit">
 								{{ $isEmployee ? 'Duyệt bài' : 'Sửa bài viết' }}
 							</button>
+							
 
 							<a class="btn btn-danger {{ ($isEmployee && $post->approved === 3) || $post->approved === 3  ? 'd-none' : '' }}" onclick="event.preventDefault(); document.getElementById('delete_post_{{ $post->id }}').submit();"
 								href="#">Xóa bài viết</a>

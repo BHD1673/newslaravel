@@ -155,7 +155,7 @@ class PostService extends BaseService
                     foreach ($postImgId as $item) {
                         $image = Image::find($item);
                         if ($image) {
-                            Storage::disk('public')->delete($image->path);
+                            Storage::disk('public')->delete('images/' . $image->path);
                             $image->delete();
                         }
                     }
@@ -179,14 +179,13 @@ class PostService extends BaseService
     protected function handleThumbnail($thumbnails, Post $post)
     {
         foreach ($thumbnails as $thumbnail) {
-            $filename = $thumbnail->getClientOriginalName();
-            $file_extension = $thumbnail->getClientOriginalExtension();
-            $path = $thumbnail->store('images', 'public');
+            $filename = now()->format('YmdHis') . '.' . $thumbnail->getClientOriginalExtension();
 
+            $thumbnail->move(public_path('images'), $filename);
             $post->image()->create([
                 'name' => $filename,
-                'extension' => $file_extension,
-                'path' => $path,
+                'extension' => $thumbnail->getClientOriginalExtension(),
+                'path' => 'images/' . $filename, // Lưu đường dẫn tương đối từ public
             ]);
         }
     }

@@ -6,19 +6,30 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\Category;
+use App\Http\Services\CategoryService;
+
 class AdminCategoriesController extends Controller
 {
+    protected $categoryService;
+    public function __construct()
+    {
+        $this->categoryService = new CategoryService();
+    }
 
     private $rules = [
         'name' => 'required|min:3|max:30',
         'slug' => 'required|unique:categories,slug'
     ];
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin_dashboard.categories.index', [
-            'categories' => Category::with('user')->orderBy('id','DESC')->paginate(10)
-        ]);
+        $params = [
+            'name' => $request->input('name')
+        ];
+
+        $categories = $this->categoryService->index($params);
+        $isReporter = $this->categoryService->isReporter();
+        return view('admin_dashboard.categories.index', compact('categories', 'isReporter'));
     }
 
 
@@ -34,13 +45,13 @@ class AdminCategoriesController extends Controller
         $validated['user_id'] = auth()->id();
         Category::create($validated);
 
-        return redirect()->route('admin.categories.create')->with('success','Thêm danh mục bài viết thành công.');
+        return redirect()->route('admin.categories.create')->with('success', 'Thêm danh mục bài viết thành công.');
     }
 
 
     public function show(Category $category)
     {
-        return view('admin_dashboard.categories.show',[
+        return view('admin_dashboard.categories.show', [
             'category' => $category
         ]);
     }
@@ -48,20 +59,20 @@ class AdminCategoriesController extends Controller
 
     public function edit(Category $category)
     {
-        return view('admin_dashboard.categories.edit',[
+        return view('admin_dashboard.categories.edit', [
             'category' => $category
         ]);
     }
 
 
-    public function update(Request $request,Category $category)
+    public function update(Request $request, Category $category)
     {
         $this->rules['slug'] = ['required', Rule::unique('categories')->ignore($category)];
         $validated = $request->validate($this->rules);
 
         $category->update($validated);
 
-        return redirect()->route('admin.categories.edit', $category)->with('success','Sửa danh mục bài viết thành công.');
+        return redirect()->route('admin.categories.edit', $category)->with('success', 'Sửa danh mục bài viết thành công.');
     }
 
 
@@ -69,12 +80,12 @@ class AdminCategoriesController extends Controller
     {
         $default_category_id = Category::where('name', 'Chưa phân loại')->first()->id;
 
-        if($category->name === 'Chưa phân loại')
+        if ($category->name === 'Chưa phân loại')
             abort(404);
 
-        $category->posts()->update(['category_id'=> $default_category_id]);
+        $category->posts()->update(['category_id' => $default_category_id]);
 
         $category->delete();
-        return redirect()->route('admin.categories.index')->with('success','Xóa danh mục bài viết thành công.');
+        return redirect()->route('admin.categories.index')->with('success', 'Xóa danh mục bài viết thành công.');
     }
 }

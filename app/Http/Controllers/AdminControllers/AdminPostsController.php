@@ -124,10 +124,10 @@ class AdminPostsController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        $this->rules['file'] = 'nullable|file||mimes:jpg,png,webp,svg,jpeg|dimensions:max-width:800,max-height:300';
-        if (Auth::user()->role->name !== Role::ROLE_EMPLOYEE) {
-            $validated = $request->validate($this->rules);
-        }
+        // $this->rules['file'] = 'nullable|file||mimes:jpg,png,webp,svg,jpeg|dimensions:max-width:800,max-height:300';
+        // if (Auth::user()->role->name !== Role::ROLE_EMPLOYEE) {
+        //     $validated = $request->validate($this->rules);
+        // }
 
         $this->postService->edit($request->all(), $post->id);
 

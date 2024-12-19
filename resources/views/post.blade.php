@@ -197,7 +197,7 @@
                                     <div class="{{ count($postImages) > 1 ? 'col-12 col-md-6': 'col-12' }}">
                                          @foreach($postImages as $image)
                                             <div class="image-wrapper" style="border: 1px solid;">
-                                                <img accept="image/*" src="{{ asset('storage/' . $image->path) }}" data-id="{{ $image->id }}" alt="Image" />
+                                                <img accept="image/*" src="{{ asset($image->path) }}" data-id="{{ $image->id }}" alt="Image" />
                                             </div>
                                         @endforeach
                                     </div>

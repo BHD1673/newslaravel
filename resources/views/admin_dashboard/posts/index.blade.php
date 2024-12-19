@@ -83,7 +83,7 @@
                                         <a href="#"onclick="event.preventDefault(); if(confirm('bạn có muốn chuyển bài viết vào thùng rác không?')) document.querySelector('#delete_form_{{ $post->id }}').submit();" class="ms-3 {{ $post->approved === 3 ? 'd-none' : '' }}"><i class='bx bxs-trash'></i></a>
                                         @else
                                         {{-- btn từ chối --}}
-                                        <a href="#" onclick="return confirmDelete({{ $post->approved }}, {{ $post->id }});" class="ms-3 {{ $isEmployee || $post->approved === 3  ? 'd-none' : '' }}"><i class='bx bxs-trash'></i></a>
+                                        <a href="#" onclick="return confirmDelete({{ $post->approved }}, {{ $post->id }});" class="ms-3 {{ $isEmployee || $post->approved === 3 || $isReporter  ? 'd-none' : '' }}"><i class='bx bxs-trash'></i></a>
                                         @endif
                                         {{-- end btn xóa --}}
                                         @if($post->approved === 2 )

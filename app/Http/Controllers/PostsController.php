@@ -23,19 +23,19 @@ class PostsController extends Controller
         /*----- Lấy ra 4 bài viết mới nhất theo các danh mục khác nhau -----*/
         $category_unclassified = Category::where('name', 'Chưa phân loại')->first();
 
-        $posts_new[0] = Post::latest()->approved()
+        $posts_new[0] = Post::latest()
             ->where('category_id', '!=', $category_unclassified->id)
             ->take(1)->get();
-        $posts_new[1] = Post::latest()->approved()
+        $posts_new[1] = Post::latest()
             ->where('category_id', '!=', $category_unclassified->id)
             ->where('category_id', '!=', $posts_new[0][0]->category->id)
             ->take(1)->get();
-        $posts_new[2] = Post::latest()->approved()
+        $posts_new[2] = Post::latest()
             ->where('category_id', '!=', $category_unclassified->id)
             ->where('category_id', '!=', $posts_new[0][0]->category->id)
             ->where('category_id', '!=', $posts_new[1][0]->category->id)
             ->take(1)->get();
-        $posts_new[3] = Post::latest()->approved()
+        $posts_new[3] = Post::latest()
             ->where('category_id', '!=', $category_unclassified->id)
             ->where('category_id', '!=', $posts_new[0][0]->category->id)
             ->where('category_id', '!=', $posts_new[1][0]->category->id)
@@ -44,7 +44,7 @@ class PostsController extends Controller
 
 
         // Bài viết tương tự 
-        $postTheSame = Post::latest()->approved()->where('category_id', $post->category->id)->where('id', '!=', $post->id)->take(5)->get();;
+        $postTheSame = Post::latest()->where('category_id', $post->category->id)->where('id', '!=', $post->id)->take(5)->get();;
 
 
         // Bài viết nổi bật
