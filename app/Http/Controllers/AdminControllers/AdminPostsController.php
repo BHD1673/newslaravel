@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\AdminControllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostRequest;
 use Illuminate\Http\Request;
 
 use App\Models\Category;
@@ -62,7 +63,7 @@ class AdminPostsController extends Controller
         return view('admin_dashboard.posts.create', compact('categories', 'isReporter'));
     }
 
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
         $validated = $request->all();
         $this->postService->store($validated, $request->all());
