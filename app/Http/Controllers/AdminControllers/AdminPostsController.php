@@ -68,10 +68,10 @@ class AdminPostsController extends Controller
         return view('admin_dashboard.posts.create', compact('categories', 'isReporter'));
     }
 
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        $validated = $request->validate($this->rules);
-        $this->postService->store($validated, $request->all());
+        $data = $request->all();
+        $this->postService->store($data, $request->all());
         return redirect()->route('admin.posts.create')->with('success', 'Thêm bài viết thành công.');
     }
 

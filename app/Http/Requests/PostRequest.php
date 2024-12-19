@@ -27,6 +27,7 @@ class PostRequest extends FormRequest
             'title' => 'required|max:200',
             'slug' => 'required|max:200|unique:posts,slug',
             'category_id' => 'required|numeric',
+            'body' => 'required',
         ];
     }
 
@@ -42,6 +43,8 @@ class PostRequest extends FormRequest
 
             'category_id.required' => ' không được bỏ trống.',
             'category_id.numeric' => ' phải là số',
+
+            'body.required' => ' content không được bỏ trống.',
         ];
     }
 }
