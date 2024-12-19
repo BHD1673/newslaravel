@@ -62,12 +62,12 @@
                                 <td>
                                     <div class="d-flex order-actions">
                                         <a href="{{ route('admin.categories.edit', $category)}}" class=""><i class='bx bxs-edit'></i></a>
-                                        <a href="#" onclick="event.preventDefault(); document.querySelector('#delete_form_{{ $category->id }}').submit();" class="ms-3"><i class='bx bxs-trash'></i></a>
+                                        <a href="#" onclick="event.preventDefault(); document.querySelector('#delete_form_{{ $category->id }}').submit();" class="ms-3"><i class='bx bxs-lock'></i></a>
 
-                                        <form method="post" action="{{ route('admin.categories.destroy', $category) }}" id="delete_form_{{ $category->id }}">
+                                        {{-- <form method="post" action="{{ route('admin.categories.destroy', $category) }}" id="delete_form_{{ $category->id }}">
                                             @csrf
                                             @method('DELETE')
-                                        </form>
+                                        </form> --}}
                                     
                                     </div>
                                 </td>

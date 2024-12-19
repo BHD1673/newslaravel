@@ -20,20 +20,6 @@
 		margin-top: 10px;
 	}
 
-	.file-preview img {
-		max-width: 100px;
-		margin: 5px;
-		border: 1px solid #ccc;
-		border-radius: 5px;
-	}
-
-	.remove-file {
-		cursor: pointer;
-		color: red;
-		font-weight: bold;
-		margin-left: 5px;
-	}
-</style>
 @endsection
 
 @section("wrapper")

@@ -50,8 +50,8 @@
 
 										<button class="btn btn-primary" type="submit">Sửa danh mục</button>
 
-										<a class="btn btn-danger" onclick="event.preventDefault(); document.getElementById('delete_category_{{ $category->id }}').submit();" 
-										href="#">Xóa danh mục</a>
+										{{-- <a class="btn btn-danger" onclick="event.preventDefault(); document.getElementById('delete_category_{{ $category->id }}').submit();" 
+										href="#">Xóa danh mục</a> --}}
 
 									</div>
 								</div>
