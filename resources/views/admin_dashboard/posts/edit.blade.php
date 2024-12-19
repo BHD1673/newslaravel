@@ -217,7 +217,7 @@
 									</b>
 								</label>
 								<input type="hidden" name="id_post_log" value="{{  $postLog ? $postLog->id : '' }}" />
-								<textarea  {{ $postLog ? $postLog->role_log === 'admin' && $isEmployee ? 'disabled' : ''  : ''}} name="note" class="form-control" rows="3">{{ $postLog ? $postLog->note : ""  }}</textarea>
+								<textarea required {{ $postLog ? $postLog->role_log === 'admin' && $isEmployee ? 'disabled' : ''  : ''}} name="note" class="form-control" rows="3">{{ $postLog ? $postLog->note : ""  }}</textarea>
 								@error('note')
 								<p class="text-danger">{{ $message }}</p>
 								@enderror

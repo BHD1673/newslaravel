@@ -53,10 +53,10 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>{{ $post->title }}</td>
-                               
-                                
-                                <td>{{ $post->excerpt }}</td>
+
+                                <td>{{ \Illuminate\Support\Str::limit($post->title, 40, '...') }}</td>
+                                <td>{{ \Illuminate\Support\Str::limit($post->excerpt, 40, '...') }}</td>
+
                                 <td>{{ $post->category->name }}</td>
                                 <td>{{ $post->created_at->format('d/m/Y') }}</td>
                                 <td>

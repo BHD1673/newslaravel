@@ -67,7 +67,7 @@
                                 <td>#{{ $ad->id }}</td>
                                 <td>{{ $ad->user->name ?? 'N/A' }}</td> 
                                 <td>{{ $ad->title }}</td>
-                                <td>{{ $ad->position->position }}</td>
+                                <td>{{ $ad->position }}</td>
                                 <td>
                                     <span class="badge bg-{{ $ad->status === 'active' ? 'success' : ($ad->status === 'pending' ? 'warning' : 'secondary') }}">
                                         {{ ucfirst($ad->status) }}

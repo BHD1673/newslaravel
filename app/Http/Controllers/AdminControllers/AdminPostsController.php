@@ -14,6 +14,7 @@ use App\Models\Role;
 
 use App\Http\Services\PostService;
 use App\Http\Services\PostHistorieService;
+use Illuminate\Support\Facades\File;
 use App\Models\Image;
 use App\Models\PostLog;
 use Illuminate\Support\Facades\Storage;
@@ -48,7 +49,8 @@ class AdminPostsController extends Controller
         $isEmployee = $this->postService->isEmployee();
         $isAdmin = $this->postService->isAdmin();
         $postLog = PostLog::all();
-        return view('admin_dashboard.posts.index', compact('posts', 'isEmployee', 'isAdmin', 'postLog'));
+        $isReporter = $this->postService->isReporter();
+        return view('admin_dashboard.posts.index', compact('posts', 'isEmployee', 'isAdmin', 'postLog', 'isReporter'));
     }
 
     public function postSoftDelete()
@@ -93,7 +95,14 @@ class AdminPostsController extends Controller
         $isReporter = $this->postService->isReporter();
         $postImages = Image::query()->where("imageable_id", $post->id)->get();
         $postLog = PostLog::query()->where("post_id", $post->id)->first();
-
+        $videoPath = storage_path('app/public/videos/' . $post->id);
+        if (File::exists($videoPath)) {
+            // Nếu thư mục tồn tại, lấy danh sách các file
+            $videoFiles = File::files($videoPath);
+        } else {
+            // Nếu thư mục không tồn tại, trả về mảng rỗng
+            $videoFiles = [];
+        }
         return view('admin_dashboard.posts.edit', [
             'post' => $post,
             'tags' => $tags,
@@ -102,7 +111,8 @@ class AdminPostsController extends Controller
             'categories' => Category::pluck('name', 'id'),
             'postImages' => $postImages,
             'postLog' => $postLog,
-            'isAdmin' => $isAdmin
+            'isAdmin' => $isAdmin,
+            'videoFiles' => $videoFiles
         ]);
     }
 

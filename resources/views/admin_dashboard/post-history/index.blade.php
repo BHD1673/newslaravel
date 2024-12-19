@@ -67,7 +67,9 @@
 
                                     <a href="{{ $postHistorie->is_delete_post ? '#' : route('admin.posts.edit', $postHistorie->post_id) }}"
                                         class="{{ $postHistorie->is_delete_post ? 'text-muted text-decoration-line-through' : '' }}">
-                                        {{ $postHistorie->title }}
+                                     
+                                         <td>{{ \Illuminate\Support\Str::limit($postHistorie->title, 40, '...') }}</td>
+
                                     </a>
                                 </td>
                                 <td>
@@ -110,7 +112,7 @@
                                         {{ $postHistorie->date_action }} {{ $postHistorie->time_action }}
                                     </div>
                                 </td>
-                                <td>{{ $postHistorie->note }}</td>
+                                <td>{{ \Illuminate\Support\Str::limit($postHistorie->note, 40, '...') }}</td>
                                 <td>
                                     <div class="">
                                         @if($postHistorie->status === 1)

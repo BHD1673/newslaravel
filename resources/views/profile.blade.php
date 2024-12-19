@@ -13,7 +13,7 @@ $category_unclassified = Category::where('name','Chưa phân loại')->first();
 $posts_new = [];
 
 for ($i = 0; $i < 4; $i++) {
-    $query = Post::latest()->approved()->where('category_id','!=', $category_unclassified->id );
+    $query = Post::latest()->where('approved',3)->where('category_id','!=', $category_unclassified->id );
     for ($j = 0; $j < $i; $j++) {
         $query->where('category_id','!=', $posts_new[$j][0]->category->id );
     }
