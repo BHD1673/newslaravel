@@ -5,7 +5,19 @@ $now = Carbon::now('Asia/Ho_Chi_Minh')->locale('vi');
 $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount('posts')->orderBy('created_at','DESC')->take(12)->get();
 
 ?>
-
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+	var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+	(function(){
+	var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+	s1.async=true;
+	s1.src='https://embed.tawk.to/65464ac3a84dd54dc4888a7c/1hed983mg';
+	s1.charset='UTF-8';
+	s1.setAttribute('crossorigin','*');
+	s0.parentNode.insertBefore(s1,s0);
+	})();
+	</script>
+	<!--End of Tawk.to Script-->
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -33,7 +45,11 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 	<link rel="icon" type="image/png" href="{{ asset('kcnew/frontend/img/image_iconLogo.png') }}"  sizes="160x160">
 
 	<link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900" rel="stylesheet">
-	
+	@if(!auth()->check() || !auth()->user()->is_premium)
+	<script src="{{ asset('js/cube.js') }}"></script>
+	<script src="{{ asset('js/cube150x100.js') }}"></script>
+	<script src="{{ asset('js/ads.js') }}"></script>
+	@endif
 	<!-- Animate.css -->
 	<link rel="stylesheet" href="{{ asset('blog_template/css/animate.css') }}">
 	<!-- Icomoon Icon Fonts-->
@@ -152,7 +168,15 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 									<ul class="dropdown-menu">
 										@if(auth()->user()->role->name !== 'user')
 										<li>
-											<a href="{{ route('admin.index') }}">Admin - Dashbroad</a>
+											@if(auth()->user()->role->name === 'admin')
+												<a href="{{ route('admin.index') }}">Admin - Dashboard</a>
+											@elseif(auth()->user()->role->name === 'reporter')
+												<a href="{{ route('admin.posts.index') }}">Reporter - Dashboard</a>
+											@elseif(auth()->user()->role->name === 'employee')
+												<a href="{{ route('admin.posts.index') }}">Employee - Dashboard</a>
+											@else
+												<a href="{{ route('default.dashboard') }}">Default - Dashboard</a>
+											@endif
 										</li>
 										@endif
 										<li>
@@ -186,11 +210,11 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 	
 					<!-- Header Topbar Social Start -->
 					<ul class="header--topbar-social nav hidden-sm hidden-xxs">
-						<li><a href="https://www.facebook.com/people/Anh-Tuan/100007007238964"><i class="fa fa-facebook"></i></a></li>
-						<li><a href="https://www.youtube.com/c/H%E1%BB%93AnhTu%E1%BA%A5nYoutube"><i class="fa fa-twitter"></i></a></li>
-						<li><a href="https://www.youtube.com/c/H%E1%BB%93AnhTu%E1%BA%A5nYoutube"><i class="fa fa-google-plus"></i></a></li>
-						<li><a href="https://www.youtube.com/c/H%E1%BB%93AnhTu%E1%BA%A5nYoutube"><i class="fa fa-rss"></i></a></li>
-						<li><a href="https://www.youtube.com/c/H%E1%BB%93AnhTu%E1%BA%A5nYoutube"><i class="fa fa-youtube-play"></i></a></li>
+						<li><a href=""><i class="fa fa-facebook"></i></a></li>
+						<li><a href=""><i class="fa fa-twitter"></i></a></li>
+						<li><a href=""><i class="fa fa-google-plus"></i></a></li>
+						<li><a href=""><i class="fa fa-rss"></i></a></li>
+						<li><a href=""><i class="fa fa-youtube-play"></i></a></li>
 					</ul>
 					<!-- Header Topbar Social End -->
 				</div>
@@ -232,6 +256,7 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 								<li><a href="{{ route('ads.form') }}">Đăng Ký Quảng Cáo</a></li>
 								<li><a href="{{ route('ads.history') }}">Theo Dõi Quảng Cáo</a></li>
 								<li><a href="{{ route('about') }}">Giới thiệu</a></li>
+								<li><a href="{{ route('ads.form') }}">Đăng Ký Quảng Cáo</a></li>
 								<li><a href="{{ route('contact.create') }}">Liên hệ</a></li>
 								
 								<!-- <li><a href="{{ route('shop.index') }}">Shop</a></li> 
@@ -416,7 +441,7 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 						<span style="font-size: 14px" class="block">Địa chỉ: Trịnh Văn Bô, Nam Từ Liêm, Quận Nam Từ Liêm, Thành Phố Hà Nội</span>
 					</p>
 					<p>
-						<span style="font-size: 14px" class="block">Điện thoại: 0392766630</span>
+						<span style="font-size: 14px" class="block">Điện thoại: 0394240007</span>
 					</p>
 				</div>
 				<div class="col-md-4">
@@ -519,7 +544,8 @@ $categoryFooter  = Category::where('name','!=','Chưa phân loại')->withCount(
 
 	<!-- ==== Main JavaScript ==== -->
 	<script src="{{ asset('kcnew/frontend/js/main.js') }}"></script>
-	
+
+
 
 	<script >
 		$(function(){

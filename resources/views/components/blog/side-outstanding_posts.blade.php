@@ -44,9 +44,8 @@ use App\Models\Category;
                         <!-- Post Item Start -->
                         <div class="post--item post--layout-3">
                             <div class="post--img">
-                                <a href="{{ route('posts.show', $outstanding_post) }}" class="thumb"><img
-                                        src="{{ asset($outstanding_post->image ? 'storage/' .$outstanding_post->image->path : 'storage/placeholders/placeholder-image.png')}}"
-                                        alt=""></a>
+                                <a href="{{ route('posts.show', $outstanding_post) }}" class="thumb"><img src="{{ asset($outstanding_post->image ?  $outstanding_post->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+                                </a>
                                 <div class="post--info">
                                     <ul class="nav meta">
                                         <li><a href="javascript:;">{{ $outstanding_post->created_at->locale('vi')->diffForHumans() }}</a></li>
@@ -102,9 +101,8 @@ use App\Models\Category;
                             <li>
                                 <div class="post--item post--layout-3">
                                     <div class="post--img">
-                                        <a href="{{ route('posts.show', $outstanding_posts_hot) }}" class="thumb"><img
-                                                src="{{ asset($outstanding_posts_hot->image ? 'storage/' .$outstanding_posts_hot->image->path : 'storage/placeholders/placeholder-image.png')}}"
-                                                alt=""></a>
+                                        <a href="{{ route('posts.show', $outstanding_posts_hot) }}" class="thumb"><img src="{{ asset($outstanding_posts_hot->image ?  $outstanding_posts_hot->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+</a>
                                         <div class="post--info">
                                             <ul class="nav meta">
                                                 <li><a href="javascript:;">{{ $outstanding_posts_hot->created_at->locale('vi')->diffForHumans() }}</a></li>
@@ -134,9 +132,8 @@ use App\Models\Category;
                                 <!-- Post Item Start -->
                                 <div class="post--item post--layout-3">
                                     <div class="post--img">
-                                        <a href="{{ route('posts.show', $outstanding_post) }}" class="thumb"><img
-                                                src="{{ asset($outstanding_post->image ? 'storage/' .$outstanding_post->image->path : 'storage/placeholders/placeholder-image.png')}}"
-                                                alt=""></a>
+                                        <a href="{{ route('posts.show', $outstanding_post) }}" class="thumb"><img src="{{ asset($outstanding_post->image ? $outstanding_post->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+</a>
                                         <div class="post--info">
                                             <ul class="nav meta">
                                                 <li><a href="javascript:;">{{ $outstanding_post->created_at->locale('vi')->diffForHumans() }}</a></li>
@@ -166,9 +163,8 @@ use App\Models\Category;
                             <li>
                                 <div class="post--item post--layout-3">
                                     <div class="post--img">
-                                        <a href="{{ route('posts.show', $outstanding_posts_view) }}" class="thumb"><img
-                                                src="{{ asset($outstanding_posts_view->image ? 'storage/' .$outstanding_posts_view->image->path : 'storage/placeholders/placeholder-image.png')}}"
-                                                alt=""></a>
+                                        <a href="{{ route('posts.show', $outstanding_posts_view) }}" class="thumb"><img src="{{ asset($outstanding_posts_view->image ?  $outstanding_posts_view->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+</a>
                                         <div class="post--info">
                                             <ul class="nav meta">
                                                 <li><a href="javascript:;">{{ $outstanding_posts_view->created_at->locale('vi')->diffForHumans() }}</a></li>

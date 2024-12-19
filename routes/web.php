@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\AdminControllers\DashboardController;
 use App\Http\Controllers\AdminControllers\AdminPostsController;
+use App\Http\Controllers\AdminControllers\AdminPostHistorieController;
 use App\Http\Controllers\AdminControllers\TinyMCEController;
 use App\Http\Controllers\AdminControllers\AdminCategoriesController;
 use App\Http\Controllers\AdminControllers\AdminTagsController;
@@ -43,6 +44,9 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PremiumController;
 use App\Http\Controllers\VNPayController;
+use App\Http\Controllers\AdsController;
+use App\Http\Controllers\AdsPaymentController;
+use App\Http\Controllers\AdsHistoryController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\AdsController;
 use App\Http\Controllers\AdsPaymentController;
@@ -56,6 +60,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth', 'check.premium'])->group(function () {
     Route::get('/premium', [HomeController::class, 'premium'])->name('premium');
+    // Nếu bạn muốn sử dụng route 'premium.upgrade', hãy đảm bảo nó xử lý tham số 'package'
+    // Ví dụ: Route::get('/premium/upgrade/{package}', ...)
     Route::get('/premium/upgrade', [PremiumController::class, 'upgrade'])->name('premium.upgrade');
     Route::get('ads/create', [AdsController::class, 'create'])->name('ads.form');
     Route::get('ads/index', [AdsController::class, 'index'])->name('ads.index');
@@ -75,7 +81,6 @@ Route::middleware(['auth', 'check.premium'])->group(function () {
 
 Route::get('/payment/vnpay', [VNPayController::class, 'createPayment'])->name('vnpay.create');
 Route::get('/payment/vnpay/return', [VNPayController::class, 'returnPayment'])->name('vnpay.return');
-
 
 Route::get('/tai-khoan', [HomeController::class, 'profile'])->name('profile');
 Route::post('/tai-khoan', [HomeController::class, 'update'])->name('update');
@@ -104,9 +109,9 @@ Route::get('shop/{id}', [ShopController::class, 'show'])->name('shop.show');
 
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/checkout', [CheckoutController::class, 'processCheckout'])->name('checkout.process');
-Route::post('/vnpay-payment', [CheckoutController::class,'vnpay_payment'])->name('vnpay-payment');
+Route::post('/vnpay-payment', [CheckoutController::class, 'vnpay_payment'])->name('vnpay-payment');
 Route::get('vnpay-index', [CheckoutController::class, 'vnpay_payment_callback'])->name('vnpay-index');
-Route::post('/momo-payment', [CheckoutController::class,'momo_payment'])->name('momo-payment');
+Route::post('/momo-payment', [CheckoutController::class, 'momo_payment'])->name('momo-payment');
 
 
 Route::middleware('auth')->group(function () {
@@ -147,12 +152,21 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'check_permissions']
     Route::resource('ads', AdsAdminController::class);
     Route::resource('ads_payment', AdsAdminPaymentController::class);
     Route::resource('posts', AdminPostsController::class);
+<<<<<<< HEAD
     Route::get('post-soft-delete', [AdminPostsController::class , 'postSoftDelete'])->name('post-soft-delete');
     Route::put('posts/soft-delete/{post}', [AdminPostsController::class , 'softDelete'])->name('post.softDelete');
     Route::put('posts/undo-soft-delete/{post}', [AdminPostsController::class , 'undoSoftDelete'])->name('post.undoSoftDelete');
     Route::get('post-history',[AdminPostHistorieController::class, 'index'])->name('post-history.index');
     Route::delete('post-history/{postHistorie}',[AdminPostHistorieController::class, 'destroy'])->name('post-history.destroy');
     Route::delete('post-history',[AdminPostHistorieController::class, 'removeAll'])->name('post-history.removeAll');
+=======
+    Route::get('post-soft-delete', [AdminPostsController::class, 'postSoftDelete'])->name('post-soft-delete');
+    Route::put('posts/soft-delete/{post}', [AdminPostsController::class, 'softDelete'])->name('post.softDelete');
+    Route::put('posts/undo-soft-delete/{post}', [AdminPostsController::class, 'undoSoftDelete'])->name('post.undoSoftDelete');
+    Route::get('post-history', [AdminPostHistorieController::class, 'index'])->name('post-history.index');
+    Route::delete('post-history/{postHistorie}', [AdminPostHistorieController::class, 'destroy'])->name('post-history.destroy');
+    Route::delete('post-history', [AdminPostHistorieController::class, 'removeAll'])->name('post-history.removeAll');
+>>>>>>> 6b14cd129678fd52f3c989b1141aa1be0e4736ef
     Route::post('/poststitle', [AdminPostsController::class, 'to_slug'])->name('posts.to_slug');
     // Route::delete('post-img/{id}',[AdminPostImagesController::class, 'destroy'])->name('post-img.destroy');
     Route::resource('categories', AdminCategoriesController::class);

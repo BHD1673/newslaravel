@@ -171,7 +171,12 @@
 
                             <div class="post--info">
                                 <ul class="nav meta">
-									<li class="text capitalize"><a href="#">{{ $post->created_at->locale('vi')->translatedFormat('l'), }} {{  $post->created_at->locale('vi')->format('d/m/Y') }}<a></li>
+                                    <li class="text capitalize">
+                                        <a href="#">
+                                            {{ $post->created_at->locale('vi')->translatedFormat('l') }} 
+                                            {{ $post->created_at->locale('vi')->format('d/m/Y') }}
+                                        </a>
+                                    </li>                                    
                                     <li><a href="#">{{ $post->author->name }}</a></li>
                                     <li><span><i class="fa fm fa-eye"></i>{{ $post->views }}</span></li>
                                     <li><a href="#"><i class="fa fm fa-comments-o"></i>{{ count($post->comments) }}</a></li>
@@ -218,14 +223,53 @@
                             <!-- Social Widget Start -->
                             <div class="social--widget style--4">
                                 <ul class="nav">
-                                    <li><a href="javascript:"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="javascript:"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="javascript:"><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href="javascript:"><i class="fa fa-linkedin"></i></a></li>
-                                    <li><a href="javascript:"><i class="fa fa-rss"></i></a></li>
-                                    <li><a href="javascript:"><i class="fa fa-youtube-play"></i></a></li>
+                                    <li><a href="#" onclick="shareFacebook()"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#" onclick="shareTwitter()"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#" onclick="shareLinkedIn()"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="#" onclick="sharePinterest()">  <i class="fa fa-pinterest" style="color:#E60023;"></i></a></li>
+                                    <li><a href="#" onclick="shareWhatsApp()">  <i class="fa fa-whatsapp" style="color:#25D366;"></i></a></li>
                                 </ul>
                             </div>
+                            <script>
+                                function getCurrentURL() {
+                                    return encodeURIComponent(window.location.href);
+                                }
+                            
+                                function shareFacebook() {
+                                    const url = getCurrentURL();
+                                    const shareURL = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+                                    window.open(shareURL, '_blank', 'width=600,height=400');
+                                }
+                            
+                                function shareTwitter() {
+                                    const url = getCurrentURL();
+                                    const text = encodeURIComponent(document.title);
+                                    const shareURL = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+                                    window.open(shareURL, '_blank', 'width=600,height=400');
+                                }
+                            
+                                function shareLinkedIn() {
+                                    const url = getCurrentURL();
+                                    const shareURL = `https://www.linkedin.com/shareArticle?mini=true&url=${url}`;
+                                    window.open(shareURL, '_blank', 'width=600,height=400');
+                                }
+                            
+                                function sharePinterest() {
+                                    const url = getCurrentURL();
+                                    const media = encodeURIComponent('URL_đến_hình_ảnh'); // Thay thế bằng URL hình ảnh nếu có
+                                    const description = encodeURIComponent(document.title);
+                                    const shareURL = `https://pinterest.com/pin/create/button/?url=${url}&media=${media}&description=${description}`;
+                                    window.open(shareURL, '_blank', 'width=600,height=400');
+                                }
+                            
+                                function shareWhatsApp() {
+                                    const url = getCurrentURL();
+                                    const text = encodeURIComponent(document.title);
+                                    const shareURL = `https://api.whatsapp.com/send?text=${text}%20${url}`;
+                                    window.open(shareURL, '_blank', 'width=600,height=400');
+                                }
+                            </script>
+                            
                             <!-- Social Widget End -->
                         </div>
                         <!-- Post Social End -->

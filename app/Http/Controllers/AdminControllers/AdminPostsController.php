@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\AdminControllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostRequest;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule; // Import Rule class
 
 use App\Models\Category;
 use App\Models\Post;
@@ -30,13 +32,16 @@ class AdminPostsController extends Controller
 
     private $rules = [
         'title' => 'required|max:200',
-        'slug' => 'required|max:200',
+        'slug' => 'required|string|max:255|unique:posts,slug',
         'excerpt' => 'required|max:300',
         'category_id' => 'required|numeric',
         // 'files' => 'required|mimes:jpg,png,webp,svg,jpeg|dimensions:max-width:300,max-height:227',
         'body' => 'required',
     ];
 
+    /**
+     * Hiển thị danh sách bài viết
+     */
     public function index()
     {
         $posts = $this->postService->index();
@@ -52,6 +57,15 @@ class AdminPostsController extends Controller
         return view('admin_dashboard.posts.post-soft-delete', compact('posts'));
     }
 
+    public function postSoftDelete()
+    {
+        $posts = $this->postService->getPoStsoftDelete();
+        return view('admin_dashboard.posts.post-soft-delete', compact('posts'));
+    }
+
+    /**
+     * Hiển thị form tạo bài viết mới
+     */
     public function create()
     {
         $categories = Category::pluck('name', 'id');
@@ -98,7 +112,9 @@ class AdminPostsController extends Controller
         ]);
     }
 
-
+    /**
+     * Cập nhật bài viết vào cơ sở dữ liệu
+     */
     public function update(Request $request, Post $post)
     {
         $this->rules['thumbnail'] = 'nullable|file|mimes:jpg,png,webp,svg,jpeg|dimensions:max-width:800,max-height:300';
@@ -138,6 +154,18 @@ class AdminPostsController extends Controller
             $post->tags()->syncWithoutDetaching($tags_ids);
 
         return redirect()->route('admin.posts.index', $post)->with('success', 'Sửa bài viết thành công.');
+    }
+
+    public function softDelete(Post $post)
+    {
+        $this->postService->softDeleteService($post);
+        return redirect()->route('admin.posts.index')->with('success', 'Chuyển bài viết vào thùng rác thành công.');
+    }
+
+    public function undoSoftDelete(Post $post)
+    {
+        $this->postService->undoSoftDeleteService($post);
+        return redirect()->route('admin.post-soft-delete')->with('success', 'xóa khỏi thùng rác thành công.');
     }
 
     public function softDelete(Post $post)

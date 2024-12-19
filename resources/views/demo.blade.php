@@ -5,7 +5,7 @@
 @section('content')
 
 @foreach ($ads as $ad)
-    @if(optional($ad->position)->position == 'center') <!-- Sử dụng optional() để tránh lỗi -->
+    @if(optional($ad->position)->position == 'bottom') <!-- Sử dụng optional() để tránh lỗi -->
         <a href="{{ $ad->link }}">
             <div class="ad-banner" style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 1000px; max-height: 200px; overflow: hidden; margin: 30px auto; z-index: 999999;">
                 <!-- Hiển thị tiêu đề "HOT HOT HOT" -->
@@ -633,7 +633,7 @@
 								<div class="row">
 									<div class="col-sm-12">
 										@foreach ($ads as $ad)
-										@if(optional($ad->position)->position == 'center') <!-- Sử dụng optional() để tránh lỗi -->
+										@if(optional($ad->position)->position == 'bottom') <!-- Sử dụng optional() để tránh lỗi -->
 											<a href="{{ $ad->link }}">
 												<div class="ad-banner" style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 500px; max-height: 200px; overflow: hidden; margin: 30px auto; z-index: 999999;">
 													<!-- Hiển thị tiêu đề "HOT HOT HOT" -->
@@ -664,7 +664,7 @@
 								<div class="row">
 									<div class="col-sm-12">
 										@foreach ($ads as $ad)
-											@if(optional($ad->position)->position == 'center') <!-- Sử dụng optional() để tránh lỗi -->
+											@if(optional($ad->position)->position == 'bottom') <!-- Sử dụng optional() để tránh lỗi -->
 												<a href="{{ $ad->link }}">
 													<div class="ad-banner" style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 500px; max-height: 200px; overflow: hidden; margin: 30px auto; z-index: 999999;">
 														<!-- Hiển thị tiêu đề "HOT HOT HOT" -->
@@ -791,7 +791,7 @@
 							</div>
 
 							@foreach ($ads as $ad)
-								@if(optional($ad->position)->position == 'center') <!-- Sử dụng optional() để tránh lỗi -->
+								@if(optional($ad->position)->position == 'bottom') <!-- Sử dụng optional() để tránh lỗi -->
 									<a href="{{ $ad->link }}">
 										<div class="ad-banner" style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 500px; max-height: 200px; overflow: hidden; margin: 30px auto; z-index: 999999;">
 											<!-- Hiển thị tiêu đề "HOT HOT HOT" -->
@@ -901,7 +901,7 @@
 			<!-- Advertisement Start -->
 			<div class="ad--space pd--30-0">
 				@foreach ($ads as $ad)
-					@if(optional($ad->position)->position == 'center') <!-- Sử dụng optional() để tránh lỗi -->
+					@if(optional($ad->position)->position == 'bottom') <!-- Sử dụng optional() để tránh lỗi -->
 						<a href="{{ $ad->link }}">
 							<div class="ad-banner" style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 500px; max-height: 200px; overflow: hidden; margin: 30px auto; z-index: 999999;">
 								<!-- Hiển thị tiêu đề "HOT HOT HOT" -->
@@ -1373,7 +1373,7 @@
 								<div class="row">
 									<div class="col-sm-12">
 										@foreach ($ads as $ad)
-											@if(optional($ad->position)->position == 'center') <!-- Sử dụng optional() để tránh lỗi -->
+											@if(optional($ad->position)->position == 'bottom') <!-- Sử dụng optional() để tránh lỗi -->
 												<a href="{{ $ad->link }}">
 													<div class="ad-banner" style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 500px; max-height: 200px; overflow: hidden; margin: 30px auto; z-index: 999999;">
 														<!-- Hiển thị tiêu đề "HOT HOT HOT" -->
@@ -1437,7 +1437,7 @@
 									</ul>
 								
 									@foreach ($ads as $ad)
-									@if(optional($ad->position)->position == 'center') <!-- Sử dụng optional() để tránh lỗi -->
+									@if(optional($ad->position)->position == 'bottom') <!-- Sử dụng optional() để tránh lỗi -->
 										<a href="{{ $ad->link }}">
 											<div class="ad-banner" style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 500px; max-height: 200px; overflow: hidden; margin: 30px auto; z-index: 999999;">
 												<!-- Hiển thị tiêu đề "HOT HOT HOT" -->

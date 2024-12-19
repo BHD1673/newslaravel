@@ -1,22 +1,12 @@
-@component('mail::message')
-#Tin nhắn khách hàng
+<x-mail::message>
+# Introduction
 
-Khách hàng đã gửi một tin nhắn liên hệ mới 
-<br><br>
-Họ: {{ $firstname }}
-<br>
-Tên: {{ $secondname }}
-<br>
-Email: {{ $email }}
-<br>
-Tiêu đề: {{ $subject }}
-<br>
-Nội dung liên hệ: {{ $message }}
+The body of your message.
 
-@component('mail::button', ['url' => ''])
-Xem tin nhắn
-@endcomponent
+<x-mail::button :url="''">
+Button Text
+</x-mail::button>
 
-Cảm ơn,<br>
+Thanks,<br>
 {{ config('app.name') }}
-@endcomponent
+</x-mail::message>

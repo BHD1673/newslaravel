@@ -926,14 +926,15 @@ CREATE TABLE `posts` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
-  `excerpt` varchar(255) NOT NULL,
-  `body` text NOT NULL,
+  `excerpt` varchar(255)  NULL,
+  `body` LONGTEXT  NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `category_id` bigint(20) UNSIGNED NOT NULL,
   `views` int(11) NOT NULL DEFAULT 0,
   `approved` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -1400,7 +1401,9 @@ INSERT INTO `roles` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (1, 'user', '2024-09-21 22:30:38', '2024-09-21 22:30:38'),
 (2, 'admin', '2024-09-21 22:30:38', '2024-09-21 22:30:38'),
 (6, 'poster', '2024-10-25 03:50:27', '2024-10-25 03:50:27'),
-(7, 'censor', '2024-10-25 03:53:38', '2024-10-25 03:53:38');
+(7, 'censor', '2024-10-25 03:53:38', '2024-10-25 03:53:38'),
+(8, 'reporter', '2024-10-26 26:30:38', '2024-10-26 26:30:38'),
+(9, 'employee', '2024-10-26 26:30:38', '2024-10-26 26:30:38');
 
 -- --------------------------------------------------------
 

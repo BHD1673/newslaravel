@@ -14,48 +14,47 @@ use App\Models\Image;
 class Post extends Model
 {
     use HasFactory;
-    
-    protected $fillable = ['title','slug', 'excerpt', 'body', 'user_id','category_id', 'approved', 'is_delete_post'];
+
+    protected $fillable = ['title', 'slug', 'excerpt', 'body', 'user_id', 'category_id', 'approved'];
 
     const APPROVED = [
         'not_approved_yet' => 1,
         'refuse' => 2,
         'browse' => 3
-        
     ];
 
     const POST_DELETE = [
         'true' => 1,
-        'flase' => 0
+        'false' => 0
     ];
-    
-    public function author() {
+    public function author()
+    {
         return $this->belongsTo(User::class, 'user_id');
-    } 
+    }
 
-    public function category() {
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
 
-    public function postLog() {
-        return $this->belongsTo(PostLog::class);
-    }
-
-    public function tags() {
+    public function tags()
+    {
         return $this->belongsToMany(Tag::class);
     }
-    
-    public function comments() {
+
+    public function comments()
+    {
         return $this->hasMany(Comment::class);
     }
 
-    public function image() {
+    public function image()
+    {
         return $this->morphOne(Image::class, 'imageable');
-    } 
-
-    // scope functions
-    public function scopeApproved($query){
-        return $query->where('approved', 1);
     }
 
+    // scope functions
+    public function scopeApproved($query)
+    {
+        return $query->where('approved', 1);
+    }
 }
