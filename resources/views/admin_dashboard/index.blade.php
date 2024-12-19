@@ -4,6 +4,8 @@
 @endsection
 
 @section("wrapper")
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <div class="page-wrapper">
         <div class="page-content">
             <div class="row row-cols-1 row-cols-md-2 row-cols-xl-4">
@@ -68,58 +70,56 @@
 
             <div class="row">
                 <div class="col-12 col-lg-8">
-                    <div class="card radius-10">
+                    <div class="card radius-10 mb-0 border shadow-none">
                         <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div>
-                                    <h6 class="mb-0">Biểu đồ lượt xem</h6>
-                                </div>
-                                <div class="dropdown ms-auto">
-                                    <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown"><i class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="javascript:;">Action</a>
-                                        </li>
-                                        <li><a class="dropdown-item" href="javascript:;">Another action</a>
-                                        </li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li><a class="dropdown-item" href="javascript:;">Something else here</a>
-                                        </li>
-                                    </ul>
-                                </div>
+                            <div class="d-flex align-items-center mb-3">
+                                
+                                    <h6 class="mb-0 w-20">Biểu đồ Lượt Xem & Bình Luận</h6>
+                                    <div class="dropdown ms-auto">
+                                        <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
+                                            <i class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="javascript:;" id="last7days">7 ngày qua</a></li>
+                                            <li><a class="dropdown-item" href="javascript:;" id="last30days">30 ngày qua</a></li>
+                                            <li><a class="dropdown-item" href="javascript:;" id="last90days">90 ngày qua</a></li>
+                                            <li><a class="dropdown-item" href="javascript:;" id="allTime">Tất cả thời gian</a></li>
+                                        </ul>
+                                    </div>
+                             
+                               
                             </div>
-                            <div class="d-flex align-items-center ms-auto font-13 gap-2 my-3">
-                                <span class="border px-1 rounded cursor-pointer"><i class="bx bxs-circle me-1" style="color: #14abef"></i>Số đã người đọc</span>
-                                <span class="border px-1 rounded cursor-pointer"><i class="bx bxs-circle me-1" style="color: #ffc107"></i>Số người đã bình luận</span>
-                            </div>
-                            <div class="chart-container-1">
-                                <canvas id="chart1"></canvas>
-                            </div>
-                        </div>
-                        <div class="row row-cols-1 row-cols-md-3 row-cols-xl-3 g-0 row-group text-center border-top">
-                            <div class="col">
-                                <div class="p-3">
-                                    <h5 class="mb-0">24.15M</h5>
-                                    <small class="mb-0">Overall Visitor <span> <i class="bx bx-up-arrow-alt align-middle"></i> 2.43%</span></small>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="p-3">
-                                    <h5 class="mb-0">12:38</h5>
-                                    <small class="mb-0">Visitor Duration <span> <i class="bx bx-up-arrow-alt align-middle"></i> 12.65%</span></small>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="p-3">
-                                    <h5 class="mb-0">639.82</h5>
-                                    <small class="mb-0">Pages/Visit <span> <i class="bx bx-up-arrow-alt align-middle"></i> 5.62%</span></small>
-                                </div>
-                            </div>
+                    
+                            <!-- Biểu đồ kết hợp: Lượt xem và Bình Luận -->
+                            <canvas id="combinedChart" width="400" height="200"></canvas>
+                            
                         </div>
                         
                     </div>
+                    
+                    
+                    <div class="col-12 col-lg-12 mt-3">
+                        <div class="card radius-10 mb-4 border shadow-none">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                    <h6 class="mb-0">Biểu đồ Tổng Doanh Thu</h6>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle dropdown-toggle-nocaret" href="#" data-bs-toggle="dropdown">
+                                            <i class='bx bx-dots-horizontal-rounded font-22 text-option'></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="javascript:;" id="revenueLast7days">7 ngày qua</a></li>
+                                            <li><a class="dropdown-item" href="javascript:;" id="revenueLast30days">30 ngày qua</a></li>
+                                            <li><a class="dropdown-item" href="javascript:;" id="revenueLast90days">90 ngày qua</a></li>
+                                            <li><a class="dropdown-item" href="javascript:;" id="revenueAllTime">Tất cả thời gian</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <canvas id="revenueChart" width="400" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             
                 <div class="col-12 col-lg-4 d-flex">
@@ -155,10 +155,10 @@
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
                                         <div>
-                                            <p class="mb-0 text-secondary">Lượt thích</p>
-                                            <h5 class="my-1"></h5> Chờ cập nhật ... 
+                                            <p class="mb-0 text-secondary">Tổng tài khoản premium</p>
+                                            <h5 class="my-1">{{ $countPremium }}</h5>
                                         </div>
-                                        <div class="widgets-icons-2 bg-gradient-moonlit text-white ms-auto"><i class='bx bxs-like'></i>
+                                        <div class="widgets-icons-2 bg-warning text-white ms-auto"><i class='bx bxs-star'></i>
                                         </div>
                                     </div>
                                 </div>

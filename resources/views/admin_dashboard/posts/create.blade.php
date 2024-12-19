@@ -20,6 +20,20 @@
 		margin-top: 10px;
 	}
 
+	.file-preview img {
+		max-width: 100px;
+		margin: 5px;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+	}
+
+	.remove-file {
+		cursor: pointer;
+		color: red;
+		font-weight: bold;
+		margin-left: 5px;
+	}
+</style>
 @endsection
 
 @section("wrapper")
@@ -54,7 +68,7 @@
 								<div class="border border-3 p-4 rounded">
 									<div class="mb-3">
 										<label for="inputProductTitle" class="form-label">Tiêu đề bài viết</label>
-										<input type="text" value=' {{ old("title" ) }}' name="title"  class="inputPostTitle form-control" id="inputProductTitle" placeholder="Nhập tiêu đề bài viết">
+										<input type="text" value=' {{ old("title" ) }}' name="title" required class="inputPostTitle form-control" id="inputProductTitle" placeholder="Nhập tiêu đề bài viết">
 
 										@error('title')
 										<p class="text-danger">{{ $message }}</p>
@@ -63,7 +77,7 @@
 
 									<div class="mb-3">
 										<label for="inputProductTitle" class="form-label">Slug - liên kết</label>
-										<input type="text" value=' {{ old("slug" ) }}' name="slug"  class="slugPost form-control" id="inputProductTitle" placeholder="Nhập slug">
+										<input type="text" value=' {{ old("slug" ) }}' name="slug" required class="slugPost form-control" id="inputProductTitle" placeholder="Nhập slug">
 
 										@error('slug')
 										<p class="text-danger">{{ $message }}</p>
@@ -87,7 +101,7 @@
 											<div class="card-body">
 												<div class="p-3 rounded">
 													<div class="mb-3">
-														<select name="category_id"  class="single-select">
+														<select name="category_id" required class="single-select">
 															@foreach( $categories as $key => $category )
 															<option value="{{ $key }}">{{ $category }}</option>
 															@endforeach

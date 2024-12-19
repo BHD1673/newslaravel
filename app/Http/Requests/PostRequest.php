@@ -25,7 +25,7 @@ class PostRequest extends FormRequest
     {
         return [
             'title' => 'required|max:200',
-            'slug' => 'required|max:200',
+            'slug' => 'required|max:200|unique:posts,slug',
             'category_id' => 'required|numeric',
         ];
     }
@@ -38,7 +38,8 @@ class PostRequest extends FormRequest
 
             'slug.required' => ' slug không được bỏ trống.',
             'slug.max' => ' không vượt quá 200 kí tự.',
-       
+            'slug.unique' => 'Slug không được trùng',
+
             'category_id.required' => ' không được bỏ trống.',
             'category_id.numeric' => ' phải là số',
         ];
