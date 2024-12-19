@@ -13,8 +13,7 @@ return [
     |
     */
 
-    'failed' => 'Những thông tin xác thực này không khớp với hồ sơ của chúng tôi.',
-    'password' => 'The provided password is incorrect.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-
+    'failed' => 'Tài khoản hoặc mật khẩu không đúng, vui lòng kiểm tra lại',
+    'password' => 'Mật khẩu sai, vui lòng kiểm tra lại.',
+    'throttle' => 'Bạn đang đăng nhập sai thông tin quá nhiều lần, vui lòng kiểm tra lại sau :seconds giây',
 ];
