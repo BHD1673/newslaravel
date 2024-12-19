@@ -82,12 +82,12 @@ class HomeController extends Controller
             if ($stt_home === 10)
                 $post_category_home9 =  Post::latest()->approved()->withCount('comments')->where('category_id', $category_item->id)->take(4)->get();
         }
-        $ads = Ads::with('position')  // Lấy các quảng cáo đã được phê duyệt, trong thời gian hợp lệ
-        ->where('status', 'active')  // Trạng thái quảng cáo là 'active'
-        ->where('start_time', '<=', now())  // Quảng cáo bắt đầu
-        ->where('end_time', '>=', now())  // Quảng cáo chưa kết thúc
+        $ads = Ads::with('position')  // Lấy các quảng cáo kèm vị trí
+        ->where('status', 'active')  // Quảng cáo đang hoạt động
+        ->where('start_time', '<=', now())  // Thời gian bắt đầu hợp lệ
+        ->where('end_time', '>=', now())  // Thời gian kết thúc hợp lệ
         ->get();
-        // dd($ads);
+    
         // die();
 
 

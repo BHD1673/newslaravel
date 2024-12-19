@@ -1,24 +1,24 @@
 @extends('admin_dashboard.layouts.app')
 
 @section('wrapper')
-<div class="page-wrapper">
-    <div class="page-content">
-        <h1>Create Ad</h1>
-        <form action="{{ route('admin.ads.store') }}" method="POST">
-            @csrf
-            <div class="form-group position-relative">
-    <label for="user_id">Người dùng</label>
-    <input type="text" id="user_input" class="form-control" placeholder="Nhập tên người dùng...">
-    <ul class="dropdown-menu w-100" id="user_list" style="display: none; max-height: 200px; overflow-y: auto;">
-        @foreach ($users as $user)
-            <li class="dropdown-item" data-id="{{ $user->id }}">{{ $user->name }}</li>
-        @endforeach
-    </ul>
-    <input type="hidden" name="user_id" id="selected_user_id">
-    @error('user_id')
-        <div class="text-danger">{{ $message }}</div>
-    @enderror
-</div>
+        <div class="page-wrapper">
+            <div class="page-content">
+                <h1>Create Ad</h1>
+                <form action="{{ route('admin.ads.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group position-relative">
+                    <label for="user_id">Người dùng</label>
+                    <input type="text" id="user_input" class="form-control" placeholder="Nhập tên người dùng...">
+                    <ul class="dropdown-menu w-100" id="user_list" style="display: none; max-height: 200px; overflow-y: auto;">
+                        @foreach ($users as $user)
+                            <li class="dropdown-item" data-id="{{ $user->id }}">{{ $user->name }}</li>
+                        @endforeach
+                    </ul>
+                    <input type="hidden" name="user_id" id="selected_user_id">
+                    @error('user_id')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
 
 
 
@@ -28,17 +28,17 @@
             </div>
             <div class="form-group">
                 <label for="img">Image URL</label>
-                <input type="text" name="img" id="img" class="form-control" required>
+                <input type="file" name="img" id="img" class="form-control" required>
             </div>
             <div class="form-group">
                 <label for="status">Trạng thái</label>
                 <select name="status" id="status" class="form-control">
                     <option value="pending" {{ old('status', $ad->status ?? '') == 'pending' ? 'selected' : '' }}>Pending</option>
-                    <option value="approved" {{ old('status', $ad->status ?? '') == 'approved' ? 'selected' : '' }}>Approved</option>
+                    {{-- <option value="approved" {{ old('status', $ad->status ?? '') == 'approved' ? 'selected' : '' }}>Approved</option>
                     <option value="active" {{ old('status', $ad->status ?? '') == 'active' ? 'selected' : '' }}>Active</option>
                     <option value="cancelled" {{ old('status', $ad->status ?? '') == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
                     <option value="completed" {{ old('status', $ad->status ?? '') == 'completed' ? 'selected' : '' }}>Completed</option>
-                    <option value="Running" {{ old('status', $ad->status ?? '') == 'Running' ? 'selected' : '' }}>Running</option>
+                    <option value="Running" {{ old('status', $ad->status ?? '') == 'Running' ? 'selected' : '' }}>Running</option> --}}
                 </select>
                 @error('status')
                     <div class="text-danger">{{ $message }}</div>

@@ -1,6 +1,7 @@
 @extends('main_layouts.master')
 
-@section('title', 'TDQ - Đăng ký quảng cáo')
+@section('title', 'TDQ - 
+<a></a>')
 
 @section('content')
 <!-- Hiển thị thông báo Toast khi có lỗi -->
@@ -16,7 +17,7 @@
 <div class="container">
     <h1>Đăng ký quảng cáo</h1>
     
-    <form action="{{ route('ads.store') }}" method="POST">
+    <form action="{{ route('ads.store') }}" method="POST"  enctype="multipart/form-data">
         @csrf
 
         <!-- Tiêu đề quảng cáo -->
@@ -30,12 +31,13 @@
 
         <!-- Link hình ảnh -->
         <div class="form-group">
-            <label for="img">Link hình ảnh</label>
-            <input type="text" name="img" id="img" class="form-control" value="{{ old('img') }}">
+            <label for="img">Hình ảnh</label>
+            <input type="file" name="img" id="img" class="form-control">
             @error('img')
                 <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
+        
 
         <!-- Link quảng cáo -->
         <div class="form-group">
@@ -99,7 +101,14 @@
         </div>
 
         <button type="submit" class="btn btn-primary" style="margin-bottom: 30px">Đăng ký quảng cáo</button>
+        
     </form>
+    <button class="btn btn-secondary" style="margin-bottom: 30px">
+        <a href="{{route('pricing.index')}}" style="text-decoration: none; color: inherit; display: block; width: 100%; height: 100%">
+          Chi tiết từng quảng cáo
+        </a>
+    </button>
+    
 </div>
 
 <script>

@@ -29,6 +29,7 @@ use App\Http\Controllers\AdminControllers\AdminPostHistorieController;
 use App\Http\Controllers\AdminControllers\AdminPostImagesController;
 use App\Http\Controllers\AdminControllers\AdsPositionController;
 use App\Http\Controllers\AdminControllers\AdsAdminController;
+use App\Http\Controllers\AdminControllers\AdsAdminPaymentController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AdminControllers\AdminProductsController;
 use App\Http\Controllers\CartController;
@@ -58,12 +59,17 @@ Route::middleware(['auth', 'check.premium'])->group(function () {
     Route::get('/premium/upgrade', [PremiumController::class, 'upgrade'])->name('premium.upgrade');
     Route::get('ads/create', [AdsController::class, 'create'])->name('ads.form');
     Route::get('ads/index', [AdsController::class, 'index'])->name('ads.index');
+    Route::get('ads/demo', [AdsController::class, 'demo'])->name('ads.demo');
     Route::post('ads/store', [AdsController::class, 'store'])->name('ads.store');
     Route::delete('ads/{id}', [AdsController::class, 'destroy'])->name('ads.destroy');
     Route::get('ads/history', [AdsController::class, 'history'])->name('ads.history');
     Route::get('ads/payment/{ad_id}', [AdsPaymentController::class, 'pay'])->name('ads.payment');
     Route::post('ads/payment/{ad_id}', [AdsPaymentController::class, 'processPayment'])->name('ads.processPayment');
     Route::get('ads/history/cancel/{ad_id}', [AdsHistoryController::class, 'cancel'])->name('ads.cancel');
+    Route::get('/ads/payment/thankyou', [AdsPaymentController::class, 'thankYou'])->name('ads.payment.thankyou');
+    Route::get('/pricing', [AdsHistoryController::class, 'pricing'])->name('pricing.index');
+    Route::get('/ads/history/{format}', [AdsHistoryController::class, 'showByFormat'])->name('ads.history.format');
+
 });
 
 
@@ -139,6 +145,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'check_permissions']
     Route::post('upload_tinymce_image', [TinyMCEController::class, 'upload_tinymce_image'])->name('upload_tinymce_image');
     Route::resource('ads_position', AdsPositionController::class);
     Route::resource('ads', AdsAdminController::class);
+    Route::resource('ads_payment', AdsAdminPaymentController::class);
     Route::resource('posts', AdminPostsController::class);
     Route::get('post-soft-delete', [AdminPostsController::class , 'postSoftDelete'])->name('post-soft-delete');
     Route::put('posts/soft-delete/{post}', [AdminPostsController::class , 'softDelete'])->name('post.softDelete');

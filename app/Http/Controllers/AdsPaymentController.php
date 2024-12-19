@@ -138,38 +138,33 @@ class AdsPaymentController extends Controller
         return redirect()->away($vnp_Url);
     }
 
-    public function vnpayPaymentCallback(Request $request)
+    public function thankYou(Request $request)
     {
-        // Lấy thông tin từ VNPay callback
-        $vnp_ResponseCode = $request->input('vnp_ResponseCode'); // Mã phản hồi
-        $vnp_TxnRef = $request->input('vnp_TxnRef'); // Mã tham chiếu giao dịch
-        $vnp_Amount = $request->input('vnp_Amount') / 100; // VNPay trả về số tiền nhân 100
-        $vnp_SecureHash = $request->input('vnp_SecureHash'); // Hash để kiểm tra tính hợp lệ
-    
-        // Kiểm tra tính hợp lệ của callback
-        $vnp_HashSecret = "UB8RMRTE4GIL7UE646WOHRGXVK4RDNJN"; // Secret của bạn
+        $vnp_HashSecret = "UB8RMRTE4GIL7UE646WOHRGXVK4RDNJN";
         $inputData = $request->except(['vnp_SecureHash']);
         ksort($inputData);
         $hashData = urldecode(http_build_query($inputData));
         $secureHash = hash_hmac('sha512', $hashData, $vnp_HashSecret);
     
-        if ($vnp_SecureHash !== $secureHash) {
+        if ($request->input('vnp_SecureHash') !== $secureHash) {
             return redirect()->route('ads.history')->withErrors(['payment_error' => 'Dữ liệu không hợp lệ.']);
         }
-        if ($vnp_ResponseCode == '00') {
-            $payment = AdsPayment::where('id', $vnp_TxnRef)->first();
+    
+        if ($request->input('vnp_ResponseCode') == '00') {
+            $payment = AdsPayment::find($request->input('vnp_TxnRef'));
             if ($payment) {
                 $payment->payment_status = 'completed';
                 $payment->save();
+    
                 $ad = Ads::find($payment->ad_id);
                 if ($ad) {
                     $ad->status = 'active';
                     $ad->save();
                 }
             }
-    
-            return redirect()->route('ads.history')->with('success', 'Thanh toán thành công. Quảng cáo đã được kích hoạt.');
+            return view('ads.thankyou')->with('success', 'Thanh toán thành công. Quảng cáo đã được kích hoạt.');
         }
+    
         return redirect()->route('ads.history')->withErrors(['payment_error' => 'Thanh toán thất bại. Vui lòng thử lại.']);
     }
 }

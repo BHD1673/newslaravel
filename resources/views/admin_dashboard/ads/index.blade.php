@@ -1,6 +1,24 @@
 @extends("admin_dashboard.layouts.app")
 
 @section("wrapper")
+<style>
+    .order-actions {
+    display: flex; /* Đảm bảo các phần tử nằm trên cùng một hàng */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    gap: 10px; /* Khoảng cách giữa các nút */
+}
+
+.order-actions .btn {
+    min-width: 50px; /* Đảm bảo các nút có cùng kích thước tối thiểu */
+    text-align: center; /* Canh giữa nội dung nút */
+    padding: 0px 0px; /* Thêm khoảng cách nội dung bên trong nút */
+}
+
+.order-actions .btn i {
+    margin-right: 0px; /* Khoảng cách giữa icon và text trong nút */
+}
+
+</style>
 <div class="page-wrapper">
     <div class="page-content">
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
@@ -58,15 +76,27 @@
                                 <td>{{ $ad->start_time }}</td>
                                 <td>{{ $ad->end_time }}</td>
                                 <td>
-                                    <div class="d-flex order-actions">
-                                        <a href="{{ route('admin.ads.edit', $ad->id) }}" class=""><i class='bx bxs-edit'></i></a>
-                                        <a href="#" onclick="event.preventDefault(); document.querySelector('#delete_form_{{ $ad->id }}').submit();" class="ms-3"><i class='bx bxs-trash'></i></a>
-
-                                        <form method="post" action="{{ route('admin.ads.destroy', $ad->id) }}" id="delete_form_{{ $ad->id }}">
-                                            @csrf
-                                            @method('DELETE')
-                                        </form>
-                                    </div>
+                                    <div class="d-flex order-actions align-items-center">
+                                        <!-- Nút sửa -->
+                                        @if ($ad->status !== 'completed')
+                                            <a href="{{ route('admin.ads.edit', $ad->id) }}" class="btn btn-sm btn-primary me-2">
+                                                <i class='bx bxs-edit'></i> 
+                                            </a>
+                                        @endif
+                                    
+                                        <!-- Nút xóa -->
+                                        @if (!in_array($ad->status, ['active', 'Running']))
+                                            <a href="#" 
+                                               class="btn btn-sm btn-danger"
+                                               onclick="event.preventDefault(); document.querySelector('#delete_form_{{ $ad->id }}').submit();">
+                                               <i class='bx bxs-trash'></i> 
+                                            </a>
+                                            <form method="post" action="{{ route('admin.ads.destroy', $ad->id) }}" id="delete_form_{{ $ad->id }}" class="d-none">
+                                                @csrf
+                                                @method('DELETE')
+                                            </form>
+                                        @endif
+                                    </div>                                    
                                 </td>
                             </tr>
                             @endforeach

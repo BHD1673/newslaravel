@@ -10,6 +10,7 @@
         <thead>
             <tr>
                 <th>Tiêu đề</th>
+                <th>Hình Ảnh Banner</th>
                 <th>Vị trí</th>
                 <th>Trạng thái</th>
                 <th>Thời gian bắt đầu</th>
@@ -21,6 +22,13 @@
             @foreach ($ads as $ad)
                 <tr>
                     <td>{{ $ad->title }}</td>
+                    <td>
+                        @if ($ad->img)
+                            <img src="{{ asset('storage/' . $ad->img) }}" alt="Hình ảnh quảng cáo" style="width: 100px; height: auto;">
+                        @else
+                            <span>Không có hình ảnh</span>
+                        @endif
+                    </td>
                     <td>
                         {{ $ad->position ? ucfirst($ad->position->position) : 'Không xác định' }}
                     </td>

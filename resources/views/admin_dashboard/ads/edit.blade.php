@@ -4,7 +4,7 @@
 <div class="page-wrapper">
     <div class="page-content">
         <h1>Edit Ad</h1>
-        <form action="{{ route('admin.ads.update', $ad->id) }}" method="POST">
+        <form action="{{ route('admin.ads.update', $ad->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="form-group">
@@ -32,12 +32,21 @@
             
 
             <div class="form-group">
-                <label for="img">Image URL</label>
-                <input type="text" name="img" id="img" class="form-control" value="{{ old('img', $ad->img) }}" required>
-                @error('img')
-                <div class="text-danger">{{ $message }}</div>
-                @enderror
+                <label for="img">Upload Image</label>
+                <input type="file" name="img" id="img" class="form-control" >
+                <input type="hidden" name="old_img" value="{{ $ad->img }}">
             </div>
+            
+            @if (!empty($ad->img))
+            <div class="form-group">
+                <label>Current Image</label>
+                <div>
+                    <img src="{{ asset('storage/' . $ad->img) }}" alt="Current Image" style="max-width: 200px; height: auto;">
+                    <input type="hidden" name="old_img" value="{{ $ad->img }}">
+                </div>
+            </div>
+            @endif
+            
             <div class="form-group">
                 <label for="status">Trạng thái</label>
                 <select name="status" id="status" class="form-control">

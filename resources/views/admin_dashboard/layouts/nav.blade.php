@@ -108,7 +108,7 @@ function checkPermission($name) {
                                 <li><a href="{{ route('admin.ads_position.index') }}"><i class="bx bx-right-arrow-alt"></i>Các dạng quảng cáo</a></li>
                             {{-- @endif --}}
                             {{-- @if(checkPermission("admin.products.create")) --}}
-                                <li><a href="{{ route('admin.orders.index') }}"><i class="bx bx-right-arrow-alt"></i>Thanh Toán</a></li>
+                                <li><a href="{{ route('admin.ads_payment.index') }}"><i class="bx bx-right-arrow-alt"></i>Thanh Toán</a></li>
                             {{-- @endif --}}
                             {{-- @if(checkPermission("admin.products.create")) --}}
                                 <li><a href="{{ route('admin.posts.create') }}"><i class="bx bx-right-arrow-alt"></i>Các quảng cáo đã hoàn thành</a></li>

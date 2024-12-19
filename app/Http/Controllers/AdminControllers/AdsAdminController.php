@@ -33,10 +33,11 @@ class AdsAdminController extends Controller
 
     public function store(Request $request)
     {
+        // Validate input
         $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
+            'user_id' => 'exists:users,id',
             'title' => 'required|string|max:255',
-            'img' => 'required|url',
+            'img' => 'required|file|mimes:jpeg,png,jpg,gif|max:2048',
             'link' => 'nullable|url',
             'email' => 'required|email',
             'phone' => 'nullable|string|max:50',
@@ -45,7 +46,10 @@ class AdsAdminController extends Controller
             'position_id' => 'required|exists:ads_position,id',
             'status' => 'required|in:pending,approved,active,cancelled,completed,Running',
         ]);
+    
+        // Check for time and position overlap
         $overlap = Ads::where('position_id', $request->position_id)
+        ->whereNotIn('status', ['completed', 'running', 'active']) // Loại trừ các trạng thái không hợp lệ
         ->where(function ($query) use ($request) {
             $query->where('start_time', '<', $request->end_time)
                 ->where('end_time', '>', $request->start_time);
@@ -53,14 +57,27 @@ class AdsAdminController extends Controller
         ->exists();
     
     if ($overlap) {
-        // Lưu thông báo lỗi vào session để sử dụng trong giao diện
         session()->flash('error', 'Quảng cáo đã trùng thời gian và vị trí. Vui lòng chọn lại.');
-        return redirect()->back()->withInput(); // Trả lại dữ liệu đã nhập
+        return redirect()->back()->withInput();
     }
-
+    
+    
+        // Handle image upload
+        if ($request->hasFile('img')) {
+            $file = $request->file('img');
+            $filePath = $file->store('ads_images', 'public'); // Save to storage/app/public/ads_images
+            $validated['img'] = $filePath; // Add the file path to validated data
+        } else {
+            session()->flash('error', 'Hình ảnh không hợp lệ.');
+            return redirect()->back()->withInput();
+        }
+    
+        // Create the ad record
         Ads::create($validated);
+    
         return redirect()->route('admin.ads.index')->with('success', 'Ad created successfully.');
     }
+    
 
     public function edit($id)
     {
@@ -76,7 +93,7 @@ class AdsAdminController extends Controller
         $validated = $request->validate([
             'user_id' => 'required|exists:users,id',
             'title' => 'required|string|max:255',
-            'img' => 'required|url',
+            'img' => 'nullable|file|mimes:jpeg,png,jpg,gif|max:2048', // Hình ảnh có thể tùy chọn
             'link' => 'nullable|url',
             'email' => 'required|email',
             'phone' => 'nullable|string|max:50',
@@ -89,6 +106,7 @@ class AdsAdminController extends Controller
         // Kiểm tra trùng thời gian với các quảng cáo khác (trừ quảng cáo hiện tại)
         $overlap = Ads::where('position_id', $validated['position_id'])
             ->where('id', '!=', $id) // Loại trừ quảng cáo hiện tại
+            ->whereNotIn('status', ['completed', 'running', 'active'])
             ->where(function ($query) use ($validated) {
                 $query->where('start_time', '<', $validated['end_time'])
                     ->where('end_time', '>', $validated['start_time']);
@@ -103,11 +121,28 @@ class AdsAdminController extends Controller
         // Lấy quảng cáo hiện tại
         $ad = Ads::findOrFail($id);
     
+        // Xử lý cập nhật hình ảnh
+        if ($request->hasFile('img')) {
+            // Lưu ảnh mới
+            $file = $request->file('img');
+            $filePath = $file->store('ads_images', 'public'); // Lưu file vào storage/app/public/ads_images
+    
+            // Xóa ảnh cũ nếu có
+            if ($ad->img && \Storage::disk('public')->exists($ad->img)) {
+                \Storage::disk('public')->delete($ad->img);
+            }
+    
+            // Cập nhật đường dẫn ảnh mới
+            $validated['img'] = $filePath;
+        }
+    
         // Kiểm tra thay đổi trạng thái
         $previousStatus = $ad->status;
+    
+        // Cập nhật quảng cáo
         $ad->update($validated);
     
-        // Gửi email theo từng trạng thái
+        // Gửi email theo từng trạng thái nếu có thay đổi
         if ($ad->status !== $previousStatus) {
             switch ($ad->status) {
                 case 'approved':
@@ -130,10 +165,6 @@ class AdsAdminController extends Controller
                     Mail::to($ad->user->email)->send(new AdCancelledMail($ad));
                     break;
     
-                case 'pending':
-                    Mail::to($ad->user->email)->send(new AdPendingMail($ad));
-                    break;
-    
                 default:
                     break;
             }
@@ -141,6 +172,7 @@ class AdsAdminController extends Controller
     
         return redirect()->route('admin.ads.index')->with('success', 'Ad updated successfully.');
     }
+    
     
     
 

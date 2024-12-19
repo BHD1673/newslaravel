@@ -9,16 +9,14 @@
         <a href="{{ $ad->link }}">
             <div class="ad-banner" style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 1000px; max-height: 200px; overflow: hidden; margin: 30px auto; z-index: 999999;">
                 <!-- Hiển thị tiêu đề "HOT HOT HOT" -->
-                {{-- <h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: white; font-weight: bold; z-index: 10;">HOT HOT HOT</h3>
-                 --}}
+                <h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: rgb(0, 0, 0); font-weight: bold; z-index: 10;">TOP</h3>
+                
                 <!-- Hiển thị ảnh quảng cáo và tiêu đề lên ảnh -->
                 <div style="display: block; width: 100%; height: 100%; position: relative; overflow: hidden;">
                     <img src="{{ asset('storage/' . $ad->img) }}" style="width: 1000px; max-height: 400px; object-fit: contain;">
                     
                     <!-- Hiển thị tiêu đề quảng cáo lên ảnh -->
-                    {{-- <h3 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; color: white; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); z-index: 5;">
-                        {{ $ad->title }}
-                    </h3> --}}
+                  
                 </div>
             </div>
         </a>
@@ -628,8 +626,6 @@
 							</div>
 						</div>
 						<!-- Kết thúc từ khóa -->
-						<!-- Kết thúc từ khóa -->
-						@if(!auth()->check() || !auth()->user()->is_premium)
 						<!-- Widget Start -->
 						<div class="widget">
 							<!-- Ad Widget Start -->
@@ -637,20 +633,18 @@
 								<div class="row">
 									<div class="col-sm-12">
 										@foreach ($ads as $ad)
-										@if(optional($ad->position)->position == 'center4') <!-- Sử dụng optional() để tránh lỗi -->
+										@if(optional($ad->position)->position == 'center') <!-- Sử dụng optional() để tránh lỗi -->
 											<a href="{{ $ad->link }}">
 												<div class="ad-banner" style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 500px; max-height: 200px; overflow: hidden; margin: 30px auto; z-index: 999999;">
 													<!-- Hiển thị tiêu đề "HOT HOT HOT" -->
-													<h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: white; font-weight: bold; z-index: 10;">HOT HOT HOT</h3>
+												 <h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: rgb(0, 0, 0); font-weight: bold; z-index: 10;">Center</h3>
 													
 													<!-- Hiển thị ảnh quảng cáo và tiêu đề lên ảnh -->
 													<div style="display: block; width: 100%; height: 100%; position: relative; overflow: hidden;">
 														<img src="{{ asset('storage/' . $ad->img) }}" style="width: 500px; max-height: 200px; object-fit: contain;">
 														
 														<!-- Hiển thị tiêu đề quảng cáo lên ảnh -->
-														<h3 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; color: white; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); z-index: 5;">
-															{{ $ad->title }}
-														</h3>
+														
 													</div>
 												</div>
 											</a>
@@ -663,7 +657,6 @@
 							<!-- Ad Widget End -->
 						</div>
 						<!-- Widget End -->
-						@endif
 						<!-- Widget Start -->
 						<div class="widget">
 							<!-- Ad Widget Start -->
@@ -671,20 +664,18 @@
 								<div class="row">
 									<div class="col-sm-12">
 										@foreach ($ads as $ad)
-											@if(optional($ad->position)->position == 'center4') <!-- Sử dụng optional() để tránh lỗi -->
+											@if(optional($ad->position)->position == 'center') <!-- Sử dụng optional() để tránh lỗi -->
 												<a href="{{ $ad->link }}">
 													<div class="ad-banner" style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 500px; max-height: 200px; overflow: hidden; margin: 30px auto; z-index: 999999;">
 														<!-- Hiển thị tiêu đề "HOT HOT HOT" -->
-														<h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: white; font-weight: bold; z-index: 10;">HOT HOT HOT</h3>
+													 <h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: rgb(0, 0, 0); font-weight: bold; z-index: 10;">Center 1</h3>
 														
 														<!-- Hiển thị ảnh quảng cáo và tiêu đề lên ảnh -->
 														<div style="display: block; width: 100%; height: 100%; position: relative; overflow: hidden;">
 															<img src="{{ asset('storage/' . $ad->img) }}" style="width: 500px; max-height: 200px; object-fit: contain;">
 															
 															<!-- Hiển thị tiêu đề quảng cáo lên ảnh -->
-															<h3 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; color: white; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); z-index: 5;">
-																{{ $ad->title }}
-															</h3>
+															
 														</div>
 													</div>
 												</a>
@@ -800,20 +791,18 @@
 							</div>
 
 							@foreach ($ads as $ad)
-								@if(optional($ad->position)->position == 'center4') <!-- Sử dụng optional() để tránh lỗi -->
+								@if(optional($ad->position)->position == 'center') <!-- Sử dụng optional() để tránh lỗi -->
 									<a href="{{ $ad->link }}">
 										<div class="ad-banner" style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 500px; max-height: 200px; overflow: hidden; margin: 30px auto; z-index: 999999;">
 											<!-- Hiển thị tiêu đề "HOT HOT HOT" -->
-											<h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: white; font-weight: bold; z-index: 10;">HOT HOT HOT</h3>
+										 <h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: rgb(0, 0, 0); font-weight: bold; z-index: 10;">Center 2</h3>
 											
 											<!-- Hiển thị ảnh quảng cáo và tiêu đề lên ảnh -->
 											<div style="display: block; width: 100%; height: 100%; position: relative; overflow: hidden;">
 												<img src="{{ asset('storage/' . $ad->img) }}" style="width: 500px; max-height: 200px; object-fit: contain;">
 												
 												<!-- Hiển thị tiêu đề quảng cáo lên ảnh -->
-												<h3 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; color: white; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); z-index: 5;">
-													{{ $ad->title }}
-												</h3>
+											
 											</div>
 										</div>
 									</a>
@@ -912,20 +901,18 @@
 			<!-- Advertisement Start -->
 			<div class="ad--space pd--30-0">
 				@foreach ($ads as $ad)
-					@if(optional($ad->position)->position == 'center4') <!-- Sử dụng optional() để tránh lỗi -->
+					@if(optional($ad->position)->position == 'center') <!-- Sử dụng optional() để tránh lỗi -->
 						<a href="{{ $ad->link }}">
 							<div class="ad-banner" style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 500px; max-height: 200px; overflow: hidden; margin: 30px auto; z-index: 999999;">
 								<!-- Hiển thị tiêu đề "HOT HOT HOT" -->
-								<h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: white; font-weight: bold; z-index: 10;">HOT HOT HOT</h3>
+							 <h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: rgb(0, 0, 0); font-weight: bold; z-index: 10;">Center 3</h3>
 								
 								<!-- Hiển thị ảnh quảng cáo và tiêu đề lên ảnh -->
 								<div style="display: block; width: 100%; height: 100%; position: relative; overflow: hidden;">
 									<img src="{{ asset('storage/' . $ad->img) }}" style="width: 500px; max-height: 200px; object-fit: contain;">
 									
 									<!-- Hiển thị tiêu đề quảng cáo lên ảnh -->
-									<h3 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; color: white; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); z-index: 5;">
-										{{ $ad->title }}
-									</h3>
+									
 								</div>
 							</div>
 						</a>
@@ -1386,20 +1373,18 @@
 								<div class="row">
 									<div class="col-sm-12">
 										@foreach ($ads as $ad)
-											@if(optional($ad->position)->position == 'center4') <!-- Sử dụng optional() để tránh lỗi -->
+											@if(optional($ad->position)->position == 'center') <!-- Sử dụng optional() để tránh lỗi -->
 												<a href="{{ $ad->link }}">
 													<div class="ad-banner" style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 500px; max-height: 200px; overflow: hidden; margin: 30px auto; z-index: 999999;">
 														<!-- Hiển thị tiêu đề "HOT HOT HOT" -->
-														<h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: white; font-weight: bold; z-index: 10;">HOT HOT HOT</h3>
+													 <h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: rgb(0, 0, 0); font-weight: bold; z-index: 10;">Center 4 </h3>
 														
 														<!-- Hiển thị ảnh quảng cáo và tiêu đề lên ảnh -->
 														<div style="display: block; width: 100%; height: 100%; position: relative; overflow: hidden;">
 															<img src="{{ asset('storage/' . $ad->img) }}" style="width: 500px; max-height: 200px; object-fit: contain;">
 															
 															<!-- Hiển thị tiêu đề quảng cáo lên ảnh -->
-															<h3 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; color: white; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); z-index: 5;">
-																{{ $ad->title }}
-															</h3>
+															
 														</div>
 													</div>
 												</a>
@@ -1452,20 +1437,18 @@
 									</ul>
 								
 									@foreach ($ads as $ad)
-									@if(optional($ad->position)->position == 'center4') <!-- Sử dụng optional() để tránh lỗi -->
+									@if(optional($ad->position)->position == 'center') <!-- Sử dụng optional() để tránh lỗi -->
 										<a href="{{ $ad->link }}">
 											<div class="ad-banner" style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 500px; max-height: 200px; overflow: hidden; margin: 30px auto; z-index: 999999;">
 												<!-- Hiển thị tiêu đề "HOT HOT HOT" -->
-												<h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: white; font-weight: bold; z-index: 10;">HOT HOT HOT</h3>
+											 <h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: rgb(0, 0, 0); font-weight: bold; z-index: 10;">Bottom</h3>
 												
 												<!-- Hiển thị ảnh quảng cáo và tiêu đề lên ảnh -->
 												<div style="display: block; width: 100%; height: 100%; position: relative; overflow: hidden;">
 													<img src="{{ asset('storage/' . $ad->img) }}" style="width: 500px; max-height: 200px; object-fit: contain;">
 													
 													<!-- Hiển thị tiêu đề quảng cáo lên ảnh -->
-													<h3 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; color: white; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); z-index: 5;">
-														{{ $ad->title }}
-													</h3>
+													
 												</div>
 											</div>
 										</a>
