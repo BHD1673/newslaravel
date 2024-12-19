@@ -152,21 +152,12 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'check_permissions']
     Route::resource('ads', AdsAdminController::class);
     Route::resource('ads_payment', AdsAdminPaymentController::class);
     Route::resource('posts', AdminPostsController::class);
-<<<<<<< HEAD
-    Route::get('post-soft-delete', [AdminPostsController::class , 'postSoftDelete'])->name('post-soft-delete');
-    Route::put('posts/soft-delete/{post}', [AdminPostsController::class , 'softDelete'])->name('post.softDelete');
-    Route::put('posts/undo-soft-delete/{post}', [AdminPostsController::class , 'undoSoftDelete'])->name('post.undoSoftDelete');
-    Route::get('post-history',[AdminPostHistorieController::class, 'index'])->name('post-history.index');
-    Route::delete('post-history/{postHistorie}',[AdminPostHistorieController::class, 'destroy'])->name('post-history.destroy');
-    Route::delete('post-history',[AdminPostHistorieController::class, 'removeAll'])->name('post-history.removeAll');
-=======
     Route::get('post-soft-delete', [AdminPostsController::class, 'postSoftDelete'])->name('post-soft-delete');
     Route::put('posts/soft-delete/{post}', [AdminPostsController::class, 'softDelete'])->name('post.softDelete');
     Route::put('posts/undo-soft-delete/{post}', [AdminPostsController::class, 'undoSoftDelete'])->name('post.undoSoftDelete');
     Route::get('post-history', [AdminPostHistorieController::class, 'index'])->name('post-history.index');
     Route::delete('post-history/{postHistorie}', [AdminPostHistorieController::class, 'destroy'])->name('post-history.destroy');
     Route::delete('post-history', [AdminPostHistorieController::class, 'removeAll'])->name('post-history.removeAll');
->>>>>>> 6b14cd129678fd52f3c989b1141aa1be0e4736ef
     Route::post('/poststitle', [AdminPostsController::class, 'to_slug'])->name('posts.to_slug');
     // Route::delete('post-img/{id}',[AdminPostImagesController::class, 'destroy'])->name('post-img.destroy');
     Route::resource('categories', AdminCategoriesController::class);
