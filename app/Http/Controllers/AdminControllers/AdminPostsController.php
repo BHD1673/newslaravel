@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
-use App\Models\Image; // Nếu bạn đang sử dụng một bảng images để lưu thông tin ảnh
+use App\Models\Image; 
 
 class AdminPostsController extends Controller
 {
@@ -15,8 +15,8 @@ class AdminPostsController extends Controller
         'title' => 'required|max:200',
         'slug' => 'required|max:200',
         'excerpt' => 'required|max:300',
-        'category_id' => 'required|numeric',
-        'thumbnail' => 'nullable|mimes:jpg,png,webp,svg,jpeg|dimensions:max-width:800,max-height:300',
+        'category_id' => 'required|exists:categories,id',
+        'thumbnail' => 'nullable|mimes:jpg,png,webp,svg,jpeg|dimensions:max_width=800,max_height=300',
         'body' => 'required',
     ];
 
@@ -93,8 +93,16 @@ class AdminPostsController extends Controller
     // Hàm cập nhật bài viết
     public function update(Request $request, Post $post)
     {
-        // Xác thực lại dữ liệu
-        $validated = $request->validate($this->rules);
+        // Xác thực lại dữ liệu với quy tắc phù hợp
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:posts,slug,' . $post->id,
+            'excerpt' => 'required|string|max:500',
+            'body' => 'required|string',
+            'category_id' => 'required|exists:categories,id',
+            'tags' => 'nullable|string',
+            'thumbnail' => 'nullable|image|mimes:jpg,png,webp,svg,jpeg|max:2048|dimensions:max_width=800,max_height=300',
+        ]);
 
         // Cập nhật thông tin bài viết
         $validated['approved'] = $request->has('approved');
@@ -106,12 +114,21 @@ class AdminPostsController extends Controller
             $filename = time() . '-' . $thumbnail->getClientOriginalName();
             $path = $thumbnail->storeAs('images', $filename, 'public');
 
-            // Cập nhật thông tin ảnh
-            $post->image()->update([
-                'name' => $filename,
-                'extension' => $thumbnail->getClientOriginalExtension(),
-                'path' => $path,
-            ]);
+            if ($post->image) {
+                // Nếu ảnh đã tồn tại, cập nhật
+                $post->image()->update([
+                    'name' => $filename,
+                    'extension' => $thumbnail->getClientOriginalExtension(),
+                    'path' => $path,
+                ]);
+            } else {
+                // Nếu ảnh chưa tồn tại, tạo mới
+                $post->image()->create([
+                    'name' => $filename,
+                    'extension' => $thumbnail->getClientOriginalExtension(),
+                    'path' => $path,
+                ]);
+            }
         }
 
         // Xử lý tags
@@ -123,8 +140,8 @@ class AdminPostsController extends Controller
     // Hàm xóa bài viết
     public function destroy(Post $post)
     {
-        // Xóa liên kết tags, comments và bài viết
-        $post->tags()->delete();
+        // Xóa liên kết tags và comments trước khi xóa bài viết
+        $post->tags()->detach(); // Sử dụng detach thay vì delete để giữ lại các thẻ
         $post->comments()->delete();
         $post->delete();
 
@@ -139,12 +156,14 @@ class AdminPostsController extends Controller
 
         foreach ($tags as $tag) {
             $tag = trim($tag);
-            $tag_ob = Tag::firstOrCreate(['name' => $tag]);
-            $tags_ids[] = $tag_ob->id;
+            if (!empty($tag)) {
+                $tag_ob = Tag::firstOrCreate(['name' => $tag]);
+                $tags_ids[] = $tag_ob->id;
+            }
         }
 
-        // Liên kết tags mới vào bài viết
-        $post->tags()->syncWithoutDetaching($tags_ids);
+        // Đồng bộ các thẻ mới vào bài viết
+        $post->tags()->sync($tags_ids);
     }
 
     // Hàm tạo slug tự động từ tiêu đề
