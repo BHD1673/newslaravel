@@ -5,8 +5,7 @@
 <link href="{{ asset('admin_dashboard_assets/plugins/select2/css/select2-bootstrap4.css') }}" rel="stylesheet" />
 
 <link href="{{ asset('admin_dashboard_assets/plugins/input-tags/css/tagsinput.css') }}" rel="stylesheet" />
-<script src="https://cdn.tiny.cloud/1/5nk94xe9fcwk22fkp6gou9ymszwidnujnr2mu3n3xe2biap3/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-
+<script src="https://cdn.tiny.cloud/1/lznr63210nbzoewpj5ol9gmlo87s0u29t65bf1essng7cak1/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 <style>
 	.upload-area {
 		border: 2px dashed #ccc;

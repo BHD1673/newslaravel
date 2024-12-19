@@ -21,6 +21,7 @@ class PostService extends BaseService
     {
         $this->postHistorieService = new PostHistorieService();
     }
+    // trang chủ bài viết admin
     public function index()
     {
         $query = Post::with('category');
@@ -32,16 +33,18 @@ class PostService extends BaseService
         ) {
             $query->where('user_id', Auth::id());
         }
-
+        // kiêm tra điều kiện is_delete_post =false 
         return $query->where("is_delete_post", Post::POST_DELETE['false'])->orderBy('id', 'DESC')->paginate(20);
     }
 
+    // hiện thị bài đã xóa mềm theo điều kiện is_delete_post = true
     public function getPoStsoftDelete()
     {
         $query = Post::with('category');
         return $query->where("is_delete_post", Post::POST_DELETE['true'])->orderBy('id', 'DESC')->paginate(20);
     }
 
+    // thêm mới bài viết
     public function  store(array $data, $request)
     {
         if (Auth::user()->role->name === Role::ROLE_REPORTER) {
@@ -50,7 +53,9 @@ class PostService extends BaseService
             $data['approved'] = (int) $request['approved'];
         }
         $data['user_id'] = auth()->id();
+        // lưu bài viết vào databasae
         $post = Post::create($data);
+        //  add lịch sử bài viết
         $this->postHistorieService->handleCreatePostHistory($post);
 
         if (isset($request['files'])) {
@@ -69,6 +74,7 @@ class PostService extends BaseService
         return $post;
     }
 
+    // chỉnh sửa bài viết
     public function edit($request, $id)
     {
         $post = Post::find($id);
@@ -107,6 +113,7 @@ class PostService extends BaseService
             }
             $post->update($request);
 
+            // thêm lịch sử bài viết
             if (Auth::user()->role->name === Role::ROLE_EMPLOYEE) {
                 $this->postHistorieService->handlePostHistory($post);
             } else {

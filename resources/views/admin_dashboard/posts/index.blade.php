@@ -78,11 +78,14 @@
                                     <div class="d-flex order-actions">
                                         {{-- {{ $isReporter && $post->approved === 3 ? 'd-none' : '' }} --}}
                                         <a class="" href="{{ route('admin.posts.edit', $post)}}" ><i class='bx bxs-edit'></i></a>
+                                        {{-- btn xóa --}}
                                         @if($post->approved === 1 || $post->approved === 3 )
-                                        <a href="#"onclick="event.preventDefault(); document.querySelector('#delete_form_{{ $post->id }}').submit();" class="ms-3 {{ $isEmployee || $post->approved === 3 ? 'd-none' : '' }}"><i class='bx bxs-trash'></i></a>
+                                        <a href="#"onclick="event.preventDefault(); if(confirm('bạn có muốn chuyển bài viết vào thùng rác không?')) document.querySelector('#delete_form_{{ $post->id }}').submit();" class="ms-3 {{ $post->approved === 3 ? 'd-none' : '' }}"><i class='bx bxs-trash'></i></a>
                                         @else
+                                        {{-- btn từ chối --}}
                                         <a href="#" onclick="return confirmDelete({{ $post->approved }}, {{ $post->id }});" class="ms-3 {{ $isEmployee || $post->approved === 3  ? 'd-none' : '' }}"><i class='bx bxs-trash'></i></a>
                                         @endif
+                                        {{-- end btn xóa --}}
                                         @if($post->approved === 2 )
                                         <a href="#" class="mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal_{{$post->id}}"><i class='bx bxs-x-circle'></i></a>
                                         @endif

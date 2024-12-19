@@ -41,8 +41,7 @@
 	}
 </style>
 
-<script src="https://cdn.tiny.cloud/1/5nk94xe9fcwk22fkp6gou9ymszwidnujnr2mu3n3xe2biap3/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-@endsection
+<script src="https://cdn.tiny.cloud/1/lznr63210nbzoewpj5ol9gmlo87s0u29t65bf1essng7cak1/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>@endsection
 
 @section("wrapper")
 <!--start page wrapper -->
@@ -426,6 +425,7 @@
 </script>
 
 <script>
+	// sử lú hiện thị form từ trối
 	function toggleReasonField(select) {
 		const reasonField = document.getElementById('reasonField');
 		if (select.value === '2') {
@@ -440,6 +440,7 @@
 	});
 </script>
 <script>
+	//updaload video 
 	function previewFileVideos() {
 		const fileInput = document.getElementById('file-input-video')
 		const previewContainer = document.getElementById('preview-list');
