@@ -9,8 +9,8 @@
         <a href="{{ $ad->link }}">
             <div class="ad-banner" style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 1000px; max-height: 200px; overflow: hidden; margin: 30px auto; z-index: 999999;">
                 <!-- Hiển thị tiêu đề "HOT HOT HOT" -->
-                <h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: rgb(0, 0, 0); font-weight: bold; z-index: 10;">TOP</h3>
-                
+              <h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: red; font-weight: bold; z-index: 10;">VỊ Trí: TOP</h3>
+                 
                 <!-- Hiển thị ảnh quảng cáo và tiêu đề lên ảnh -->
                 <div style="display: block; width: 100%; height: 100%; position: relative; overflow: hidden;">
                     <img src="{{ asset('storage/' . $ad->img) }}" style="width: 1000px; max-height: 400px; object-fit: contain;">
@@ -45,8 +45,9 @@
 										<div class="post--item post--layout-1 post--title-large">
 												<div class="post--img">
 														<a href="{{ route('posts.show', $posts_new[$i][0]) }}" class="thumb">
-																<img src="{{ asset($posts_new[$i][0]->image ? 'storage/' . $posts_new[$i][0]->image->path : 'storage/placeholders/placeholder-image.png') }}" alt="">
-														</a>
+															<img src="{{ asset($posts_new[$i][0]->image ? $posts_new[$i][0]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+
+
 														<a href="{{ route('categories.show', $posts_new[$i][0]->category) }}" class="cat">{{ $posts_new[$i][0]->category->name }}</a>
 						
 														<a href="javascript:;" class="icon"><i class="fa fa-flash"></i></a>
@@ -72,9 +73,8 @@
 									<div class="post--item post--layout-1 post--title-larger">
 										<div class="post--img">
 											<a href="{{ route('posts.show', $posts_new[2][0]) }}"
-												class="thumb"><img
-													src="{{ asset($posts_new[2][0]->image ? 'storage/' .$posts_new[2][0]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-													style="height:200px" alt=""></a>
+												class="thumb"><img src="{{ asset($posts_new[2][0]->image ? $posts_new[2][0]->image->path : 'images/placeholders/placeholder-image.png') }}" style="height:200px" alt="">
+											</a>
 
 											<a href="{{ route('categories.show', $posts_new[2][0]->category) }}" class="cat">{{ $posts_new[2][0]->category->name }}</a>
 
@@ -105,7 +105,11 @@
 							<div class="post--item post--layout-1 post--title-larger">
 								<div class="post--img">
 									<a href="{{ route('posts.show', $posts_new[3][0]) }}"
-										class="thumb"><img src="{{ asset($posts_new[3][0]->image ? 'storage/' .$posts_new[3][0]->image->path : 'storage/placeholders/placeholder-image.png'  )}}" alt=""></a>
+									
+										class="thumb">
+										
+										<img src="{{ asset($posts_new[3][0]->image ? $posts_new[3][0]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+									</a>
 
 									<a href="{{ route('categories.show', $posts_new[3][0]->category ) }}" class="cat">{{ $posts_new[3][0]->category->name }}</a>
 
@@ -153,7 +157,7 @@
 									<ul class="nav row gutter--15" data-ajax-content="inner">
 								
 									
-										z
+										
 
 										@for ($i = 1; $i <= 4; $i++)
 											@if($i==1 || $i == 3 )
@@ -170,8 +174,9 @@
 													<div class="post--img">
 														<a href="{{ route('posts.show', $post_category_home0[$i]) }}"
 															class="thumb"><img
-																src="{{ asset($post_category_home0[$i]->image ? 'storage/' . $post_category_home0[$i]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-																alt=""></a>
+															src="{{ asset($post_category_home0[$i]->image ?  $post_category_home0[$i]->image->path : 'images/placeholders/placeholder-image.png') }}"
+															alt="">
+													</a>
 
 														<div class="post--info">
 															<ul class="nav meta">
@@ -216,9 +221,8 @@
 											<div class="post--item post--layout-1">
 												<div class="post--img">
 													<a href="{{ route('posts.show', $post_category_home1[0]) }}"
-														class="thumb"><img
-															src="{{ asset($post_category_home1[0]->image ? 'storage/' . $post_category_home1[0]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-															alt=""></a>
+														class="thumb"><img src="{{ asset($post_category_home1[0]->image ?  $post_category_home1[0]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+													</a>
 												
 													<a href="javascript:;" class="icon"><i class="fa fa-flash"></i></a>
 
@@ -245,9 +249,8 @@
 											<div class="post--item post--layout-3">
 												<div class="post--img">
 													<a href="{{ route('posts.show', $post_category_home1[$i]) }}"
-														class="thumb"><img
-															src="{{ asset($post_category_home1[$i]->image ? 'storage/' . $post_category_home1[$i]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-															alt=""></a>
+														class="thumb"><img src="{{ asset($post_category_home1[$i]->image ?  $post_category_home1[$i]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+													</a>
 
 													<div class="post--info">
 														<ul class="nav meta">
@@ -293,9 +296,8 @@
 											<div class="post--item post--layout-2">
 												<div class="post--img">
 													<a href="{{ route('posts.show', $post_category_home2[0]) }}"
-														class="thumb"><img
-															src="{{ asset($post_category_home2[0]->image ? 'storage/' . $post_category_home2[0]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-															alt=""></a>
+														class="thumb"><img src="{{ asset($post_category_home2[0]->image ?  $post_category_home2[0]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+													</a>
 													<a href="{{ route('categories.show', $post_category_home2[0]->category) }}" class="cat">{{ $post_category_home2[0]->category->name }}</a>
 													<a href="javascript:;" class="icon"><i class="fa fa-star-o"></i></a>
 
@@ -360,8 +362,9 @@
 															<div class="post--img">
 																<a href="{{ route('posts.show', $post_category_home2[$i]) }}"
 																	class="thumb"><img 
-																		src="{{ asset($post_category_home2[$i]->image ? 'storage/' . $post_category_home2[$i]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-																		alt=""></a>
+																	src="{{ asset($post_category_home2[$i]->image ?  $post_category_home2[$i]->image->path : 'images/placeholders/placeholder-image.png') }}" 
+																	alt="">
+															</a>
 
 																<div class="post--info">
 																	<ul class="nav meta">
@@ -411,8 +414,9 @@
 												<div class="post--img">
 													<a href="{{ route('posts.show', $post_category_home3[0]) }}"
 														class="thumb"><img
-															src="{{ asset($post_category_home3[0]->image ? 'storage/' . $post_category_home3[0]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-															alt=""></a>
+														src="{{ asset($post_category_home3[0]->image ?  $post_category_home3[0]->image->path : 'images/placeholders/placeholder-image.png') }}"
+														alt="">
+												</a>
 													<a href="{{ route('categories.show', $post_category_home3[0]->category) }}"
 														class="cat">{{ $post_category_home3[0]->category->name }}</a>
 													<a href="{{ route('categories.show', $post_category_home3[0]->category) }}" class="icon"><i class="fa fa-fire"></i></a>
@@ -447,9 +451,8 @@
 												<div class="post--item post--layout-2">
 													<div class="post--img">
 														<a href="{{ route('posts.show', $post_category_home3[$i]) }}"
-															class="thumb"><img
-																src="{{ asset($post_category_home3[$i]->image ? 'storage/' . $post_category_home3[$i]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-																alt=""></a>
+															class="thumb"><img src="{{ asset($post_category_home3[$i]->image ?  $post_category_home3[$i]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+														</a>
 
 														<div class="post--info">
 															<ul class="nav meta">
@@ -493,8 +496,9 @@
 											<div class="post--item post--layout-1">
 												<div class="post--img">
 													<a href="{{ route('posts.show', $post_category_home4[0]) }}"
-														class="thumb"><img src="{{ asset($post_category_home4[0]->image ? 'storage/' . $post_category_home4[0]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-															alt=""></a>
+														class="thumb">
+														<img src="{{ asset($post_category_home4[0]->image ? $post_category_home4[0]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+</a>
 													<a href="{{ route('categories.show', $post_category_home4[0]->category) }}"
 														class="cat">{{ $post_category_home4[0]->category->name }}</a>
 													<a href="{{ route('categories.show', $post_category_home4[0]->category) }}" class="icon"><i class="fa fa-eye"></i></a>
@@ -523,9 +527,8 @@
 											<div class="post--item post--layout-3">
 												<div class="post--img">
 													<a href="{{ route('posts.show', $post_category_home4[$i]) }}"
-														class="thumb"><img
-															src="{{ asset($post_category_home4[$i]->image ? 'storage/' . $post_category_home4[$i]->image->path : 'storage/placeholders/placeholder-image.png')}}"
-															alt=""></a>
+														class="thumb"><img src="{{ asset($post_category_home4[$i]->image ?  $post_category_home4[$i]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+													</a>
 
 													<div class="post--info">
 														<ul class="nav meta">
@@ -578,9 +581,10 @@
 											<div class="post--item post--layout-3">
 												<div class="post--img">
 													<a href="{{ route('posts.show', $outstanding_post) }}"
-														class="thumb"><img width = "120"
-															src="{{ asset($outstanding_post->image ? 'storage/' .$outstanding_post->image->path : 'storage/placeholders/placeholder-image.png')}}"
-															alt=""></a>
+														class="thumb"><img width="120"
+														src="{{ asset($outstanding_post->image ?  $outstanding_post->image->path : 'images/placeholders/placeholder-image.png') }}"
+														alt="">
+											 </a>
 
 													<div class="post--info">
 														<ul class="nav meta">
@@ -626,6 +630,8 @@
 							</div>
 						</div>
 						<!-- Kết thúc từ khóa -->
+						<!-- Kết thúc từ khóa -->
+						@if(!auth()->check() || !auth()->user()->is_premium)
 						<!-- Widget Start -->
 						<div class="widget">
 							<!-- Ad Widget Start -->
@@ -633,18 +639,20 @@
 								<div class="row">
 									<div class="col-sm-12">
 										@foreach ($ads as $ad)
-										@if(optional($ad->position)->position == 'bottom') <!-- Sử dụng optional() để tránh lỗi -->
+										@if(optional($ad->position)->position == 'center4') <!-- Sử dụng optional() để tránh lỗi -->
 											<a href="{{ $ad->link }}">
 												<div class="ad-banner" style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 500px; max-height: 200px; overflow: hidden; margin: 30px auto; z-index: 999999;">
 													<!-- Hiển thị tiêu đề "HOT HOT HOT" -->
-												 <h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: rgb(0, 0, 0); font-weight: bold; z-index: 10;">Center</h3>
+													<h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: white; font-weight: bold; z-index: 10;">HOT HOT HOT</h3>
 													
 													<!-- Hiển thị ảnh quảng cáo và tiêu đề lên ảnh -->
 													<div style="display: block; width: 100%; height: 100%; position: relative; overflow: hidden;">
 														<img src="{{ asset('storage/' . $ad->img) }}" style="width: 500px; max-height: 200px; object-fit: contain;">
 														
 														<!-- Hiển thị tiêu đề quảng cáo lên ảnh -->
-														
+														<h3 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; color: white; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); z-index: 5;">
+															{{ $ad->title }}
+														</h3>
 													</div>
 												</div>
 											</a>
@@ -657,6 +665,7 @@
 							<!-- Ad Widget End -->
 						</div>
 						<!-- Widget End -->
+						@endif
 						<!-- Widget Start -->
 						<div class="widget">
 							<!-- Ad Widget Start -->
@@ -664,18 +673,20 @@
 								<div class="row">
 									<div class="col-sm-12">
 										@foreach ($ads as $ad)
-											@if(optional($ad->position)->position == 'bottom') <!-- Sử dụng optional() để tránh lỗi -->
+											@if(optional($ad->position)->position == 'center4') <!-- Sử dụng optional() để tránh lỗi -->
 												<a href="{{ $ad->link }}">
 													<div class="ad-banner" style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 500px; max-height: 200px; overflow: hidden; margin: 30px auto; z-index: 999999;">
 														<!-- Hiển thị tiêu đề "HOT HOT HOT" -->
-													 <h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: rgb(0, 0, 0); font-weight: bold; z-index: 10;">Center 1</h3>
+														<h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: white; font-weight: bold; z-index: 10;">HOT HOT HOT</h3>
 														
 														<!-- Hiển thị ảnh quảng cáo và tiêu đề lên ảnh -->
 														<div style="display: block; width: 100%; height: 100%; position: relative; overflow: hidden;">
 															<img src="{{ asset('storage/' . $ad->img) }}" style="width: 500px; max-height: 200px; object-fit: contain;">
 															
 															<!-- Hiển thị tiêu đề quảng cáo lên ảnh -->
-															
+															<h3 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; color: white; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); z-index: 5;">
+																{{ $ad->title }}
+															</h3>
 														</div>
 													</div>
 												</a>
@@ -783,7 +794,7 @@
 						</div>
 						<!-- Widget End -->
 
-						<!-- Widget Start -->
+						<!-- Widget Start -->	@if(!auth()->check() || !auth()->user()->is_premium)
 						<div class="widget">
 							<div class="widget--title">
 								<h2 class="h4">Quảng cáo</h2>
@@ -791,18 +802,20 @@
 							</div>
 
 							@foreach ($ads as $ad)
-								@if(optional($ad->position)->position == 'bottom') <!-- Sử dụng optional() để tránh lỗi -->
+								@if(optional($ad->position)->position == 'center4') <!-- Sử dụng optional() để tránh lỗi -->
 									<a href="{{ $ad->link }}">
 										<div class="ad-banner" style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 500px; max-height: 200px; overflow: hidden; margin: 30px auto; z-index: 999999;">
 											<!-- Hiển thị tiêu đề "HOT HOT HOT" -->
-										 <h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: rgb(0, 0, 0); font-weight: bold; z-index: 10;">Center 2</h3>
+											<h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: white; font-weight: bold; z-index: 10;">HOT HOT HOT</h3>
 											
 											<!-- Hiển thị ảnh quảng cáo và tiêu đề lên ảnh -->
 											<div style="display: block; width: 100%; height: 100%; position: relative; overflow: hidden;">
 												<img src="{{ asset('storage/' . $ad->img) }}" style="width: 500px; max-height: 200px; object-fit: contain;">
 												
 												<!-- Hiển thị tiêu đề quảng cáo lên ảnh -->
-											
+												<h3 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; color: white; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); z-index: 5;">
+													{{ $ad->title }}
+												</h3>
 											</div>
 										</div>
 									</a>
@@ -810,8 +823,9 @@
 							@endforeach
 
 							<!-- Ad Widget End -->
+							
 						</div>
-						<!-- Widget End -->
+						<!-- Widget End -->@endif
 					</div>
 				</div>
 				<!-- Main Sidebar End -->
@@ -821,6 +835,7 @@
 			<div class="main--content pd--30-0">
 				<!-- Post Items Title Start -->
 				<div class="post--items-title" data-ajax="tab">
+				
 					<h2 class="h4">{{ $category_home[5]->name }}</h2>
 				</div>
 				<!-- Post Items Title End -->
@@ -833,7 +848,9 @@
 							<div class="post--item post--layout-1 post--type-video post--title-large">
 								<div class="post--img">
 									<a href="{{ route('posts.show', $post_category_home5[0]) }}" class="thumb"><img
-											src="{{ asset($post_category_home5[0]->image ? 'storage/' . $post_category_home5[0]->image->path : 'storage/placeholders/placeholder-image.png'  )}}" alt=""></a>
+										src="{{ asset($post_category_home5[0]->image ? $post_category_home5[0]->image->path : 'images/placeholders/placeholder-image.png') }}"
+										alt="">
+								</a>
 									<a href="{{ route('categories.show', $post_category_home5[0]->category) }}" class="cat">{{ $post_category_home5[0]->category->name }}</a>
 									<a href="{{ route('categories.show', $post_category_home5[0]->category) }}" class="icon"><i class="fa fa-eye"></i></a>
 
@@ -866,9 +883,8 @@
 									<div class="post--item post--type-audio post--layout-3">
 										<div class="post--img">
 											<a href="{{ route('posts.show', $post_category_home5[$i]) }}"
-												class="thumb"><img
-													src="{{ asset($post_category_home5[$i]->image ? 'storage/' . $post_category_home5[$i]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-													alt=""></a>
+												class="thumb"><img src="{{ asset( ($post_category_home5[$i]->image ? $post_category_home5[$i]->image->path : 'placeholders/placeholder-image.png')) }}" alt="">
+											</a>
 
 											<div class="post--info">
 												<ul class="nav meta">
@@ -899,20 +915,23 @@
 			<!-- Main Content End -->
 
 			<!-- Advertisement Start -->
+			@if(!auth()->check() || !auth()->user()->is_premium)
 			<div class="ad--space pd--30-0">
 				@foreach ($ads as $ad)
-					@if(optional($ad->position)->position == 'bottom') <!-- Sử dụng optional() để tránh lỗi -->
+					@if(optional($ad->position)->position == 'center4') <!-- Sử dụng optional() để tránh lỗi -->
 						<a href="{{ $ad->link }}">
 							<div class="ad-banner" style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 500px; max-height: 200px; overflow: hidden; margin: 30px auto; z-index: 999999;">
 								<!-- Hiển thị tiêu đề "HOT HOT HOT" -->
-							 <h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: rgb(0, 0, 0); font-weight: bold; z-index: 10;">Center 3</h3>
+								<h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: white; font-weight: bold; z-index: 10;">HOT HOT HOT</h3>
 								
 								<!-- Hiển thị ảnh quảng cáo và tiêu đề lên ảnh -->
 								<div style="display: block; width: 100%; height: 100%; position: relative; overflow: hidden;">
 									<img src="{{ asset('storage/' . $ad->img) }}" style="width: 500px; max-height: 200px; object-fit: contain;">
 									
 									<!-- Hiển thị tiêu đề quảng cáo lên ảnh -->
-									
+									<h3 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; color: white; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); z-index: 5;">
+										{{ $ad->title }}
+									</h3>
 								</div>
 							</div>
 						</a>
@@ -921,7 +940,7 @@
 
 			</div>
 			<!-- Advertisement End -->
-
+			@endif
 			<div class="row">
 				<!-- Main Content Start -->
 				<div class="main--content col-md-8 col-sm-7" data-sticky-content="true">
@@ -945,8 +964,8 @@
 											<div class="post--item post--layout-1">
 												<div class="post--img">
 													<a href="{{ route('posts.show', $post_category_home6[0]) }}"
-														class="thumb"><img
-															src="{{ asset($post_category_home6[0]->image ? 'storage/' . $post_category_home6[0]->image->path : 'storage/placeholders/placeholder-image.png') }}" alt=""></a>
+														class="thumb"><img src="{{ asset($post_category_home6[0]->image ?  $post_category_home6[0]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+													</a>
 													<a href="{{ route('categories.show', $post_category_home6[0]->category) }}"
 														class="cat">{{ $post_category_home6[0]->category->name }}</a>
 													<a href="{{ route('categories.show', $post_category_home6[0]->category) }}" class="icon"><i class="fa fa-star-o"></i></a>
@@ -973,10 +992,10 @@
 											<!-- Post Item Start -->
 											<div class="post--item post--layout-3">
 												<div class="post--img">
+													
 													<a href="{{ route('posts.show', $post_category_home6[$i]) }}"
-														class="thumb"><img
-															src="{{ asset($post_category_home6[0]->image ? 'storage/' . $post_category_home6[$i]->image->path : 'storage/placeholders/placeholder-image.png') }}"
-															alt=""></a>
+														class="thumb"><img src="{{ asset($post_category_home6[$i]->image ?  $post_category_home6[$i]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+													</a>
 
 													<div class="post--info">
 														<ul class="nav meta">
@@ -1024,8 +1043,9 @@
 												<div class="post--img">
 													<a href="{{ route('posts.show', $post_category_home7[0]) }}"
 														class="thumb"><img
-															src="{{ asset($post_category_home7[0]->image ? 'storage/' . $post_category_home7[0]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-															alt=""></a>
+														src="{{ asset($post_category_home7[0]->image ?  $post_category_home7[0]->image->path : 'images/placeholders/placeholder-image.png') }}"
+														alt="">
+												</a>
 													<a href="{{ route('categories.show', $post_category_home7[0]->category) }}"
 														class="cat">{{ $post_category_home7[0]->category->name }}</a>
 													<a href="{{ route('categories.show', $post_category_home7[0]->category) }}" class="icon"><i class="fa fa-heart-o"></i></a>
@@ -1061,9 +1081,8 @@
 											<div class="post--item post--layout-2">
 												<div class="post--img">
 													<a href="{{ route('posts.show', $post_category_home7[$i]) }}"
-														class="thumb"><img
-															src="{{ asset($post_category_home7[$i]->image ? 'storage/' . $post_category_home7[$i]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-															alt=""></a>
+														class="thumb"><img src="{{ asset($post_category_home7[$i]->image ?  $post_category_home7[$i]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+													</a>
 
 													<div class="post--info">
 														<ul class="nav meta">
@@ -1107,8 +1126,9 @@
 												<div class="post--img">
 													<a href="{{ route('posts.show', $post_category_home8[0]) }}"
 														class="thumb"><img
-															src="{{ asset($post_category_home8[0]->image ? 'storage/' . $post_category_home8[0]->image->path : 'storage/placeholders/placeholder-image.png'  )}}" alt="">
-													</a>
+														src="{{ asset($post_category_home8[0]->image ?  $post_category_home8[0]->image->path : 'images/placeholders/placeholder-image.png') }}"
+														alt="">
+												</a>
 													<a href="{{ route('categories.show', $post_category_home8[0]->category) }}" class="cat">{{ $post_category_home8[0]->category->name }}</a>
 													<a href="{{ route('categories.show', $post_category_home8[0]->category) }}" class="icon"><i class="fa fa-star-o"></i></a>
 
@@ -1169,9 +1189,8 @@
 														<div class="post--item post--layout-2">
 															<div class="post--img">
 																<a href="{{ route('posts.show', $post_category_home8[$i]) }}"
-																	class="thumb"><img
-																		src="{{ asset($post_category_home8[$i]->image ? 'storage/' . $post_category_home8[$i]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-																		alt=""></a>
+																	class="thumb"><img src="{{ asset($post_category_home8[$i]->image ?  $post_category_home8[$i]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+																</a>
 
 																<div class="post--info">
 																	<ul class="nav meta">
@@ -1218,9 +1237,8 @@
 											<div class="post--item post--layout-1 post--title-large">
 												<div class="post--img">
 													<a href="{{ route('posts.show', $post_category_home9[0]) }}"
-														class="thumb"><img
-															src="{{ asset($post_category_home9[0]->image ? 'storage/' . $post_category_home9[0]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-															alt=""></a>
+														class="thumb"><img src="{{ asset($post_category_home9[0]->image ?  $post_category_home9[0]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+													</a>
 													<a href="{{ route('categories.show', $post_category_home9[0]->category) }}"
 														class="cat">{{ $post_category_home9[0]->category->name }}</a>
 													<a href="{{ route('categories.show', $post_category_home9[0]->category) }}" class="icon"><i class="fa fa-eye"></i></a>
@@ -1247,9 +1265,8 @@
 											<div class="post--item post--layout-1">
 												<div class="post--img">
 													<a href="{{ route('posts.show', $post_category_home9[$i]) }}"
-														class="thumb"><img
-															src="{{ asset($post_category_home9[$i]->image ? 'storage/' . $post_category_home9[$i]->image->path : 'storage/placeholders/placeholder-image.png'  )}}"
-															alt=""></a>
+														class="thumb"><img src="{{ asset($post_category_home9[$i]->image ?  $post_category_home9[$i]->image->path : 'images/placeholders/placeholder-image.png') }}" alt="">
+													</a>
 
 													<div class="post--info">
 														<ul class="nav meta">
@@ -1367,24 +1384,27 @@
 						<!-- Widget End -->
 
 						<!-- Widget Start -->
+						@if(!auth()->check() || !auth()->user()->is_premium)
 						<div class="widget">
 							<!-- Ad Widget Start -->
 							<div class="ad--widget">
 								<div class="row">
 									<div class="col-sm-12">
 										@foreach ($ads as $ad)
-											@if(optional($ad->position)->position == 'bottom') <!-- Sử dụng optional() để tránh lỗi -->
+											@if(optional($ad->position)->position == 'center4') <!-- Sử dụng optional() để tránh lỗi -->
 												<a href="{{ $ad->link }}">
 													<div class="ad-banner" style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 500px; max-height: 200px; overflow: hidden; margin: 30px auto; z-index: 999999;">
 														<!-- Hiển thị tiêu đề "HOT HOT HOT" -->
-													 <h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: rgb(0, 0, 0); font-weight: bold; z-index: 10;">Center 4 </h3>
+														<h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: white; font-weight: bold; z-index: 10;">HOT HOT HOT</h3>
 														
 														<!-- Hiển thị ảnh quảng cáo và tiêu đề lên ảnh -->
 														<div style="display: block; width: 100%; height: 100%; position: relative; overflow: hidden;">
 															<img src="{{ asset('storage/' . $ad->img) }}" style="width: 500px; max-height: 200px; object-fit: contain;">
 															
 															<!-- Hiển thị tiêu đề quảng cáo lên ảnh -->
-															
+															<h3 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; color: white; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); z-index: 5;">
+																{{ $ad->title }}
+															</h3>
 														</div>
 													</div>
 												</a>
@@ -1398,7 +1418,7 @@
 							<!-- Ad Widget End -->
 						</div>
 						<!-- Widget End -->
-
+						@endif
 						<!-- Widget Start -->
 						<div class="widget">
 							<div class="widget--title" data-ajax="tab">
@@ -1437,18 +1457,20 @@
 									</ul>
 								
 									@foreach ($ads as $ad)
-									@if(optional($ad->position)->position == 'bottom') <!-- Sử dụng optional() để tránh lỗi -->
+									@if(optional($ad->position)->position == 'center4') <!-- Sử dụng optional() để tránh lỗi -->
 										<a href="{{ $ad->link }}">
 											<div class="ad-banner" style="position: relative; display: flex; justify-content: center; align-items: center; width: 100%; max-width: 500px; max-height: 200px; overflow: hidden; margin: 30px auto; z-index: 999999;">
 												<!-- Hiển thị tiêu đề "HOT HOT HOT" -->
-											 <h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: rgb(0, 0, 0); font-weight: bold; z-index: 10;">Bottom</h3>
+												<h3 style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 24px; color: white; font-weight: bold; z-index: 10;">HOT HOT HOT</h3>
 												
 												<!-- Hiển thị ảnh quảng cáo và tiêu đề lên ảnh -->
 												<div style="display: block; width: 100%; height: 100%; position: relative; overflow: hidden;">
 													<img src="{{ asset('storage/' . $ad->img) }}" style="width: 500px; max-height: 200px; object-fit: contain;">
 													
 													<!-- Hiển thị tiêu đề quảng cáo lên ảnh -->
-													
+													<h3 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; color: white; font-weight: bold; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); z-index: 5;">
+														{{ $ad->title }}
+													</h3>
 												</div>
 											</div>
 										</a>
@@ -1457,7 +1479,9 @@
 								
 									
 
+														
 
+									
 								</div>
 								<!-- Post Items End -->
 							</div>
@@ -1487,7 +1511,8 @@
 			@forelse($posts as $post)
 
 			<div class="block-21 d-flex animate-box post">
-				<a href="{{ route('posts.show', $post) }}" class="blog-img" style="background-image: url({{ asset($post->image ? 'storage/' . $post->image->path : 'storage/placeholders/placeholder-image.png')}});"></a>
+				<a href="{{ route('posts.show', $post) }}" class="blog-img" style="background-image: url({{ asset($post->image ? $post->image->path : 'images/placeholders/placeholder-image.png') }});"></a>
+
 				<div class="text">
 					<h3 class="heading"><a href="{{ route('posts.show', $post) }}">{{ $post->title }}</a></h3>
 					<p class="excerpt">{{ $post->excerpt }}</p></p>
